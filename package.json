@@ -45,7 +45,7 @@
     "start": "node server/index.js",
     "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/pizza nodemon server/index.js --ignore src/ --ignore dist"
+    "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/capstone nodemon server/index.js --ignore src/ --ignore dist"
   },
   "keywords": [],
   "author": "",
