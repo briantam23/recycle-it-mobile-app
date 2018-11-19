@@ -6,7 +6,10 @@ GET http://
 import axios from 'axios';
 
 const whatReducer = (state = [], action) => {
-  return state;
+  switch(action.type) {
+    default:
+      return state;
+  }
 };
 
 export default whatReducer;

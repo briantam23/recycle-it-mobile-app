@@ -48,5 +48,9 @@ API RES OBJECT
   }
 }
 */
+const RecPlacesCard = () => (
+    <div></div>
+)
+
 
 export default connect()(RecPlacesCard);
