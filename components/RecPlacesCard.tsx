@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 /*
 API RES OBJECT
@@ -49,7 +49,7 @@ API RES OBJECT
 }
 */
 const RecPlacesCard = () => (
-    <div></div>
+    <Fragment></Fragment>
 )
 
 
