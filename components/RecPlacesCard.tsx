@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 /*
 API RES OBJECT
@@ -48,5 +48,9 @@ API RES OBJECT
   }
 }
 */
+const RecPlacesCard = () => (
+    <Fragment></Fragment>
+)
+
 
 export default connect()(RecPlacesCard);

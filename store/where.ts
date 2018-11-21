@@ -10,9 +10,7 @@ const FIND_PLACES_TO_RECYCLE = 'FIND_PLACES_TO_RECYCLE';
 
 const _findPlacesToRecycle = locationDetails => ({ type: FIND_PLACES_TO_RECYCLE, locationDetails });
 
-const initialState = [];
-
-const whereReducer = (state = initialState, action) => {
+const whereReducer = (state = [], action) => {
   switch (action.type) {
     case FIND_PLACES_TO_RECYCLE:
       return action.locationDetails;
