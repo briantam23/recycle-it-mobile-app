@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Icon } from 'expo';
 
 import Colors from '../constants/Colors';
@@ -6,9 +6,9 @@ import Colors from '../constants/Colors';
 interface TabBarIconProps {
   name: string;
   focused: string;
-}
+};
 
-export default class TabBarIcon extends React.Component <TabBarIconProps> {
+export default class TabBarIcon extends Component<TabBarIconProps> {
   render() {
     return (
       <Icon.Ionicons
@@ -19,4 +19,4 @@ export default class TabBarIcon extends React.Component <TabBarIconProps> {
       />
     );
   }
-}
+};

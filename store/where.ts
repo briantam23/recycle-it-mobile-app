@@ -1,129 +1,127 @@
 /*
-FETCHING DATA FROM EARTH911 API in JSON
-GET http://api.earth911.com/earth911.methodName
-http://api.earth911.com/
+FETCHING DATA FROM EARTH911 API USING JSON
+1) METHOD: searchMaterials - Find match in Earth911 database
+2) METHOD: ~GET GEO LOCATION through navigator.geolocation~
+3) METHOD: searchLocations - With Lat/Long, can now find which locations accept certain recyclables
+4) METHOD: getLocationDetails - Expand on location details
 */
-
 import axios from 'axios';
+const baseURL = 'http://api.earth911.com/earth911.';
 
+//ACTIONS
 const FIND_PLACES_TO_RECYCLE = 'FIND_PLACES_TO_RECYCLE';
+const LOAD_PLACES = 'LOAD_PLACES';
 
-const _findPlacesToRecycle = locationDetails => ({ type: FIND_PLACES_TO_RECYCLE, locationDetails });
+//ACTION CREATORS
+const _findPlacesToRecycle = locations => ({ type: FIND_PLACES_TO_RECYCLE, locations });
 
+//REDUCER
 const whereReducer = (state = [], action) => {
   switch (action.type) {
     case FIND_PLACES_TO_RECYCLE:
-      return action.locationDetails;
+      return action.locations;
     default: return state;
   };
 };
 
-export const findPlacesToRecycle = (api_key, GPS, productInfo) => dispatch => {
-  console.log(productInfo)
-  /*
-  1) GET MATERIAL ID: materials = api.earth911.searchMaterials({
-    'api_key': api_key,
-    'query': 'used motor oil',
-})
-  2) {We may be able to skip this call with GPS coordinates from cell phone}
-  Convert Zip Code to Lat/Long: postal_data = api.earth911.getPostalData({
-    'api_key': api_key,
-    'country': 'US',
-    'postal_code': '90210',
-})
-  3) With Lat/Long, can now find what locations accept certain recycables
-    results = api.earth911.searchLocations({
-   'api_key': api_key,
-   'latitude': 34.09,
-   'longitude': -118.41,
-   'material_id': [1, 4],
-   'max_distance': 5,
-})
-
-len(results) >>> 57
-
-RES:
-{'curbside': False,
- 'description': 'Jim Falk Lexus of Beverly Hills',
- 'distance': 1.7,
- 'latitude': 34.07,
- 'location_id': '2VwAkLGZ',
- 'location_type_id': 0,
- 'longitude': -118.39,
- 'municipal': False}
-
-  4) Expand on location details
-  details = api.earth911.getLocationDetails({
-  'api_key': api_key,
-  'location_id': '2VwAkLGZ',
-})
-
-RES:
-{'2VwAkLGZ': {'address': '9230 Wilshire Boulevard',
-              'city': 'BEVERLY HILLS',
-              'country': 'US',
-              'created': '2007-12-18T16:03:00',
-              'curbside': False,
-              'description': 'Jim Falk Lexus of Beverly Hills',
-              'event_only': False,
-              'fax': '',
-              'flag': 'none',
-              'geocoded': True,
-              'hours': 'Please call for hours of operation.',
-              'latitude': 34.067096470199999,
-              'location_type_id': 0,
-              'longitude': -118.39313399700001,
-              'materials': [{'business': False,
-                             'business_method': 'none',
-                             'description': 'Used Motor Oil',
-                             'dropoff': True,
-                             'material_id': 1,
-                             'notes': '',
-                             'pickup': False,
-                             'residential': True,
-                             'residential_method': 'dropoff'}],
-              'municipal': False,
-              'national': False,
-              'notes': '',
-              'phone': '(310) 274-5200',
-              'postal_code': '90212',
-              'province': 'CA',
-              'region': 'LOS ANGELES',
-              'updated': '2007-12-21T11:23:00',
-              'url': ''}}
-  */
-
-  materials = api.earth911.searchMaterials({
-    //this will have to talk to './what.js' in that the query is populated by the vision component.
-    api_key,
-    'query': 'used motor oil',
-  });
-
-
-  results = api.earth911.searchLocations({
-    api_key,
-    'latitude': GPS.latitude,
-    'longitude': GPS.longitude,
-    //get lat and long from phone GPS
-    'material_id': [1, 4],
-    //params below are optional
-    'max_distance': 5,
-    'max_results': 10,
-  });
-
-  locationDetails = api.earth911.getLocationDetails({
-    api_key,
-    'location_id': '2VwAkLGZ',
-    //send this back to RecPlacesCard.js
-  });
-
-  //probably break this out into multiple thunks
-
+//THUNKS
+const searchMaterials = (api_key, productInfo) => {
+  //this will have to talk to './what.js' in that the query is populated by the vision component.
   return axios
-    //template until we get API KEY
-    .get(`http://api.earth911.com/earth911.methodName?key=${api_key}&productInfo=${productInfo}`)
+    .get(`${baseURL}searchMaterials?api_key=${api_key}&query=${productInfo}`)
     .then(res => res.data)
-    .then(locationDetails => dispatch(_findPlacesToRecycle(locationDetails)));
+  /* SAMPLE RES {
+  "num_results": 1,
+  "result": [
+  {
+  "url": "",
+  "exact": true,
+  "description": "Toothbrushes",
+  "material_id": 587
+  }
+  ]}
+  */
+}
+
+const searchLocations = (api_key, geolocation, materialsArr, maxDistance = 5, maxResults = 25) => {
+  const { latitude, longitude } = geolocation;
+  const materials = materialsArr.map(material => `material_id[]=${material}`).join('&')
+  return axios
+    .get(`${baseURL}searchLocations?api_key=${api_key}&latitude=${latitude}&longitude=${longitude}&${materials}&max_distance=${maxDistance}&max_results=${maxResults}`)
+    .then(res => res.data)
+  /* SAMPLE RES {
+"num_results": 24,
+"result": [
+{
+"curbside": false,
+"description": "My Battery Recyclers-MYBRS",
+"distance": 0.8,
+"longitude": -74.0038019201317,
+"latitude": 40.68504631940398,
+"location_type_id": 0,
+"location_id": "Q1RQNVdZXlZGUw",
+"municipal": false
+},}
+*/
+}
+
+export const findPlacesToRecycle = (api_key, geolocation, productInfo) => dispatch => {
+  return searchMaterials(api_key, productInfo)
+    .then(materials => materials.result.map(material => material.material_id))
+    .then(materialsArr => searchLocations(api_key, geolocation, materialsArr))
+    .then(locations => dispatch(_findPlacesToRecycle(locations.result)))
+};
+
+export const getLocationDetails = (api_key, location) => {
+  return axios
+    .get(`${baseURL}getLocationDetails?api_key=${api_key}&location_id'=${location}`)
+    .then(res => res.data)
+  //send this back to RecPlacesCard.js
+  /* SAMPLE RES {
+  "num_results": 1,
+"result": {
+"Q1RQNVdZXlZGUw": {
+"national": false,
+"updated": "2013-11-12T07:42:13",
+"postal_code": "11231",
+"location_type_id": 0,
+"municipal": false,
+"city": "Brooklyn",
+"event_only": false,
+"latitude": 40.68504631940398,
+"province": "NY",
+"fax": "",
+"description": "My Battery Recyclers-MYBRS",
+"curbside": false,
+"hours": "Please call for hours of operation.",
+"phone": "(718) 858-3600",
+"address": "95 Union Street",
+"notes_public": "This facility accepts all types of batteries and electronic waste for proper recycling. Please call for pick-up services, or drop-off.\r\nDEC Facility #01002 ",
+"created": "2013-11-11T10:13:03",
+"url": "http://www.mybatteryrecyclers.com/",
+"country": "US",
+"region": "Kings",
+"longitude": -74.0038019201317,
+"geocoded": false,
+"materials": [
+    {
+    "dropoff": true,
+    "description": "Alkaline Batteries",
+    "business": true,
+    "url": "",
+    "residential": true,
+    "notes": "",
+    "residential_method": "both",
+    "business_method": "both",
+    "material_id": 104,
+    "pickup": true,
+    "pending": "F"
+    },
+],
+"notes": "This facility accepts all types of batteries and electronic waste for proper recycling. Please call for pick-up services, or drop-off.\r\nDEC Facility #01002 "
+}
+}}
+  */
 };
 
 export default whereReducer;
