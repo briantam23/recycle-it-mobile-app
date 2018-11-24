@@ -5,7 +5,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import MyProfileScreen from '../screens/MyProfileScreen';
+import Map from '../screens/Map';
 import CommunityScreen from '../screens/CommunityScreen';
 
 const HomeStack = createStackNavigator({ HomeScreen });
@@ -23,9 +23,9 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const MyProfileStack = createStackNavigator({ MyProfileScreen });
+const MyProfileStack = createStackNavigator({ Map });
 MyProfileStack.navigationOptions = {
-  tabBarLabel: 'My Profile',
+  tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
