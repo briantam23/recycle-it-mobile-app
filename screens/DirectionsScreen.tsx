@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default class Directions extends Component {
+export default class DirectionsScreen extends Component {
  _callShowDirections = () => {
     const startPoint = {
       longitude: -8.945406,
