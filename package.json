@@ -5,7 +5,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios",
+    "ios": "open  ios/recycle/recycle.xcworkspace",
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
@@ -37,8 +37,10 @@
     "@types/redux-logger": "^3.0.6",
     "axios": "^0.18.0",
     "expo": "^31.0.2",
+    "firebase": "^5.5.9",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-firebase": "^5.1.0",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
