@@ -5,7 +5,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import Map from '../screens/Map';
+import Map from '../screens/MapScreen';
 import CommunityScreen from '../screens/CommunityScreen';
 
 const HomeStack = createStackNavigator({ HomeScreen });
@@ -16,23 +16,24 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? 'ios-home'
+          : 'md-home'
       }
     />
   ),
 };
 
-const MyProfileStack = createStackNavigator({ Map });
-MyProfileStack.navigationOptions = {
+const MapStack = createStackNavigator({ Map });
+MapStack.navigationOptions = {
   tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
     />
   ),
 };
+
 
 const CommunityStack = createStackNavigator({ CommunityScreen });
 CommunityStack.navigationOptions = {
@@ -58,7 +59,7 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  MyProfileStack,
+  MapStack,
   CommunityStack,
   SettingsStack,
 });
