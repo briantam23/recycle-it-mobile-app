@@ -4,17 +4,18 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default class DirectionsScreen extends Component {
  _callShowDirections = () => {
-    const startPoint = {
-      longitude: -8.945406,
-      latitude: 38.575078
-    } 
+    const startPoint = navigator.geolocation.getCurrentPosition(
+      position => JSON.stringify(position),
+      error => alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
 
     const endPoint = {
-      longitude: -8.9454275,
-      latitude: 38.5722429
+      latitude: 40.7484, 
+      longitude: -73.9857
     }
 
-		const transportPlan = 'w';
+		const transportPlan = 'd';
 
     OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
       console.log(res)
@@ -24,7 +25,7 @@ export default class DirectionsScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Show direction between two random points!</Text>
+        <Text>Show directions from your current location!</Text>
         <Button
         onPress={() => { this._callShowDirections() }}
         title="Open map"

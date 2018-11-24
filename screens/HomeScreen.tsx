@@ -38,7 +38,7 @@ export default class HomeScreen extends React.Component {
 
           <Button
             title="Go to the Map"
-            onPress={() => this.props.navigation.navigate('MyProfileStack')}
+            onPress={() => this.props.navigation.navigate('MapScreen')}
           />
 
           <View style={styles.helpContainer}>
