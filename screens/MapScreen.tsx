@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Map from './Map';
 import { connect } from 'react-redux';
 
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-const region = {
-  latitude: 21.3069,
-  longitude:  157.8583,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
-}
+const markers = [
+  {
+    latlng: {
+      latitude: 37.78825,
+      longitude: -122.4324
+    },
+    title: 'sample-SF1',
+    description: 'sample-SanFran1'
+  },
+  {
+    latlng: {
+      latitude: 37.78825,
+      longitude: -122.4369
+    },
+    title: 'sample-SF2',
+    description: 'sample-SanFran2'
+  }
+]
 
 export default class MapScreen extends Component {
   static navigationOptions = { title: 'List of Recycling Locations' };
   
   render() {
     return (
-      <Map /* region={ region } *//>
+      <Map markers={ markers } />
     );
   }
 };
