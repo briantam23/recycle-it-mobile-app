@@ -18,13 +18,13 @@ import RecPlacesCard from '../components/RecPlacesCard';
 
 class PlacesToRecycle extends Component {
   constructor(props) {
-    super(props),
+    super(props)
       this.state = {
         geoLocation: {
           latitude: '',
-          longitude: '',
-        },
-      },
+          longitude: ''
+        }
+      }
   }
 
   componentDidMount() {
