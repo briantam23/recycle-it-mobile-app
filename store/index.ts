@@ -6,6 +6,11 @@ import what from './what';
 import where from './where';
 import users from './users';
 
+export interface reducerLayout {
+  state: string[],
+  action: object | null,
+};
+
 const reducer = combineReducers({
   what,
   where,
