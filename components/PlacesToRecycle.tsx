@@ -17,18 +17,40 @@ import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import RecPlacesCard from '../components/RecPlacesCard';
 
 class PlacesToRecycle extends Component {
+  constructor(props) {
+    super(props),
+      this.state = {
+        geoLocation: {
+          latitude: '',
+          longitude: '',
+        },
+      },
+  }
+
+  componentDidMount() {
+    this.getGeoLocation();
+  }
+
+  getGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        geoLocation: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }
+      })
+    })
+  }
+
   render() {
     const { findPlacesToRecycle, placesMap } = this.props;
-    const geolocation = {
-      //hard-coding Fullstack address for now...
-      latitude: '40.7050758',
-      longitude: '-74.00916039999998',
-    }
+    const { geoLocation } = this.state;
+
     return (
       <View style={styles.container}>
 
         <Button
-          onPress={() => findPlacesToRecycle(api_key, geolocation, 'battery')
+          onPress={() => findPlacesToRecycle(api_key, geoLocation, 'battery')
           }
           title="Search"
           color={Platform.OS === 'ios' ? 'tomato' : 'tomato'}

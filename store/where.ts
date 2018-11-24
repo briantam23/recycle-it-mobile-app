@@ -6,14 +6,14 @@ FETCHING DATA FROM EARTH911 API USING JSON
 4) METHOD: getLocationDetails - Expand on location details
 */
 import axios from 'axios';
-const baseURL = 'http://api.earth911.com/earth911.';
+import { reducerLayout } from '.';
+const baseURL: string = 'http://api.earth911.com/earth911.';
 
 //ACTIONS
-const FIND_PLACES_TO_RECYCLE = 'FIND_PLACES_TO_RECYCLE';
-const LOAD_PLACES = 'LOAD_PLACES';
+const FIND_PLACES_TO_RECYCLE: string = 'FIND_PLACES_TO_RECYCLE';
 
 //ACTION CREATORS
-const _findPlacesToRecycle = locations => ({ type: FIND_PLACES_TO_RECYCLE, locations });
+const _findPlacesToRecycle = (locations) => ({ type: FIND_PLACES_TO_RECYCLE, locations });
 
 //REDUCER
 const whereReducer = (state = [], action) => {
@@ -25,7 +25,7 @@ const whereReducer = (state = [], action) => {
 };
 
 //THUNKS
-const searchMaterials = (api_key, productInfo) => {
+const searchMaterials = (api_key: string, productInfo: string) => {
   //this will have to talk to './what.js' in that the query is populated by the vision component.
   return axios
     .get(`${baseURL}searchMaterials?api_key=${api_key}&query=${productInfo}`)
@@ -43,7 +43,7 @@ const searchMaterials = (api_key, productInfo) => {
   */
 }
 
-const searchLocations = (api_key, geolocation, materialsArr, maxDistance = 5, maxResults = 25) => {
+const searchLocations = (api_key: string, geolocation, materialsArr: string[], maxDistance: number = 5, maxResults: number = 25) => {
   const { latitude, longitude } = geolocation;
   const materials = materialsArr.map(material => `material_id[]=${material}`).join('&')
   return axios
@@ -65,14 +65,14 @@ const searchLocations = (api_key, geolocation, materialsArr, maxDistance = 5, ma
 */
 }
 
-export const findPlacesToRecycle = (api_key, geolocation, productInfo) => dispatch => {
+export const findPlacesToRecycle = (api_key: string, geolocation: object, productInfo: string) => dispatch => {
   return searchMaterials(api_key, productInfo)
     .then(materials => materials.result.map(material => material.material_id))
     .then(materialsArr => searchLocations(api_key, geolocation, materialsArr))
     .then(locations => dispatch(_findPlacesToRecycle(locations.result)))
 };
 
-export const getLocationDetails = (api_key, location) => {
+export const getLocationDetails = (api_key: string, location: string) => {
   return axios
     .get(`${baseURL}getLocationDetails?api_key=${api_key}&location_id'=${location}`)
     .then(res => res.data)
