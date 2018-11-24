@@ -3,3 +3,4 @@ dist/main.js
 package-lock.json
 .DS_Store
 env.js
+env.ts
