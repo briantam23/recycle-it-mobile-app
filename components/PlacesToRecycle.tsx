@@ -12,7 +12,7 @@ import {
   FlatList,
 } from 'react-native';
 
-const EARTH_911_API_KEY = process.env.EARTH_911_API_KEY;
+const api_key = process.env.EARTH_911_API_KEY;
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import RecPlacesCard from '../components/RecPlacesCard';
 
