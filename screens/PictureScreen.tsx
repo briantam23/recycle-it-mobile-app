@@ -13,9 +13,12 @@ interface State {
   type: string;
   uri: string;
 }
+export interface Props {
+  navigation: string;
+}
 
-export default class PictureScreen extends Component<{}, State> {
-  constructor(props: {}, context?: any) {
+export default class PictureScreen extends Component<Props, State> {
+  constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
       hasCameraPermission: undefined,
@@ -67,19 +70,13 @@ export default class PictureScreen extends Component<{}, State> {
       </View>
     );
   }
-  private toggleCameraType() {
-    this.setState({
-      type: this.state.type === 'back' ? 'front' : 'back',
-    });
-    Alert.alert('Flipped');
-  }
   private async takePic() {
     if (this.camera) {
       await this.camera
         .takePictureAsync()
         .then(picture => this.setState({ uri: picture.uri }));
     }
-    Alert.alert('Picture taken');
+    Alert.alert(this.state.uri);
   }
 }
 
