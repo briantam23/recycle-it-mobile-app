@@ -55,7 +55,9 @@ export const findPlacesToRecycle = (api_key: string, geolocation: object, produc
 export const getLocationDetails = (api_key: string, location: string) => {
   return axios
     .get(`${baseURL}getLocationDetails?api_key=${api_key}&location_id'=${location}`)
-    .then(res => res.data)
+    //.then(res => res.data)
+    .then(() => ({ latitude: 0, longitude: 0 } ))
+
   //send this back to RecPlacesCard.js
   /* SAMPLE RES {
   "num_results": 1,
@@ -101,7 +103,8 @@ export const getLocationDetails = (api_key: string, location: string) => {
 "notes": "This facility accepts all types of batteries and electronic waste for proper recycling. Please call for pick-up services, or drop-off.\r\nDEC Facility #01002 "
 }
 }}
-  */
+
+*/
 };
 
 export default whereReducer;

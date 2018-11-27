@@ -11,7 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 
-import { api_key } from '../env';
+const EARTH_911_API_KEY = process.env.EARTH_911_API_KEY;
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterials } from '../store/materials';
 import RecPlacesCard from '../components/RecPlacesCard';
