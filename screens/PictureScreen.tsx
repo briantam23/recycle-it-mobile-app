@@ -126,6 +126,7 @@ export default class PictureScreen extends Component<Props, State> {
         this.setState({ image: image.uri });
       }
     }
+    Alert.alert(this.state.image);
   };
   private pickImage = async () => {
     const permissions = Permissions.CAMERA_ROLL;
@@ -134,12 +135,12 @@ export default class PictureScreen extends Component<Props, State> {
     if (status === 'granted') {
       let image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: 'Images',
-        allowsEditing: true,
         aspect: [4, 3],
       });
       if (image.cancelled === false) {
         this.setState({ image: image.uri });
       }
     }
+    Alert.alert(this.state.image);
   };
 }
