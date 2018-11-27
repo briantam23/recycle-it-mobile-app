@@ -4,7 +4,6 @@ import { Permissions, ImagePicker } from 'expo';
 import { Text } from 'react-native';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { StyleSheet } from 'react-native';
 import { Camera } from 'expo';
 import { Alert } from 'react-native';
 
@@ -44,33 +43,6 @@ export default class PictureScreen extends Component<Props, State> {
     if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     }
-    /*return (
-      <View style={{ flex: 1 }}>
-        <Camera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          style={{ flex: 1 }}
-          type={this.state.type}
-        >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'transparent',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-              justifyContent: 'center',
-            }}
-          >
-            <TouchableOpacity
-              style={styles.snapButton}
-              onPress={() => this.takePic()}
-            >
-              <Text style={styles.snapText}> Capture </Text>
-            </TouchableOpacity>
-          </View>
-        </Camera>
-      </View>*/
     return (
       <View style={{ flex: 1 }}>
         <TouchableOpacity
