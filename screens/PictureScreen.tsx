@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Permissions } from 'expo';
+import { Permissions, ImagePicker } from 'expo';
 import { Text } from 'react-native';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
@@ -11,7 +11,7 @@ import { Alert } from 'react-native';
 interface State {
   hasCameraPermission: boolean | undefined;
   type: string;
-  uri: string;
+  image: string;
 }
 export interface Props {
   navigation: string;
@@ -23,12 +23,15 @@ export default class PictureScreen extends Component<Props, State> {
     this.state = {
       hasCameraPermission: undefined,
       type: Camera.Constants.Type.back,
-      uri: 'empty',
+      image: '',
     };
     this.takePic = this.takePic.bind(this);
+    this.pickImage = this.pickImage.bind(this);
   }
   public async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    const { status } = await Permissions.askAsync(Permissions.CAMERA).then(() =>
+      Permissions.askAsync(Permissions.CAMERA_ROLL)
+    );
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
@@ -41,7 +44,7 @@ export default class PictureScreen extends Component<Props, State> {
     if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     }
-    return (
+    /*return (
       <View style={{ flex: 1 }}>
         <Camera
           ref={ref => {
@@ -67,36 +70,76 @@ export default class PictureScreen extends Component<Props, State> {
             </TouchableOpacity>
           </View>
         </Camera>
+      </View>*/
+    return (
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'dodgerblue',
+            flex: 0.5,
+            height: 40,
+            marginHorizontal: 2,
+            marginBottom: 50,
+            marginTop: 20,
+            borderRadius: 8,
+            borderColor: 'white',
+            borderWidth: 1,
+            padding: 5,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => this.takePic()}
+        >
+          <Text style={{ color: 'white', fontSize: 15 }}> Capture</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'dodgerblue',
+            flex: 0.5,
+            height: 40,
+            marginHorizontal: 2,
+            marginBottom: 50,
+            marginTop: 20,
+            borderRadius: 8,
+            borderColor: 'white',
+            borderWidth: 1,
+            padding: 5,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => this.pickImage()}
+        >
+          <Text style={{ color: 'white', fontSize: 15 }}> Gallery</Text>
+        </TouchableOpacity>
       </View>
     );
   }
-  private async takePic() {
-    if (this.camera) {
-      await this.camera
-        .takePictureAsync({ base64: true })
-        .then(picture => this.setState({ uri: picture.uri }));
+  private takePic = async () => {
+    const permissions = Permissions.CAMERA_ROLL;
+    const permission = Permissions.CAMERA;
+    const part1 = await Permissions.askAsync(permissions);
+    const part2 = await Permissions.askAsync(permission);
+    console.log(permissions, part1.status);
+    if (part1.status === 'granted' && part2.status === 'granted') {
+      let image = await ImagePicker.launchCameraAsync({});
+      if (image.cancelled === false) {
+        this.setState({ image: image.uri });
+      }
     }
-    Alert.alert(this.state.uri);
-  }
+  };
+  private pickImage = async () => {
+    const permissions = Permissions.CAMERA_ROLL;
+    const { status } = await Permissions.askAsync(permissions);
+    console.log(permissions, status);
+    if (status === 'granted') {
+      let image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: 'Images',
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+      if (image.cancelled === false) {
+        this.setState({ image: image.uri });
+      }
+    }
+  };
 }
-
-const styles = StyleSheet.create({
-  snapText: {
-    color: 'white',
-    fontSize: 15,
-  },
-  snapButton: {
-    backgroundColor: 'dodgerblue',
-    flex: 0.5,
-    height: 40,
-    marginHorizontal: 2,
-    marginBottom: 50,
-    marginTop: 20,
-    borderRadius: 8,
-    borderColor: 'white',
-    borderWidth: 1,
-    padding: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
