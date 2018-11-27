@@ -73,7 +73,7 @@ export default class PictureScreen extends Component<Props, State> {
   private async takePic() {
     if (this.camera) {
       await this.camera
-        .takePictureAsync()
+        .takePictureAsync({ base64: true })
         .then(picture => this.setState({ uri: picture.uri }));
     }
     Alert.alert(this.state.uri);
