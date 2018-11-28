@@ -25,29 +25,11 @@ const whereReducer = (state = [], action) => {
 };
 
 //THUNKS
-const searchMaterials = (api_key: string, productInfo: string) => {
-  //this will have to talk to './what.js' in that the query is populated by the vision component.
-  return axios
-    .get(`${baseURL}searchMaterials?api_key=${api_key}&query=${productInfo}`)
-    .then(res => res.data)
-  /* SAMPLE RES {
-  "num_results": 1,
-  "result": [
-  {
-  "url": "",
-  "exact": true,
-  "description": "Toothbrushes",
-  "material_id": 587
-  }
-  ]}
-  */
-}
-
-const searchLocations = (api_key: string, geolocation, materialsArr: string[], maxDistance: number = 5, maxResults: number = 25) => {
+const searchLocations = (api_key: string, geolocation, materialId: string, maxDistance: number = 5, maxResults: number = 25) => {
   const { latitude, longitude } = geolocation;
-  const materials = materialsArr.map(material => `material_id[]=${material}`).join('&')
+  // const materials = materialsArr.map(material => `material_id[]=${material}`).join('&')
   return axios
-    .get(`${baseURL}searchLocations?api_key=${api_key}&latitude=${latitude}&longitude=${longitude}&${materials}&max_distance=${maxDistance}&max_results=${maxResults}`)
+    .get(`${baseURL}searchLocations?api_key=${api_key}&latitude=${latitude}&longitude=${longitude}&material_id:${materialId}&max_distance=${maxDistance}&max_results=${maxResults}`)
     .then(res => res.data)
   /* SAMPLE RES {
 "num_results": 24,
@@ -66,9 +48,7 @@ const searchLocations = (api_key: string, geolocation, materialsArr: string[], m
 }
 
 export const findPlacesToRecycle = (api_key: string, geolocation: object, productInfo: string) => dispatch => {
-  return searchMaterials(api_key, productInfo)
-    .then(materials => materials.result.map(material => material.material_id))
-    .then(materialsArr => searchLocations(api_key, geolocation, materialsArr))
+  return searchLocations(api_key, geolocation, productInfo)
     .then(locations => dispatch(_findPlacesToRecycle(locations.result)))
 };
 
