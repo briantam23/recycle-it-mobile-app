@@ -11,7 +11,9 @@ import {
   TextInput,
 } from 'react-native';
 
-const api_key = process.env.EARTH_911_API_KEY;
+import { api_key } from '../env';
+// const api_key = process.env.EARTH_911_API_KEY;
+
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterials } from '../store/materials';
 import RecPlacesCard from '../components/RecPlacesCard';
@@ -96,7 +98,7 @@ class PlacesToRecycle extends Component {
           color={Platform.OS === 'ios' ? 'tomato' : 'tomato'}
         />
 
-        {/* {where && <RecPlacesCard />} */}
+        {where && <RecPlacesCard />}
 
       </View>
     )
@@ -104,8 +106,8 @@ class PlacesToRecycle extends Component {
 };
 
 const mapStateToProps = ({ where, materials }) => {
-  // console.debug('@#$@#$@#$@$#!', where)
-  console.log('HERE I AM', materials.materialDetails)
+  console.debug('@#$@#$@#$@$#!', where)
+  console.log('HERE I AM', materials, materials.materialDetails)
   return {
     where,
     materials,
