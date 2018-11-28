@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://at-g7v.anonymous.recycle.exp.direct",
+  "packagerNgrokUrl": "https://packager.at-g7v.anonymous.recycle.exp.direct",
+  "ngrokPid": 44632
 }

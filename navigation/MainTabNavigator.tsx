@@ -48,7 +48,7 @@ DirectionsStack.navigationOptions = {
 
 const SettingsStack = createStackNavigator({ SettingsScreen });
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Sign Up',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
