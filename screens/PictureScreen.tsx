@@ -97,8 +97,8 @@ export default class PictureScreen extends Component<Props, State> {
       if (image.cancelled === false) {
         this.setState({ image: image.uri });
       }
+      Alert.alert(this.state.image);
     }
-    Alert.alert(this.state.image);
   };
   private pickImage = async () => {
     const permissions = Permissions.CAMERA_ROLL;
@@ -112,7 +112,7 @@ export default class PictureScreen extends Component<Props, State> {
       if (image.cancelled === false) {
         this.setState({ image: image.uri });
       }
+      Alert.alert(this.state.image);
     }
-    Alert.alert(this.state.image);
   };
 }
