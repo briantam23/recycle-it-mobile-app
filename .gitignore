@@ -6,3 +6,4 @@ env.ts
 app-env
 yarn-error.log
 .expo/packager-info.json
+apiKey.js
