@@ -138,7 +138,7 @@ class PlacesToRecycle extends Component<Props, State> {
           color='tomato'
         /> */}
 
-        {/* {where && <RecPlacesCard />} */}
+        {where && <RecPlacesCard />}
 
       </View>
     )
