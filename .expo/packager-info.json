@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19004,
+  "packagerPid": 62291,
   "expoServerNgrokUrl": "https://at-g7v.anonymous.capstone.exp.direct",
   "packagerNgrokUrl": "https://packager.at-g7v.anonymous.capstone.exp.direct",
-  "ngrokPid": 60722
+  "ngrokPid": 62315
 }

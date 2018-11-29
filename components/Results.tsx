@@ -1,11 +1,13 @@
 import React from 'react';
 import { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { CLOUD_VISION_API_KEY } from '../apiKey';
-//import { Header, Icon } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
+import PictureScreen from '../screens/PictureScreen';
 
 interface Props {
   image: string;
+  navigation: object;
 }
 interface State {
   label: string;
@@ -17,9 +19,10 @@ export default class Results extends Component<Props, State> {
     super(props, context);
     this.state = {
       label: '',
-      loading: false,
+      loading: true,
     };
     this.imageProp = this.imageProp.bind(this);
+    this.redo = this.redo.bind(this);
   }
   public componentDidMount() {
     if (!this.props.image) {
@@ -57,13 +60,46 @@ export default class Results extends Component<Props, State> {
     );
     const parsed = await response.json();
     const result = parsed.responses[0].labelAnnotations[0].description;
-    this.setState({ label: result });
+    this.setState({ label: result, loading: false });
+  }
+  private redo() {
+    this.setState({ label: '' });
   }
   public render() {
     const { label } = this.state;
+    if (this.state.loading === true) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'white',
+          }}
+        >
+          <Text h1>Loading...</Text>
+          <ActivityIndicator color="#3E9428" size="large" />
+        </View>
+      );
+    }
+    if (label === '') {
+      return <PictureScreen />;
+    }
     return (
-      <View>
-        <Text>{label}</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}
+      >
+        <Text h1>{label}</Text>
+        <Button
+          backgroundColor="#3E9428"
+          title="GO BACK"
+          onPress={() => this.redo()}
+        />
       </View>
     );
   }
