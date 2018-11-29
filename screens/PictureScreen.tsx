@@ -1,12 +1,6 @@
-import React from 'react';
-import { Component } from 'react';
-import { Permissions, ImagePicker } from 'expo';
-import { Text } from 'react-native';
-import { View } from 'react-native';
-import { TouchableOpacity, Image } from 'react-native';
-import { Camera } from 'expo';
-import { Alert } from 'react-native';
-import { Button } from 'react-native-elements';
+import React, { Component } from 'react';
+import { Permissions, ImagePicker, Camera } from 'expo';
+import { TouchableOpacity, Image, View, Text } from 'react-native';
 import Results from '../components/Results';
 
 interface State {

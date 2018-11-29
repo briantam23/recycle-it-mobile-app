@@ -1,16 +1,14 @@
 import React from 'react';
 import { Component } from 'react';
 import { View, Text } from 'react-native';
-
-import Axios from 'axios';
-
 import { CLOUD_VISION_API_KEY } from '../apiKey';
+//import { Header, Icon } from 'react-native-elements';
 
 interface Props {
   image: string;
 }
 interface State {
-  labels: object;
+  label: string;
   loading: boolean;
 }
 
@@ -18,7 +16,7 @@ export default class Results extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
-      labels: [],
+      label: '',
       loading: false,
     };
     this.imageProp = this.imageProp.bind(this);
@@ -39,6 +37,7 @@ export default class Results extends Component<Props, State> {
           features: [
             {
               type: 'LABEL_DETECTION',
+              maxResults: 1,
             },
           ],
         },
@@ -57,15 +56,14 @@ export default class Results extends Component<Props, State> {
       }
     );
     const parsed = await response.json();
-    console.log(parsed);
-    console.log(typeof process.env.CLOUD_VISION_API_KEY);
+    const result = parsed.responses[0].labelAnnotations[0].description;
+    this.setState({ label: result });
   }
-
   public render() {
-    const { labels } = this.state;
+    const { label } = this.state;
     return (
       <View>
-        <Text>{labels}</Text>
+        <Text>{label}</Text>
       </View>
     );
   }
