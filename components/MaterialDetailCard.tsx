@@ -13,13 +13,19 @@ const MaterialDetailCard = ({ materials }) => {
   const { description, image, long_description, url } = materials.materialDetails;
   return (
     <View style={styles.imageContainer}>
+      {
+        description &&
+        <Text style={styles.header}>
+          Recyclable!
+       </Text>
+      }
       <Text style={styles.textHeader}>
         {description}
       </Text>
-      <Text>
+      <Text style={styles.textArea}>
         {long_description}
       </Text>
-      <Text>
+      <Text style={styles.textArea}>
         {url &&
           <TouchableOpacity >
             {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
@@ -45,10 +51,26 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
+    backgroundColor: 'green',
+    width: '100%',
+    height: '100%',
+    padding: 10,
+    color: 'white'
   },
   textHeader: {
     fontWeight: 'bold',
     color: 'tomato',
+    fontSize: 30,
+    alignSelf: 'center',
+  },
+  header: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  textArea: {
+    color: 'white',
+    textAlign: 'center',
   }
 });
 

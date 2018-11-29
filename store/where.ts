@@ -25,7 +25,7 @@ const whereReducer = (state = [], action) => {
 };
 
 //THUNKS
-const searchLocations = (api_key: string, geolocation, materialId: string, maxDistance: number = 5, maxResults: number = 25) => {
+const searchLocations = (api_key: string, geolocation, materialId: string, maxDistance: number = 5, maxResults: number = 5) => {
   const { latitude, longitude } = geolocation;
   // const materials = materialsArr.map(material => `material_id[]=${material}`).join('&')
   return axios
@@ -56,7 +56,7 @@ export const getLocationDetails = (api_key: string, location: string) => {
   return axios
     .get(`${baseURL}getLocationDetails?api_key=${api_key}&location_id'=${location}`)
     //.then(res => res.data)
-    .then(() => ({ latitude: 0, longitude: 0 } ))
+    .then(() => ({ latitude: 0, longitude: 0 }))
 
   //send this back to RecPlacesCard.js
   /* SAMPLE RES {
