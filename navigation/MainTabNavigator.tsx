@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import signUpScreen from '../screens/signUpScreen';
 import MapScreen from '../screens/MapScreen';
 import DirectionsScreen from '../screens/DirectionsScreen';
 import PictureScreen from '../screens/PictureScreen';
@@ -54,9 +54,9 @@ PictureStack.navigationOptions = {
     />
   ),
 };
-const SettingsStack = createStackNavigator({ SettingsScreen });
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+const signUpStack = createStackNavigator({ signUpScreen });
+signUpStack.navigationOptions = {
+  tabBarLabel: 'Sign Up',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -70,5 +70,5 @@ export default createBottomTabNavigator({
   MapStack,
   DirectionsStack,
   PictureStack,
-  SettingsStack,
+  signUpStack,
 });
