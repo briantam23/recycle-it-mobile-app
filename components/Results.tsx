@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { View, ActivityIndicator, ScrollView } from 'react-native';
-import { CLOUD_VISION_API_KEY, EARTH_911_API_KEY } from '../apiKey';
+import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
 import { Button, Text, Card } from 'react-native-elements';
 import { Font } from 'expo';
 import PictureScreen from '../screens/PictureScreen';
@@ -41,7 +41,7 @@ export default class Results extends Component<Props, State> {
   }
   public async isRecyclable(item) {
     const response = await fetch(
-      `http://api.earth911.com/earth911.searchMaterials?api_key=${EARTH_911_API_KEY}&query=${item}`,
+      `http://api.earth911.com/earth911.searchMaterials?api_key=${api_key}&query=${item}`,
       {
         method: 'GET',
         headers: {
@@ -57,7 +57,7 @@ export default class Results extends Component<Props, State> {
       const temp = parsed.result[0].material_id;
       console.log(temp);
       const second = await fetch(
-        `http://api.earth911.com/earth911.getMaterials?api_key=${EARTH_911_API_KEY}`,
+        `http://api.earth911.com/earth911.getMaterials?api_key=${api_key}`,
         {
           method: 'GET',
           headers: {

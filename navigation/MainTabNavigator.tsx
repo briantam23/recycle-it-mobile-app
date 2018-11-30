@@ -7,10 +7,12 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from '../screens/LoginScreen';
 import MapScreen from '../screens/MapScreen';
 import DirectionsScreen from '../screens/DirectionsScreen';
 import PictureScreen from '../screens/PictureScreen';
+import LocationsScreen from '../screens/LocationsScreen';
+
 const HomeStack = createStackNavigator({ HomeScreen });
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -54,8 +56,9 @@ PictureStack.navigationOptions = {
     />
   ),
 };
-const SettingsStack = createStackNavigator({ SettingsScreen });
-SettingsStack.navigationOptions = {
+
+const LoginStack = createStackNavigator({ LoginScreen });
+LoginStack.navigationOptions = {
   tabBarLabel: 'Sign Up',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -65,10 +68,22 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const LocationsStack = createStackNavigator({ LocationsScreen });
+LocationsStack.navigationOptions = {
+  tabBarLabel: 'Locations',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  )
+};
+
 export default createBottomTabNavigator({
   HomeStack,
+  LocationsStack,
   MapStack,
   DirectionsStack,
   PictureStack,
-  SettingsStack,
+  LoginStack,
 });

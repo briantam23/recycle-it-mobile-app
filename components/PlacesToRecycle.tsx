@@ -16,7 +16,6 @@ import { api_key } from '../apiKey';
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import FoundMaterialsCard from './FoundMaterialsCard';
-import RecPlacesCard from '../components/RecPlacesCard';
 
 interface Props {
   where?: object;
@@ -72,8 +71,6 @@ class PlacesToRecycle extends Component<Props, State> {
     this.props.searchMaterials(api_key, this.state.materialSearch)
       .then(() => console.log(this.props.foundMaterials))
       .then(() => this.props.getMaterialDetail(api_key, this.props.foundMaterials[0].material_id))
-    // .then(()=> this.setState({selectedMaterial: }))
-    // this.setState({ selectedMaterial: this.props.foundMaterials[0].material_id })
   };
 
   public render() {
@@ -119,6 +116,7 @@ class PlacesToRecycle extends Component<Props, State> {
 }
 
 const mapStateToProps = ({ where, materials }) => {
+  console.log(materials.foundMaterials, materials.materialDetails)
   return {
     where,
     foundMaterials: materials.foundMaterials,

@@ -3,7 +3,7 @@ import { OpenMapDirections } from 'react-native-navigation-directions';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default class DirectionsScreen extends Component {
- _callShowDirections = () => {
+  _callShowDirections = () => {
     const startPoint = navigator.geolocation.getCurrentPosition(
       position => JSON.stringify(position),
       error => alert(error.message),
@@ -11,26 +11,26 @@ export default class DirectionsScreen extends Component {
     );
 
     const endPoint = {
-      latitude: 40.7484, 
+      latitude: 40.7484,
       longitude: -73.9857
     }
 
-		const transportPlan = 'd';
+    const transportPlan = 'd';
 
     OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
       console.log(res)
     });
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
         <Text>Show directions from your current location!</Text>
         <Button
-        onPress={() => { this._callShowDirections() }}
-        title="Open map"
-        color="#841584"
-      />
+          onPress={() => { this._callShowDirections() }}
+          title="Open map"
+          color="#841584"
+        />
       </View>
     );
   }
