@@ -11,8 +11,8 @@ import {
   TextInput,
 } from 'react-native';
 
-import { api_key } from '../env';
-// const api_key = process.env.EARTH_911_API_KEY;
+//import { api_key } from '../env';
+const api_key = process.env.EARTH_911_API_KEY;
 
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterials } from '../store/materials';
@@ -21,52 +21,62 @@ import MaterialDetailCard from './MaterialDetailCard';
 
 class PlacesToRecycle extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       geoLocation: {
         latitude: '',
-        longitude: ''
+        longitude: '',
       },
       materialSearch: 'newspaper',
       refinedMaterialSearch: '',
-    }
-  };
+    };
+  }
 
-  componentDidMount() { this.getGeoLocation() };
+  componentDidMount() {
+    this.getGeoLocation();
+  }
 
   getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         geoLocation: {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        }
-      })
-    })
+        },
+      });
+    });
   };
 
-  handleMaterial = (text: string) => { this.setState({ materialSearch: text }) };
+  handleMaterial = (text: string) => {
+    this.setState({ materialSearch: text });
+  };
 
-  showMaterialDetail = (materialId) => {
-    this.props.getMaterials(api_key, materialId)
-    this.setState({ refinedMaterialSearch: materialId })
+  showMaterialDetail = materialId => {
+    this.props.getMaterials(api_key, materialId);
+    this.setState({ refinedMaterialSearch: materialId });
   };
 
   _keyExtractor = (item, index) => item.material_id.toString();
 
   render() {
-    const { findPlacesToRecycle, where, searchMaterials, materials } = this.props;
+    const {
+      findPlacesToRecycle,
+      where,
+      searchMaterials,
+      materials,
+    } = this.props;
     const { geoLocation, materialSearch, refinedMaterialSearch } = this.state;
     const { handleMaterial, showMaterialDetail, _keyExtractor } = this;
     return (
       <View style={styles.container}>
-
-        <TextInput style={styles.input}
+        <TextInput
+          style={styles.input}
           underlineColorAndroid="transparent"
           placeholder="newspaper"
           placeholderTextColor="#9a73ef"
           autoCapitalize="none"
-          onChangeText={handleMaterial} />
+          onChangeText={handleMaterial}
+        />
 
         <Button
           onPress={() => searchMaterials(api_key, materialSearch)}
@@ -81,11 +91,13 @@ class PlacesToRecycle extends Component {
             renderItem={({ item }) => {
               return (
                 <View>
-                  <TouchableOpacity onPress={() => showMaterialDetail(item.material_id)}>
+                  <TouchableOpacity
+                    onPress={() => showMaterialDetail(item.material_id)}
+                  >
                     <Text style={styles.item}>{item.description}</Text>
                   </TouchableOpacity>
                 </View>
-              )
+              );
             }}
           />
         }
@@ -93,21 +105,22 @@ class PlacesToRecycle extends Component {
         {materials.materialDetails && <MaterialDetailCard />}
 
         <Button
-          onPress={() => findPlacesToRecycle(api_key, geoLocation, refinedMaterialSearch)}
+          onPress={() =>
+            findPlacesToRecycle(api_key, geoLocation, refinedMaterialSearch)
+          }
           title="Find Places to Recycle"
           color={Platform.OS === 'ios' ? 'tomato' : 'tomato'}
         />
 
         {where && <RecPlacesCard />}
-
       </View>
-    )
-  };
-};
+    );
+  }
+}
 
 const mapStateToProps = ({ where, materials }) => {
-  console.debug('@#$@#$@#$@$#!', where)
-  console.log('HERE I AM', materials, materials.materialDetails)
+  console.debug('@#$@#$@#$@$#!', where);
+  console.log('HERE I AM', materials, materials.materialDetails);
   return {
     where,
     materials,
@@ -115,10 +128,14 @@ const mapStateToProps = ({ where, materials }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  findPlacesToRecycle: (api_key, geolocation, productInfo) => dispatch(findPlacesToRecycle(api_key, geolocation, productInfo)),
-  getLocationDetails: (api_key, location) => dispatch(getLocationDetails(api_key, location)),
-  searchMaterials: (api_key, materialSearch) => dispatch(searchMaterials(api_key, materialSearch)),
-  getMaterials: (api_key, material) => dispatch(getMaterials(api_key, material)),
+  findPlacesToRecycle: (api_key, geolocation, productInfo) =>
+    dispatch(findPlacesToRecycle(api_key, geolocation, productInfo)),
+  getLocationDetails: (api_key, location) =>
+    dispatch(getLocationDetails(api_key, location)),
+  searchMaterials: (api_key, materialSearch) =>
+    dispatch(searchMaterials(api_key, materialSearch)),
+  getMaterials: (api_key, material) =>
+    dispatch(getMaterials(api_key, material)),
 });
 
 const styles = StyleSheet.create({
@@ -166,7 +183,10 @@ const styles = StyleSheet.create({
   textHeader: {
     fontWeight: 'bold',
     color: 'tomato',
-  }
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlacesToRecycle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlacesToRecycle);
