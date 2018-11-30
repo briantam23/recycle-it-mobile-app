@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 const RecPlacesCard = ({ where }) => {
-  let _keyExtractor = (item, index) => (where.location_id + where.distance).toString();
+  let _keyExtractor = (item, index) => (item.location_id + index).toString() || index;
   let showCurbside = where.curbside && 'Yes' || 'No'
   let showMunicipal = where.municipal && 'Yes' || 'No'
 
@@ -23,6 +23,7 @@ const RecPlacesCard = ({ where }) => {
         renderItem={({ item }) => {
           return (
             <View>
+              <Text style={styles.item}>LocationID: {item.location_id}</Text>
               <Text style={styles.item}>Description: {item.description}</Text>
               <Text style={styles.item}>Curbside: {showCurbside}</Text>
               <Text style={styles.item}>Distance: {item.distance}</Text>

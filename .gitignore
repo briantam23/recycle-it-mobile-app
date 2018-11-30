@@ -5,5 +5,6 @@ env.js
 env.ts
 app-env
 yarn-error.log
-
+package-lock.json
+.expo/packager-info.json
 apiKey.js

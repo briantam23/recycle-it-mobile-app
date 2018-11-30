@@ -13,11 +13,10 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import PlacesToRecycle from '../components/PlacesToRecycle';
+import MaterialDetailCard from '../components/MaterialDetailCard';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = { title: 'Recycle It!' };
-
-
   render() {
     return (
       <View style={styles.container}>
@@ -28,28 +27,20 @@ export default class HomeScreen extends React.Component {
               source={require('../images/recycle_heart_logo.png')}
               style={styles.welcomeImage}
             />
-
           </View>
 
           <View>
             <PlacesToRecycle />
           </View>
 
-
-          <Button
+          {/* <Button
             title="Go to the Map"
             onPress={() => this.props.navigation.navigate('MapScreen')}
-          />
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={() => 'example'} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Hyperlink</Text>
-            </TouchableOpacity>
-          </View>
+          /> */}
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Info container</Text>
+          <MaterialDetailCard />
         </View>
       </View>
     );

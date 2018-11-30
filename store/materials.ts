@@ -5,14 +5,13 @@ const baseURL: string = 'http://api.earth911.com/earth911.';
 const FIND_MATERIALS: string = 'FIND_MATERIALS';
 const GET_MATERIAL_DETAIL: string = 'GET_MATERIAL_DETAIL';
 
-
 //ACTION CREATORS
 const _findMaterials = (materials) => ({ type: FIND_MATERIALS, materials });
 const _getMaterialDetail = (material) => ({ type: GET_MATERIAL_DETAIL, material });
 
 //REDUCER
 const initialState = {
-  findMaterials: [],
+  foundMaterials: [],
   materialDetails: {
     // description: '',
     // image: '',
@@ -20,10 +19,10 @@ const initialState = {
     // material_id: '',
   },
 }
-const materialsReducer = (state = [], action) => {
+const materialsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FIND_MATERIALS:
-      return { ...state, findMaterials: action.materials };
+      return { ...state, foundMaterials: action.materials };
     case GET_MATERIAL_DETAIL:
       return { ...state, materialDetails: action.material }
     default: return state;
@@ -31,7 +30,7 @@ const materialsReducer = (state = [], action) => {
 };
 
 //THUNKS
-export const getMaterials = (api_key: string, materialId: string) => dispatch => {
+export const getMaterialDetail = (api_key: string, materialId: string) => dispatch => {
   return axios
     .get(`${baseURL}getMaterials?api_key=${api_key}`)
     .then(res => res.data)
@@ -61,7 +60,13 @@ export const searchMaterials = (api_key: string, materialSearch: string) => disp
   return axios
     .get(`${baseURL}searchMaterials?api_key=${api_key}&query=${materialSearch}`)
     .then(res => res.data)
-    .then(materials => dispatch(_findMaterials(materials.result)))
+    .then(materials => {
+      if (!materials.result.length) {
+        materials.result.description = 'Not Recycable, but maybe you can try Reusing it!';
+        materials.result.material_id = 10000;
+      }
+      dispatch(_findMaterials(materials.result))
+    })
   /* SAMPLE RES {
   "num_results": 1,
   "result": [
