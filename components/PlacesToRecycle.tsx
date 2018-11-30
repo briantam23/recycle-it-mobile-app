@@ -12,9 +12,7 @@ import {
   Picker,
 } from 'react-native';
 
-import { api_key } from '../env';
-// const api_key = process.env.EARTH_911_API_KEY;
-
+import { api_key } from '../apiKey';
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import FoundMaterialsCard from './FoundMaterialsCard';
@@ -41,7 +39,7 @@ class PlacesToRecycle extends Component<Props, State> {
     this.state = {
       geoLocation: {
         latitude: '',
-        longitude: ''
+        longitude: '',
       },
       materialSearch: 'newspaper',
       selectedMaterial: '',
@@ -55,9 +53,9 @@ class PlacesToRecycle extends Component<Props, State> {
         geoLocation: {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        }
-      })
-    })
+        },
+      });
+    });
   };
 
   public handleMaterial = (material: string) => {
@@ -115,38 +113,12 @@ class PlacesToRecycle extends Component<Props, State> {
           </Picker>
           <Text style={styles.picker}>{materialSearch}</Text>
         </View>
-
-        {/* {foundMaterials &&
-          <FlatList
-            data={foundMaterials}
-            keyExtractor={_keyExtractor}
-            renderItem={({ item }) => {
-              return (
-                <View>
-                  <TouchableOpacity onPress={() => showMaterialDetail(item.material_id)}>
-                    <Text style={styles.item}>{item.description}</Text>
-                  </TouchableOpacity>
-                </View>
-              )
-            }}
-          />
-        } */}
-
-        {/* <Button
-          onPress={() => findPlacesToRecycle(api_key, geoLocation, selectedMaterial)}
-          title="Find Places to Recycle"
-          color='tomato'
-        /> */}
-
-        {where && <RecPlacesCard />}
-
       </View>
-    )
-  };
-};
+    );
+  }
+}
 
 const mapStateToProps = ({ where, materials }) => {
-  // console.log('HERE I AM', materials.foundMaterials)
   return {
     where,
     foundMaterials: materials.foundMaterials,
@@ -214,4 +186,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlacesToRecycle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlacesToRecycle);

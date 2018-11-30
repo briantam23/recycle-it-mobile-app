@@ -1,19 +1,16 @@
-import React from 'react';
-import { Component } from 'react';
-import { Permissions, ImagePicker } from 'expo';
-import { Text } from 'react-native';
-import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { Camera } from 'expo';
-import { Alert } from 'react-native';
+import React, { Component } from 'react';
+import { Permissions, ImagePicker, Camera } from 'expo';
+import { TouchableOpacity, Image, View, Text } from 'react-native';
+import Results from '../components/Results';
 
 interface State {
   hasCameraPermission: boolean | undefined;
   type: string;
   image: string;
+  loading: boolean;
 }
 export interface Props {
-  navigation: string;
+  navigation: object;
 }
 
 export default class PictureScreen extends Component<Props, State> {
@@ -22,11 +19,13 @@ export default class PictureScreen extends Component<Props, State> {
     this.state = {
       hasCameraPermission: undefined,
       type: Camera.Constants.Type.back,
-      image: '',
+      image: null,
+      loading: true,
     };
     this.takePic = this.takePic.bind(this);
     this.pickImage = this.pickImage.bind(this);
   }
+  static navigationOptions = { title: 'Select a Picture' };
   public async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA).then(() =>
       Permissions.askAsync(Permissions.CAMERA_ROLL)
@@ -36,7 +35,9 @@ export default class PictureScreen extends Component<Props, State> {
 
   public render() {
     const { hasCameraPermission } = this.state;
-
+    if (this.state.loading === false) {
+      return <Results image={this.state.image} />;
+    }
     if (hasCameraPermission === undefined) {
       return <Text>Get permission to Camera</Text>;
     }
@@ -44,44 +45,25 @@ export default class PictureScreen extends Component<Props, State> {
       return <Text>No access to camera</Text>;
     }
     return (
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'dodgerblue',
-            flex: 0.5,
-            height: 40,
-            marginHorizontal: 2,
-            marginBottom: 50,
-            marginTop: 20,
-            borderRadius: 8,
-            borderColor: 'white',
-            borderWidth: 1,
-            padding: 5,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => this.takePic()}
-        >
-          <Text style={{ color: 'white', fontSize: 15 }}> Capture</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}
+      >
+        <TouchableOpacity onPress={() => this.takePic()}>
+          <Image
+            style={{ height: 250, width: 250 }}
+            source={require('../images/CameraIcon.png')}
+          />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'dodgerblue',
-            flex: 0.5,
-            height: 40,
-            marginHorizontal: 2,
-            marginBottom: 50,
-            marginTop: 20,
-            borderRadius: 8,
-            borderColor: 'white',
-            borderWidth: 1,
-            padding: 5,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => this.pickImage()}
-        >
-          <Text style={{ color: 'white', fontSize: 15 }}> Gallery</Text>
+        <TouchableOpacity onPress={() => this.pickImage()}>
+          <Image
+            style={{ height: 250, width: 250 }}
+            source={require('../images/GalleryIcon.png')}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -93,11 +75,11 @@ export default class PictureScreen extends Component<Props, State> {
     const part2 = await Permissions.askAsync(permission);
     console.log(permissions, part1.status);
     if (part1.status === 'granted' && part2.status === 'granted') {
-      let image = await ImagePicker.launchCameraAsync({});
+      let image = await ImagePicker.launchCameraAsync({ base64: true });
       if (image.cancelled === false) {
-        this.setState({ image: image.uri });
+        console.log(Object.keys(image));
+        this.setState({ image: image.base64, loading: false });
       }
-      Alert.alert(this.state.image);
     }
   };
   private pickImage = async () => {
@@ -108,11 +90,11 @@ export default class PictureScreen extends Component<Props, State> {
       let image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: 'Images',
         aspect: [4, 3],
+        base64: true,
       });
       if (image.cancelled === false) {
-        this.setState({ image: image.uri });
+        this.setState({ image: image.base64, loading: false });
       }
-      Alert.alert(this.state.image);
     }
   };
 }
