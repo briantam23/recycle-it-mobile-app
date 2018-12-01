@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19004,
-  "packagerPid": 61483,
-  "expoServerNgrokUrl": "https://ae-prn.anonymous.recycle.exp.direct",
-  "packagerNgrokUrl": "https://packager.ae-prn.anonymous.recycle.exp.direct",
-  "ngrokPid": 61512
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
