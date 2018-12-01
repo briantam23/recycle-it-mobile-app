@@ -11,3 +11,4 @@ package-lock.json
 apiKey.js
 life.goals
 .expo/*
+.jest

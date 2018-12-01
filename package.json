@@ -10,7 +10,7 @@
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
-    "preset": "react-native",
+    "preset": "jest-expo-ts",
     "moduleFileExtensions": [
       "ts",
       "tsx",
