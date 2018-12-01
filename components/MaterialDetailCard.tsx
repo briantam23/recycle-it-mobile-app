@@ -15,16 +15,16 @@ import { findPlacesToRecycle } from '../store/where';
 
 const MaterialDetailCard = ({ materials, findPlacesToRecycle }) => {
   const { description, image, long_description, url, material_id } = materials.materialDetails;
-  const { navigate } = this.props.navigation;
+  //const { navigate } = this.props.navigation;
 
 
   {/* Currently getting geolocation from PlacesToRecycle, but calling this card from home screen. TBD.
       */}
-  const getLocationData = () => {
+  /* const getLocationData = () => {
     findPlacesToRecycle(api_key, geolocation, material_id, 5, 5)
       .then(() => navigate('LocationsScreen')
       )
-  }
+  } */
 
   return (
     <View style={styles.imageContainer}>

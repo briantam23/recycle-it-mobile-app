@@ -33,7 +33,7 @@ const RecPlacesCard = ({ where }) => {
               <Text style={styles.item}>Municipal: {showMunicipal}</Text>
 
               <Button
-                onPress={} //go to MapScreen => pass lat and long
+                //onPress={} //go to MapScreen => pass lat and long
                 title="Get Directions"
                 color='tomato'
               />
