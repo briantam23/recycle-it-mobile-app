@@ -5,6 +5,19 @@ import AppNavigator from './navigation/AppNavigator';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import * as firebase from 'firebase';
+
+const firebaseConfig = {
+apiKey: "AIzaSyA2UjGQotY89lEL_PcNqsytbUuC1avu--s",
+authDomain: "recyle-e9df3.firebaseapp.com",
+databaseURL: "https://recyle-e9df3.firebaseio.com",
+projectId: "recyle-e9df3",
+storageBucket: "recyle-e9df3.appspot.com",
+messagingSenderId: "309550820733"
+}
+
+firebase.initializeApp(firebaseConfig);
+
 
 interface AppProps {
   skipLoadingScreen: boolean;
