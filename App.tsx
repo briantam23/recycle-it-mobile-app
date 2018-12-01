@@ -6,9 +6,10 @@ import AppNavigator from './navigation/AppNavigator';
 import { Provider } from 'react-redux';
 import store from './store';
 import * as firebase from 'firebase';
+import { FIREBASE_API_KEY } from './apiKey';
 
 const firebaseConfig = {
-apiKey: "AIzaSyA2UjGQotY89lEL_PcNqsytbUuC1avu--s",
+apiKey: FIREBASE_API_KEY,
 authDomain: "recyle-e9df3.firebaseapp.com",
 databaseURL: "https://recyle-e9df3.firebaseio.com",
 projectId: "recyle-e9df3",
