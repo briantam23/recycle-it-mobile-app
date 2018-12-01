@@ -1,27 +1,58 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppRegistry, View, TextInput, Text} from 'react-native';
-import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
+import {FormLabel, FormInput, FormValidationMessage, Button, Form} from 'react-native-elements';
+import firebase from 'firebase';
 
 
 class SignUp extends Component {
+  constructor(props) {
+    super(props)
+    this.state=({
+      firstName:'',
+      lastName:'',
+      userName:'',
+      email:'',
+      password:''
+    })
+  }
+  signUp = (email,password) => {
+        try{
+          firebase.auth().createUserWithEmailAndPassword(email,password)
+        }
+        catch(error){
+          console.log(error.toString())
+        }
+      }
   render() {
     return (
-      <View>
+    <View>
       <FormLabel>First Name</FormLabel>
-      <FormInput/>
+      <FormInput
+      onChangeText={(firstName) => this.setState({firstName})}
+      />
       <FormLabel>Last Name</FormLabel>
-      <FormInput/>
+      <FormInput
+      onChangeText={(lastName) => this.setState({lastName})}
+      />
       <FormLabel>User Name</FormLabel>
-      <FormInput/>
+      <FormInput
+      onChangeText={(userName) => this.setState({userName})}
+      />
       <FormLabel>Email</FormLabel>
-      <FormInput/>
+      <FormInput
+        onChangeText={(email) => this.setState({email})}
+      />
       <FormLabel>Password</FormLabel>
-      <FormInput/>
+      <FormInput
+        onChangeText={(password) => this.setState({password})}
+      />
       <Button
         raised
         backgroundColor='#3E9428'
-        title='Sign Up' />
+        title='Sign Up'
+        onPress={() => this.signUp(this.state.email, this.state.password)}
+        />
       </View>
     )
   }

@@ -13,6 +13,7 @@ import DirectionsScreen from '../screens/DirectionsScreen';
 import PictureScreen from '../screens/PictureScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
+
 const HomeStack = createStackNavigator({ HomeScreen });
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -85,5 +86,5 @@ export default createBottomTabNavigator({
   MapStack,
   DirectionsStack,
   PictureStack,
-  LoginStack,
+  LoginStack
 });
