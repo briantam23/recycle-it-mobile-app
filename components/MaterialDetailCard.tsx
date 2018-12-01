@@ -7,10 +7,25 @@ import {
   TouchableOpacity,
   View,
   Linking,
+  Button,
 } from 'react-native';
 
-const MaterialDetailCard = ({ materials }) => {
-  const { description, image, long_description, url } = materials.materialDetails;
+import { api_key } from '../apiKey';
+import { findPlacesToRecycle } from '../store/where';
+
+const MaterialDetailCard = ({ materials, findPlacesToRecycle }) => {
+  const { description, image, long_description, url, material_id } = materials.materialDetails;
+  const { navigate } = this.props.navigation;
+
+
+  {/* Currently getting geolocation from PlacesToRecycle, but calling this card from home screen. TBD.
+      */}
+  const getLocationData = () => {
+    findPlacesToRecycle(api_key, geolocation, material_id, 5, 5)
+      .then(() => navigate('LocationsScreen')
+      )
+  }
+
   return (
     <View style={styles.imageContainer}>
       {
@@ -36,6 +51,11 @@ const MaterialDetailCard = ({ materials }) => {
         source={image}
         style={styles.materialImage}
       /> */}
+      <Button
+        onPress={() => getLocationData()}
+        title="Find Where to Recycle"
+        color='tomato'
+      />
     </View>
   )
 };
@@ -76,4 +96,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ materials }) => ({ materials });
 
-export default connect(mapStateToProps)(MaterialDetailCard);
+const mapDispatchToProps = dispatch => {
+  return {
+    findPlacesToRecycle: (api_key, geolocation, productInfo, maxDistance, maxResults) => dispatch(findPlacesToRecycle(api_key, geolocation, productInfo, maxDistance, maxResults)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MaterialDetailCard);
+
+

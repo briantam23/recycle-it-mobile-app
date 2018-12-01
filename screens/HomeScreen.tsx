@@ -21,22 +21,15 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
           <View style={styles.getStartedContainer}>
             <Image
               source={require('../images/recycle_heart_logo.png')}
               style={styles.welcomeImage}
             />
           </View>
-
           <View>
             <PlacesToRecycle />
           </View>
-
-          {/* <Button
-            title="Go to the Map"
-            onPress={() => this.props.navigation.navigate('MapScreen')}
-          /> */}
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>

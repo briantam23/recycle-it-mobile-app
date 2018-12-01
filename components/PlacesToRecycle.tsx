@@ -16,7 +16,6 @@ import { api_key } from '../apiKey';
 import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import FoundMaterialsCard from './FoundMaterialsCard';
-import RecPlacesCard from '../components/RecPlacesCard';
 
 interface Props {
   where?: object;
@@ -30,7 +29,8 @@ interface Props {
 interface State {
   geoLocation: object;
   materialSearch: string,
-  selectedMaterial: string,
+  maxDistance: number,
+  maxResults: number,
 };
 
 class PlacesToRecycle extends Component<Props, State> {
@@ -42,7 +42,8 @@ class PlacesToRecycle extends Component<Props, State> {
         longitude: '',
       },
       materialSearch: 'newspaper',
-      selectedMaterial: '',
+      maxDistance: 5,
+      maxResults: 5,
     };
   };
 
@@ -72,13 +73,11 @@ class PlacesToRecycle extends Component<Props, State> {
     this.props.searchMaterials(api_key, this.state.materialSearch)
       .then(() => console.log(this.props.foundMaterials))
       .then(() => this.props.getMaterialDetail(api_key, this.props.foundMaterials[0].material_id))
-    // .then(()=> this.setState({selectedMaterial: }))
-    // this.setState({ selectedMaterial: this.props.foundMaterials[0].material_id })
   };
 
   public render() {
     const { foundMaterials } = this.props;
-    const { materialSearch } = this.state;
+    const { materialSearch, maxDistance, maxResults } = this.state;
     const { handleMaterial, handlePicker, getData } = this;
     const materialDropdownSearch = foundMaterials.length >= 1;
     return (
@@ -119,6 +118,7 @@ class PlacesToRecycle extends Component<Props, State> {
 }
 
 const mapStateToProps = ({ where, materials }) => {
+  console.log(materials.foundMaterials, materials.materialDetails)
   return {
     where,
     foundMaterials: materials.foundMaterials,

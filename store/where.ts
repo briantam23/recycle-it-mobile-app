@@ -6,14 +6,13 @@ FETCHING DATA FROM EARTH911 API USING JSON
 4) METHOD: getLocationDetails - Expand on location details
 */
 import axios from 'axios';
-import { reducerLayout } from '.';
 const baseURL: string = 'http://api.earth911.com/earth911.';
 
 //ACTIONS
 const FIND_PLACES_TO_RECYCLE: string = 'FIND_PLACES_TO_RECYCLE';
 
 //ACTION CREATORS
-const _findPlacesToRecycle = (locations) => ({ type: FIND_PLACES_TO_RECYCLE, locations });
+const _findPlacesToRecycle = (locations: Object[]) => ({ type: FIND_PLACES_TO_RECYCLE, locations });
 
 //REDUCER
 const whereReducer = (state = [], action) => {
@@ -47,8 +46,8 @@ const searchLocations = (api_key: string, geolocation, materialId: string, maxDi
 */
 }
 
-export const findPlacesToRecycle = (api_key: string, geolocation: object, productInfo: string) => dispatch => {
-  return searchLocations(api_key, geolocation, productInfo)
+export const findPlacesToRecycle = (api_key: string, geolocation: object, productInfo: string, maxDistance: number, maxResults: number) => dispatch => {
+  return searchLocations(api_key, geolocation, productInfo, maxDistance, maxResults)
     .then(locations => dispatch(_findPlacesToRecycle(locations.result)))
 };
 
