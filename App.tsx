@@ -1,4 +1,5 @@
-import React from 'react'
+import * as React from 'react';
+import { Component } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
@@ -20,11 +21,11 @@ messagingSenderId: "309550820733"
 firebase.initializeApp(firebaseConfig);
 
 
-interface AppProps {
+interface AppState {
   skipLoadingScreen: boolean;
 }
 
-export class App extends React.Component<AppProps> {
+export class App extends Component<AppState> {
   state = {
     isLoadingComplete: false,
   };

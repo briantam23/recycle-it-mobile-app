@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import * as React from 'react';
+import {Component} from 'react';
 import {connect} from 'react-redux';
 import {AppRegistry, View, TextInput, Text} from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button, Form} from 'react-native-elements';

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
