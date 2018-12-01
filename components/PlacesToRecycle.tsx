@@ -29,7 +29,8 @@ interface Props {
 interface State {
   geoLocation: object;
   materialSearch: string,
-  selectedMaterial: string,
+  maxDistance: number,
+  maxResults: number,
 };
 
 class PlacesToRecycle extends Component<Props, State> {
@@ -41,7 +42,8 @@ class PlacesToRecycle extends Component<Props, State> {
         longitude: '',
       },
       materialSearch: 'newspaper',
-      selectedMaterial: '',
+      maxDistance: 5,
+      maxResults: 5,
     };
   };
 
@@ -75,7 +77,7 @@ class PlacesToRecycle extends Component<Props, State> {
 
   public render() {
     const { foundMaterials } = this.props;
-    const { materialSearch } = this.state;
+    const { materialSearch, maxDistance, maxResults } = this.state;
     const { handleMaterial, handlePicker, getData } = this;
     const materialDropdownSearch = foundMaterials.length >= 1;
     return (

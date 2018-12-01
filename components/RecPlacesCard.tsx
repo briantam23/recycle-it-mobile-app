@@ -8,6 +8,7 @@ import {
   View,
   Linking,
   FlatList,
+  Button,
 } from 'react-native';
 
 const RecPlacesCard = ({ where }) => {
@@ -30,6 +31,13 @@ const RecPlacesCard = ({ where }) => {
               <Text style={styles.item}>Latitude: {item.latitude}</Text>
               <Text style={styles.item}>Longitude: {item.longitude}</Text>
               <Text style={styles.item}>Municipal: {showMunicipal}</Text>
+
+              <Button
+                onPress={} //go to MapScreen => pass lat and long
+                title="Get Directions"
+                color='tomato'
+              />
+
               <View
                 style={{
                   borderBottomColor: 'black',

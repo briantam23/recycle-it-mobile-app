@@ -18,12 +18,13 @@ class LocationsScreen extends Component {
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View>
         <RecPlacesCard />
         <Button
           title="Go to the Map"
-          onPress={() => this.props.navigation.navigate('MapScreen')}
+          onPress={() => navigate('MapScreen')}
         />
       </View>
     )
