@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View, ActivityIndicator, ScrollView } from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  ScrollView,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
@@ -8,27 +14,30 @@ import { Button, Text, Card } from 'react-native-elements';
 import { Font } from 'expo';
 import PictureScreen from '../screens/PictureScreen';
 import { googleWhatDoYouSee } from '../store/what';
+import CameraComp from './CameraComp';
 
 interface Props {
   image: string;
   navigation: object;
-  googleWhatDoYouSee: any;
+  //googleWhatDoYouSee: any;
 }
 interface State {
-  label: string;
+  label: string[];
   loading: boolean;
   recycle: boolean;
   description: string;
+  name: string;
 }
 
-class Results extends Component<Props, State> {
+export default class Results extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
-      label: '',
+      label: [],
       loading: true,
       recycle: true,
       description: '',
+      name: '',
     };
     this.imageProp = this.imageProp.bind(this);
     this.redo = this.redo.bind(this);
@@ -44,6 +53,7 @@ class Results extends Component<Props, State> {
     this.imageProp();
   }
   public async isRecyclable(item) {
+    console.log(item);
     const response = await fetch(
       `http://api.earth911.com/earth911.searchMaterials?api_key=${api_key}&query=${item}`,
       {
@@ -56,9 +66,14 @@ class Results extends Component<Props, State> {
     );
     const parsed = await response.json();
     if (parsed.num_results === 0) {
-      return this.setState({ recycle: false, loading: false });
+      return this.setState({
+        recycle: false,
+        loading: false,
+        name: item[0],
+      });
     } else {
       const temp = parsed.result[0].material_id;
+      const name = parsed.result[0].description;
       console.log(temp);
       const second = await fetch(
         `http://api.earth911.com/earth911.getMaterials?api_key=${api_key}`,
@@ -75,7 +90,7 @@ class Results extends Component<Props, State> {
         return material.material_id === temp;
       });
       const final = result2.long_description;
-      this.setState({ description: final, loading: false });
+      this.setState({ description: final, loading: false, name: name });
     }
   }
   public async imageProp() {
@@ -88,34 +103,39 @@ class Results extends Component<Props, State> {
           features: [
             {
               type: 'LABEL_DETECTION',
-              maxResults: 1,
+              maxResults: 3,
             },
           ],
         },
       ],
     };
-    this.props.googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)
-    // const response = await fetch(
-    //   `https://vision.googleapis.com/v1/images:annotate?key=${CLOUD_VISION_API_KEY}`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'appliczation/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(body),
-    //   }
-    // );
-    // const parsed = await response.json();
-    // const result = parsed.responses[0].labelAnnotations[0].description;
-    // this.setState({ label: result });
-    // this.isRecyclable(result);
+    // this.props.googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)
+    const response = await fetch(
+      `https://vision.googleapis.com/v1/images:annotate?key=${CLOUD_VISION_API_KEY}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'appliczation/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    );
+    const parsed = await response.json();
+    console.log(parsed);
+    const resArr = [];
+    resArr.push(parsed.responses[0].labelAnnotations[0].description);
+    resArr.push(parsed.responses[0].labelAnnotations[1].description);
+    resArr.push(parsed.responses[0].labelAnnotations[2].description);
+    console.log(resArr);
+    this.setState({ label: resArr });
+    this.isRecyclable(resArr);
   }
   private redo() {
-    this.setState({ label: '' });
+    this.setState({ name: '' });
   }
   public render() {
-    const { label, recycle, description } = this.state;
+    const { label, recycle, description, name } = this.state;
     if (this.state.loading === true) {
       return (
         <View
@@ -127,17 +147,19 @@ class Results extends Component<Props, State> {
           }}
         >
           <Text h1>Loading...</Text>
+
           <ActivityIndicator color="#3E9428" size="large" />
+          <View />
         </View>
       );
     }
-    if (label === '') {
-      return <PictureScreen />;
+    if (name === '') {
+      return <CameraComp />;
     }
     if (recycle === false) {
       return (
         <ScrollView>
-          <Card title={label.toUpperCase()}>
+          <Card title={name.toUpperCase()}>
             <Text style={{ color: 'red', alignSelf: 'center' }} h2>
               No!
             </Text>
@@ -161,7 +183,7 @@ class Results extends Component<Props, State> {
 
     return (
       <ScrollView>
-        <Card title={label.toUpperCase()}>
+        <Card title={name.toUpperCase()}>
           <Text style={{ color: 'green', alignSelf: 'center' }} h2>
             Yes!
           </Text>
@@ -188,7 +210,7 @@ class Results extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = ({ what }) => {
+/*const mapStateToProps = ({ what }) => {
   console.log('HERE IS THE GOOGLE API RES OBJ--->', what)
   return {
     what
@@ -199,7 +221,16 @@ const mapDispatchToProps = dispatch => ({
   googleWhatDoYouSee: (CLOUD_VISION_API_KEY, body) => dispatch(googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)),
 });
 
+const styles = StyleSheet.create({
+  heartLogo: {
+    padding: 0,
+    margin: 30,
+    width: 100,
+    height: 90,
+  },
+});
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Results);
+)(Results);*/

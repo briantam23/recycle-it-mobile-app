@@ -9,6 +9,17 @@ const GOOGLE_MATERIAL: string = 'GOOGLE_MATERIAL';
 
 const _googleWhatDoYouSee = (materials: object) => ({ type: GOOGLE_MATERIAL, materials });
 
+// const initialState = {
+//   responses: [{
+//     labelAnnotations: [{
+//       description: "cat",
+//       mid: "/m/01yrx",
+//       score: 0.9918305,
+//       topicality: 0.9918305
+//     }]
+//   }]
+// }
+
 const whatReducer = (state = [], action) => {
   switch (action.type) {
     case GOOGLE_MATERIAL:

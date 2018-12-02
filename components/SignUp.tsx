@@ -7,6 +7,7 @@ import firebase from '../firebase';
 
 const db = firebase.firestore();
 
+const myUsers = db.collection('User');
 
 class SignUp extends Component {
   constructor(props) {
@@ -17,16 +18,18 @@ class SignUp extends Component {
       password:'',
       points: 0,
       loggedIn:false,
+      uid:''
     }
   }
   signUp = (email,password,userName) => {
         try{
           firebase.auth().createUserWithEmailAndPassword(email,password)
-          .then(user => db.collection("User").add({
+          .then(user => db.collection("User").doc(user.user.uid).set({
              userName:userName,
              email:email,
              password:password,
-             id:`${user.user.uid}`
+             id:`${user.user.uid}`,
+             points:0
             }));
           this.clear();
         }
@@ -61,7 +64,21 @@ class SignUp extends Component {
   }
 
   logIn=(email,password) => {
-    firebase.auth.signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(user => db.collection('User').doc(user.user.uid))
+    .then(query => query.get())
+    .then(found => found.data())
+    .then(data => {
+      this.setState({
+        userName:data.userName,
+        email:data.email,
+        points:data.points,
+        loggedIn:true
+      })
+    })
+    .catch(function(error) {
+      console.log("Error getting documents: ", error);
+    })
   }
 
   render() {
@@ -76,11 +93,13 @@ class SignUp extends Component {
         />
         <FormLabel>Email</FormLabel>
         <FormInput
+
           onChangeText={(email) => this.setState({email})}
           ref={inputTwo => this.inputTwo = inputTwo}
         />
         <FormLabel>Password</FormLabel>
         <FormInput
+          secureTextEntry
           onChangeText={(password) => this.setState({password})}
           ref={inputThree => this.inputThree = inputThree}
           secureTextEntry
