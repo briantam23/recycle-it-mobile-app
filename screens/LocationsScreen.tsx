@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
@@ -7,9 +8,11 @@ import {
   Image,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { View, Button } from 'react-native';
 
 import { getLocationDetails } from '../store/where';
 import RecPlacesCard from '../components/RecPlacesCard';
+import { ObjectLiteralElement } from 'typescript';
 
 interface Props {
   navigation: any;
@@ -18,6 +21,45 @@ interface Props {
 };
 
 class LocationsScreen extends Component<Props> {
+
+  const where = [
+  {
+    latlng: {
+      latitude: 40.7484,
+      longitude: -73.9857
+    },
+    title: 'Empire State Building',
+    description: 'Very Tall Building!',
+    curbside: 'Yes',
+    municipal: 'Yes',
+    location_id: 1,
+    distance: '.5 mile',
+    latitude: 40.7484,
+    longitude: -73.9857,
+    avatar_url: 'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg'
+  },
+  {
+    latlng: {
+      latitude: 40.7056,
+      longitude: -74.0027
+    },
+    title: 'South Street Seaport',
+    description: 'Lots of Fish!!',
+    curbside: 'No',
+    municipal: 'No',
+    location_id: 2,
+    distance: '.75 mile',
+    latitude: 40.7056,
+    longitude: -74.0027,
+    avatar_url: 'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg'
+  }
+]
+
+interface LocationsScreenProps {
+  navigation: Function;
+}
+
+class LocationsScreen extends Component <LocationsScreenProps> {
   static navigationOptions = {
     title: `Places to Recycle Near Me`,
     headerStyle: {
@@ -42,7 +84,12 @@ class LocationsScreen extends Component<Props> {
               />
             </View>
         }
-        <RecPlacesCard />
+//         <RecPlacesCard />
+//         <RecPlacesCard where={ where } />
+//         <Button
+//           title="View Map"
+//           onPress={() => navigate('MapScreen')}
+//         />
       </View>
     )
   }

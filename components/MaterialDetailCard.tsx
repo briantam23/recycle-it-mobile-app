@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import {Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Image,
@@ -39,6 +40,7 @@ class MaterialDetailCard extends Component<Props, State>{
       maxResults: 5,
     };
   };
+  
   public componentDidMount() { this.getGeoLocation() };
   public getGeoLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {

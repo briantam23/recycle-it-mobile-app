@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Platform } from 'react-native';
 import {
   createStackNavigator,
@@ -9,7 +9,6 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MapScreen from '../screens/MapScreen';
-import DirectionsScreen from '../screens/DirectionsScreen';
 import PictureScreen from '../screens/PictureScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
@@ -96,5 +95,6 @@ export default createBottomTabNavigator({
   HomeStack,
   MapStack,
   LocationsStack,
+  PictureStack,
   LoginStack
 });

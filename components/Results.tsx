@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Component } from 'react';
 import { View, ActivityIndicator, ScrollView, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
