@@ -19,8 +19,8 @@ export default class Map extends Component <MapProps, MapState> {
     super(props);
     this.state = {
       region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 40.7308,
+        longitude: -73.9973,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       }
@@ -30,10 +30,13 @@ export default class Map extends Component <MapProps, MapState> {
   render() {
     return (
       <MapView
-        style={{ flex: 1 }}
-        apikey={ GOOGLE_MAPS_API_KEY }
-        provider="google"
-        region={ this.state.region }
+        style = {{ flex: 1 }}
+        apikey = { GOOGLE_MAPS_API_KEY }
+        provider = "google"
+        region = { this.state.region }
+        showsUserLocation = { true }
+        followsUserLocation = { true }
+        showsMyLocationButton = { true }
       >
       {
         this.props.markers.map((marker, idx) => (

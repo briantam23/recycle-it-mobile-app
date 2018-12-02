@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
 import Map from './Map';
+import DirectionsScreen from './DirectionsScreen';
 import { connect } from 'react-redux';
 
 
 const markers = [
   {
     latlng: {
-      latitude: 37.78825,
-      longitude: -122.4324
+      latitude: 40.7484,
+      longitude: -73.9857
     },
-    title: 'sample-SF1',
-    description: 'sample-SanFran1'
+    title: 'Empire State Building',
+    description: 'Very Tall Building!',
+    directions: <a>Directions</a>
   },
   {
     latlng: {
-      latitude: 37.78825,
-      longitude: -122.4369
+      latitude: 40.7056,
+      longitude: -74.0027
     },
-    title: 'sample-SF2',
-    description: 'sample-SanFran2'
+    title: 'South Street Seaport',
+    description: 'Lots of Fish!!'
   }
 ]
 
@@ -28,7 +30,7 @@ export default class MapScreen extends Component {
   
   render() {
     return (
-      <Map markers={ markers } />
+      <Map markers={ markers } /> //onMarkerPress
     );
   }
 };
