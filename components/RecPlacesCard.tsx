@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { List, ListItem, Avatar } from 'react-native-elements';

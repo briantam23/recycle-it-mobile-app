@@ -10,22 +10,28 @@
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
   "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
+    "preset": "jest-expo",
     "transform": {
-      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+      "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "testPathIgnorePatterns": [
-      "\\.snap$",
-      "<rootDir>/node_modules/"
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)+(spec|test).ts?(x)"
     ],
-    "cacheDirectory": ".jest/cache"
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false,
+        "tsConfig": {
+          "jsx": "react"
+        }
+      }
+    }
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
@@ -34,9 +40,9 @@
     "axios": "^0.18.0",
     "expo": "^31.0.5",
     "expo-cli": "^2.4.3",
+    "firebase": "^5.6.0",
     "grpc": "^1.17.0-pre1",
     "react": "16.5.0",
-    "firebase": "^5.6.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-elements": "^0.19.1",
     "react-native-firebase": "^5.1.0",
@@ -53,12 +59,12 @@
     "@types/expo": "^30.0.1",
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.9",
-    "@types/react": "^16.7.6",
+    "@types/react": "^15.0.24",
     "@types/react-native": "^0.57.10",
     "@types/react-navigation": "^2.13.2",
     "@types/react-redux": "^6.0.9",
-    "@types/redux-logger": "^3.0.6",
     "@types/react-test-renderer": "^16.0.3",
+    "@types/redux-logger": "^3.0.6",
     "babel-preset-expo": "^5.0.0",
     "jest-expo": "^31.0.0",
     "react-native-typescript-transformer": "^1.2.10",

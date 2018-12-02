@@ -1,7 +1,13 @@
 import 'react-native';
-import React from 'react';
+
+import * as React from 'react';
 import App from '../App';
-import renderer from 'react-test-renderer';
+import { Provider } from 'react-redux';
+import store from '../store/index';
+import HomeScreen from '../screens/HomeScreen';
+import LoginScreen from '../screens/LoginScreen';
+import * as renderer from 'react-test-renderer';
+
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
 
 
@@ -20,4 +26,20 @@ describe('App snapshot', () => {
     const tree = renderer.create(<App skipLoadingScreen />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+  it('renders the home screen', async () => {
+    const tree = renderer.create(
+      <Provider store={ store }>
+        <HomeScreen />
+      </Provider>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  it('renders the map screen', async () => {
+    const tree = renderer.create(
+      <Provider store={ store }>
+        <LoginScreen />
+      </Provider>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  })
 });
