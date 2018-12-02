@@ -1,4 +1,5 @@
-import React from 'react'
+import * as React from 'react';
+import { Component } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
@@ -6,11 +7,11 @@ import AppNavigator from './navigation/AppNavigator';
 import { Provider } from 'react-redux';
 import store from './store';
 
-interface AppProps {
+interface AppState {
   skipLoadingScreen: boolean;
 }
 
-export class App extends React.Component<AppProps> {
+export class App extends Component<AppState> {
   state = {
     isLoadingComplete: false,
   };
