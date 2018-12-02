@@ -10,7 +10,7 @@ import {
   Button,
 } from 'react-native';
 
-import { RecPlacesCard } from '../components/RecPlacesCard';
+import RecPlacesCard from '../components/RecPlacesCard';
 
 const where = [
   {
