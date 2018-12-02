@@ -12,7 +12,6 @@ import MapScreen from '../screens/MapScreen';
 import PictureScreen from '../screens/PictureScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
-
 const HomeStack = createStackNavigator({ HomeScreen }, {
   headerLayoutPreset: 'center',
 });
@@ -39,18 +38,18 @@ MapStack.navigationOptions = {
   ),
 };
 
-const DirectionsStack = createStackNavigator({ DirectionsScreen }, {
-  headerLayoutPreset: 'center',
-});
-DirectionsStack.navigationOptions = {
-  tabBarLabel: 'Directions',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
+// const DirectionsStack = createStackNavigator({ DirectionsScreen }, {
+//   headerLayoutPreset: 'center',
+// });
+// DirectionsStack.navigationOptions = {
+//   tabBarLabel: 'Directions',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+//     />
+//   ),
+// };
 
 const PictureStack = createStackNavigator({ PictureScreen }, {
   headerLayoutPreset: 'center',
@@ -93,8 +92,7 @@ LocationsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  MapStack,
   LocationsStack,
-  PictureStack,
+  MapStack,
   LoginStack
 });
