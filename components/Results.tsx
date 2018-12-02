@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { View, ActivityIndicator, ScrollView } from 'react-native';
+import { View, ActivityIndicator, ScrollView, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
@@ -127,13 +127,16 @@ class Results extends Component<Props, State> {
           }}
         >
           <Text h1>Loading...</Text>
+
           <ActivityIndicator color="#3E9428" size="large" />
+          <View>
+          </View>
         </View>
       );
     }
-    if (label === '') {
-      return <PictureScreen />;
-    }
+    // if (label === '') {
+    //   return <PictureScreen />;
+    // }
     if (recycle === false) {
       return (
         <ScrollView>
@@ -197,6 +200,15 @@ const mapStateToProps = ({ what }) => {
 
 const mapDispatchToProps = dispatch => ({
   googleWhatDoYouSee: (CLOUD_VISION_API_KEY, body) => dispatch(googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)),
+});
+
+const styles = StyleSheet.create({
+  heartLogo: {
+    padding: 0,
+    margin: 30,
+    width: 100,
+    height: 90,
+  },
 });
 
 export default connect(

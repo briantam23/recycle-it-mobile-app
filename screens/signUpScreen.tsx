@@ -4,7 +4,12 @@ import SignUp from '../components/SignUp';
 
 export default class signUpScreen extends React.Component {
   static navigationOptions = {
-    title: 'Sign Up',
+    title: 'MyProfile',
+    headerStyle: {
+      backgroundColor: '#518e30',
+      marginBottom: 0,
+    },
+    headerTintColor: "white",
   };
 
   render() {

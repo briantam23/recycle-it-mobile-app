@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Image,
@@ -9,55 +9,88 @@ import {
   Linking,
   Button,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
+
 
 import { api_key } from '../apiKey';
 import { findPlacesToRecycle } from '../store/where';
 
-const MaterialDetailCard = ({ materials, findPlacesToRecycle }) => {
-  const { description, image, long_description, url, material_id } = materials.materialDetails;
-  const { navigate } = this.props.navigation;
+interface Props {
+  materialDetails: object;
+  findPlacesToRecycle: any;
+  navigation: any;
+};
 
+interface State {
+  geoLocation: object;
+  maxDistance: number;
+  maxResults: number;
+};
 
-  {/* Currently getting geolocation from PlacesToRecycle, but calling this card from home screen. TBD.
-      */}
-  const getLocationData = () => {
-    findPlacesToRecycle(api_key, geolocation, material_id, 5, 5)
-      .then(() => navigate('LocationsScreen')
-      )
-  }
+class MaterialDetailCard extends Component<Props, State>{
+  constructor(props: Props, context?: any) {
+    super(props);
+    this.state = {
+      geoLocation: {
+        latitude: '',
+        longitude: '',
+      },
+      maxDistance: 5,
+      maxResults: 5,
+    };
+  };
+  public componentDidMount() { this.getGeoLocation() };
+  public getGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        geoLocation: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        },
+      });
+    });
+  };
 
-  return (
-    <View style={styles.imageContainer}>
-      {
-        description &&
-        <Text style={styles.header}>
-          Recyclable!
+  public getLocationData = (material_id) => {
+    this.props.findPlacesToRecycle(api_key, this.state.geoLocation, material_id, 5, 5)
+      .then(() => this.props.navigation.navigate('LocationsScreen'))
+  };
+
+  public render() {
+    const { description, image, long_description, url, material_id } = this.props.materialDetails;
+    return (
+      <View style={styles.imageContainer}>
+        {
+          description &&
+          <Text style={styles.header}>
+            It's Recyclable!
        </Text>
-      }
-      <Text style={styles.textHeader}>
-        {description}
-      </Text>
-      <Text style={styles.textArea}>
-        {long_description}
-      </Text>
-      <Text style={styles.textArea}>
-        {url &&
-          <TouchableOpacity >
-            {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
-          </TouchableOpacity>
         }
-      </Text>
-      {/* <Image
+        <Text style={styles.textHeader}>
+          {description}
+        </Text>
+        <Text style={styles.textArea}>
+          {long_description}
+        </Text>
+        <Text style={styles.textArea}>
+          {url &&
+            <TouchableOpacity >
+              {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
+            </TouchableOpacity>
+          }
+        </Text>
+        {/* <Image
         source={image}
         style={styles.materialImage}
       /> */}
-      <Button
-        onPress={() => getLocationData()}
-        title="Find Where to Recycle"
-        color='tomato'
-      />
-    </View>
-  )
+        {description && <Button
+          onPress={() => this.getLocationData(material_id)}
+          title="Find Where to Recycle"
+          color='#30518e'
+        />}
+      </View>
+    )
+  };
 };
 
 const styles = StyleSheet.create({
@@ -71,7 +104,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
-    backgroundColor: 'green',
+    backgroundColor: '#518e30',
     width: '100%',
     height: '100%',
     padding: 10,
@@ -94,7 +127,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ materials }) => ({ materials });
+const mapStateToProps = ({ materials }) => ({
+  materialDetails: materials.materialDetails,
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -102,6 +137,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MaterialDetailCard);
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(MaterialDetailCard));
 
 

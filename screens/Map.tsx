@@ -12,8 +12,17 @@ interface MapState {
   region: object;
 }
 
-export default class Map extends Component <MapProps, MapState> {
-  static navigationOptions = { title: 'List of Recycling Locations' };
+export default class Map extends Component<MapProps, MapState> {
+  static navigationOptions = {
+    title: 'List of Recycling Locations',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: "white",
+    headerTitleStyle: {
+      fontSize: 35,
+    },
+  };
 
   constructor(props) {
     super(props);
@@ -26,25 +35,25 @@ export default class Map extends Component <MapProps, MapState> {
       }
     }
   }
-  
+
   render() {
     return (
       <MapView
         style={{ flex: 1 }}
-        apikey={ GOOGLE_MAPS_API_KEY }
+        apikey={GOOGLE_MAPS_API_KEY}
         provider="google"
-        region={ this.state.region }
+        region={this.state.region}
       >
-      {
-        this.props.markers.map((marker, idx) => (
+        {
+          this.props.markers.map((marker, idx) => (
             <Marker
-                key={ idx }
-                coordinate={ marker.latlng }
-                title={ marker.title }
-                description={ marker.description }
+              key={idx}
+              coordinate={marker.latlng}
+              title={marker.title}
+              description={marker.description}
             />
-        ))
-      }
+          ))
+        }
       </MapView>
     )
   }

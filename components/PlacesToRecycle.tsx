@@ -1,62 +1,33 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Platform,
   StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
   Button,
-  FlatList,
   TextInput,
-  Picker,
+  Image,
 } from 'react-native';
 
 import { api_key } from '../apiKey';
-import { findPlacesToRecycle, getLocationDetails } from '../store/where';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
-import FoundMaterialsCard from './FoundMaterialsCard';
 
 interface Props {
-  where?: object;
   foundMaterials?: object[];
   materialDetails?: object;
   getMaterialDetail: any;
-  findPlacesToRecycle: any;
   searchMaterials: any;
 };
 
 interface State {
-  geoLocation: object;
-  materialSearch: string,
-  maxDistance: number,
-  maxResults: number,
+  materialSearch: string;
 };
 
 class PlacesToRecycle extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props);
     this.state = {
-      geoLocation: {
-        latitude: '',
-        longitude: '',
-      },
-      materialSearch: 'newspaper',
-      maxDistance: 5,
-      maxResults: 5,
+      materialSearch: 'NEWSPAPER',
     };
-  };
-
-  public componentDidMount() { this.getGeoLocation() };
-  public getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({
-        geoLocation: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        },
-      });
-    });
   };
 
   public handleMaterial = (material: string) => {
@@ -77,73 +48,57 @@ class PlacesToRecycle extends Component<Props, State> {
 
   public render() {
     const { foundMaterials } = this.props;
-    const { materialSearch, maxDistance, maxResults } = this.state;
-    const { handleMaterial, handlePicker, getData } = this;
-    const materialDropdownSearch = foundMaterials.length >= 1;
+    const { handleMaterial, getData } = this;
     return (
       <View style={styles.container}>
-        <TextInput style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="newspaper"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={handleMaterial} />
-        <Button
-          onPress={() => getData()}
-          title="Search Material"
-          color='tomato'
-        />
-
+        <View style={styles.inputContainer}>
+          <Image
+            style={styles.searchIcon}
+            source={require('../images/green-search-icon.png')}
+          />
+          <TextInput style={styles.input}
+            underlineColorAndroid="transparent"
+            placeholder="NEWSPAPER"
+            placeholderTextColor="#9a73ef"
+            autoCapitalize="characters"
+            onChangeText={handleMaterial} />
+        </View>
         <View>
-          <Picker
-            enabled={materialDropdownSearch}
-            selectedValue={materialSearch}
-            onValueChange={handlePicker}
-          >
-            {
-              foundMaterials.map(material => {
-                return <Picker.Item
-                  label={material.description}
-                  value={material}
-                  key={material.material_id}
-                />
-              })
-            }
-          </Picker>
-          <Text style={styles.picker}>{materialSearch}</Text>
+          <Button
+            onPress={() => getData()}
+            title="Search Material"
+            color='#30518e' />
         </View>
       </View>
     );
-  }
-}
+  };
+};
 
-const mapStateToProps = ({ where, materials }) => {
-  console.log(materials.foundMaterials, materials.materialDetails)
+const mapStateToProps = ({ materials }) => {
   return {
-    where,
     foundMaterials: materials.foundMaterials,
     materialDetails: materials.materialDetails,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  findPlacesToRecycle: (api_key, geolocation, productInfo) => dispatch(findPlacesToRecycle(api_key, geolocation, productInfo)),
-  getLocationDetails: (api_key, location) => dispatch(getLocationDetails(api_key, location)),
   searchMaterials: (api_key, materialSearch) => dispatch(searchMaterials(api_key, materialSearch)),
   getMaterialDetail: (api_key, material) => dispatch(getMaterialDetail(api_key, material)),
 });
 
 const styles = StyleSheet.create({
-  image: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
   container: {
     alignItems: 'center',
-    marginHorizontal: 50,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  searchIcon: {
+    padding: 0,
+    margin: 0,
+    width: 70,
+    height: 70,
   },
   text: {
     fontSize: 17,
@@ -158,11 +113,12 @@ const styles = StyleSheet.create({
   },
   input: {
     margin: 15,
-    height: 40,
-    width: '100%',
-    borderColor: '#7a42f4',
+    height: 50,
+    width: '60%',
+    borderColor: '#518e30',
     borderWidth: 1,
     textAlign: 'center',
+    fontSize: 22
   },
   materialImage: {
     width: 100,

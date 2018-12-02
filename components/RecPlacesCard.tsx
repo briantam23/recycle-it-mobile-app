@@ -31,28 +31,25 @@ const RecPlacesCard = ({ where }) => {
               <Text style={styles.item}>Latitude: {item.latitude}</Text>
               <Text style={styles.item}>Longitude: {item.longitude}</Text>
               <Text style={styles.item}>Municipal: {showMunicipal}</Text>
-
-              <Button
-                onPress={} //go to MapScreen => pass lat and long
-                title="Get Directions"
-                color='tomato'
-              />
-
               <View
                 style={{
                   borderBottomColor: 'black',
                   borderBottomWidth: 1,
-                }}
-              />
+                }} />
             </View>
           )
         }}
       />
     </View>
   )
-}
+};
 
-const mapStateToProps = ({ where }) => ({ where });
+const mapStateToProps = ({ where }) => {
+  console.log('HERE IS WHERE', where)
+  return {
+    where,
+  };
+};
 
 const styles = StyleSheet.create({
   item: {

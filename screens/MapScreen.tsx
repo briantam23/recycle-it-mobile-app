@@ -24,11 +24,18 @@ const markers = [
 ]
 
 export default class MapScreen extends Component {
-  static navigationOptions = { title: 'List of Recycling Locations' };
-  
+  static navigationOptions = {
+    title: 'List of Recycling Locations',
+    headerStyle: {
+      backgroundColor: '#518e30',
+      marginBottom: 0,
+    },
+    headerTintColor: "white",
+  };
+
   render() {
     return (
-      <Map markers={ markers } />
+      <Map markers={markers} />
     );
   }
 };
@@ -41,10 +48,10 @@ const styles = StyleSheet.create({
   },
 });
 
-/* const mapStateToProps = ({ where }) => { 
+/* const mapStateToProps = ({ where }) => {
   let region = {};
   return {
-    where: region 
+    where: region
   }
 }
 

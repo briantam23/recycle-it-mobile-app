@@ -12,23 +12,34 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import PlacesToRecycle from '../components/PlacesToRecycle';
+import Outcome from '../components/Outcome';
+import CameraComp from '../components/CameraComp';
 import MaterialDetailCard from '../components/MaterialDetailCard';
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = { title: 'Recycle It!' };
+  static navigationOptions = {
+    title: 'Recycle It!',
+    headerStyle: {
+      backgroundColor: '#518e30',
+      marginBottom: 0,
+    },
+    headerTintColor: "white",
+    headerTitleStyle: {
+      fontSize: 35,
+    },
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.getStartedContainer}>
-            <Image
-              source={require('../images/recycle_heart_logo.png')}
-              style={styles.welcomeImage}
-            />
-          </View>
+
           <View>
-            <PlacesToRecycle />
+            <CameraComp />
+          </View>
+
+          <View>
+            <Outcome />
           </View>
         </ScrollView>
 
@@ -44,14 +55,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    margin: 0,
+    padding: 0,
   },
   contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    paddingTop: 0,
   },
   welcomeImage: {
     width: 100,
@@ -98,11 +106,7 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     textAlign: 'center',
   },
-  navigationFilename: {
-    marginTop: 5,
-  },
   helpContainer: {
-    marginTop: 15,
     alignItems: 'center',
   },
   helpLink: {
