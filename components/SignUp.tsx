@@ -20,33 +20,55 @@ class SignUp extends Component {
   signUp = (email,password) => {
         try{
           firebase.auth().createUserWithEmailAndPassword(email,password)
+          this.clear();
         }
         catch(error){
           console.log(error.toString())
         }
       }
+
+  clear = ()=> {
+    this.inputOne.clearText();
+    this.inputTwo.clearText();
+    this.inputThree.clearText();
+    this.inputFour.clearText();
+    this.input.clearText();
+    this.setState({
+      firstName:'',
+      lastName:'',
+      userName:'',
+      email:'',
+      password:''
+    })
+  }
+
   render() {
     return (
-    <View>
+    <View id='form'>
       <FormLabel>First Name</FormLabel>
       <FormInput
       onChangeText={(firstName) => this.setState({firstName})}
+      ref={inputOne => this.inputOne = inputOne}
       />
       <FormLabel>Last Name</FormLabel>
       <FormInput
       onChangeText={(lastName) => this.setState({lastName})}
+      ref={inputTwo => this.inputTwo = inputTwo}
       />
       <FormLabel>User Name</FormLabel>
       <FormInput
       onChangeText={(userName) => this.setState({userName})}
+      ref={inputThree => this.inputThree = inputThree}
       />
       <FormLabel>Email</FormLabel>
       <FormInput
         onChangeText={(email) => this.setState({email})}
+        ref={inputFour => this.inputFour = inputFour}
       />
       <FormLabel>Password</FormLabel>
       <FormInput
         onChangeText={(password) => this.setState({password})}
+        ref={input => this.input = input}
       />
       <Button
         raised
