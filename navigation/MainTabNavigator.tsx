@@ -9,7 +9,6 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MapScreen from '../screens/MapScreen';
-import DirectionsScreen from '../screens/DirectionsScreen';
 import PictureScreen from '../screens/PictureScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
@@ -32,17 +31,6 @@ MapStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
-    />
-  ),
-};
-
-const DirectionsStack = createStackNavigator({ DirectionsScreen });
-DirectionsStack.navigationOptions = {
-  tabBarLabel: 'Directions',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
     />
   ),
 };
@@ -84,7 +72,6 @@ export default createBottomTabNavigator({
   HomeStack,
   LocationsStack,
   MapStack,
-  DirectionsStack,
   PictureStack,
   LoginStack
 });

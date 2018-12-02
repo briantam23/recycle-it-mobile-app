@@ -8,19 +8,25 @@ import { connect } from 'react-redux';
 const markers = [
   {
     latlng: {
-      latitude: 37.78825,
-      longitude: -122.4324
+      latitude: 40.7484,
+      longitude: -73.9857
     },
-    title: 'sample-SF1',
-    description: 'sample-SanFran1'
+    title: 'Empire State Building',
+    description: 'Very Tall Building!',
+    distance: '.5 mile',
+    curbside: 'Yes',
+    municipal: 'Yes'
   },
   {
     latlng: {
-      latitude: 37.78825,
-      longitude: -122.4369
+      latitude: 40.7056,
+      longitude: -74.0027
     },
-    title: 'sample-SF2',
-    description: 'sample-SanFran2'
+    title: 'South Street Seaport',
+    description: 'Lots of Fish!!',
+    distance: '.75 mile',
+    curbside: 'No',
+    municipal: 'No',
   }
 ]
 
