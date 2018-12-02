@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 6142,
+  "expoServerNgrokUrl": "https://57-vym.anonymous.recycle.exp.direct",
+  "packagerNgrokUrl": "https://packager.57-vym.anonymous.recycle.exp.direct",
+  "ngrokPid": 6159
 }

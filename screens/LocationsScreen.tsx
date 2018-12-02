@@ -14,11 +14,12 @@ import RecPlacesCard from '../components/RecPlacesCard';
 interface Props {
   navigation: any;
   where: any;
+  description?: any;
 };
 
 class LocationsScreen extends Component<Props> {
   static navigationOptions = {
-    title: 'Places to Recycle ___ Near Me',
+    title: `Places to Recycle Near Me`,
     headerStyle: {
       backgroundColor: '#518e30',
     },
@@ -47,17 +48,19 @@ class LocationsScreen extends Component<Props> {
   }
 };
 
-const mapStateToProps = ({ where }) => {
-  console.log('THIS IS FROM THE LOCATIONS SCREEN', where)
+const mapStateToProps = ({ where, materials }) => {
+  console.log('THIS IS FROM THE LOCATIONS SCREEN', where, materials.materialDetails.description)
+  const description = materials.materialDetails.description || '';
+
   return {
     where,
+    description,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   getLocationDetails: (api_key, location) => dispatch(getLocationDetails(api_key, location)),
 });
-
 
 const styles = StyleSheet.create({
   heartContainer: {

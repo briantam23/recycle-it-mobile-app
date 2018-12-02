@@ -33,18 +33,18 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
           <View>
             <CameraComp />
           </View>
-
           <View>
             <Outcome />
           </View>
+          <View>
+            <MaterialDetailCard />
+          </View>
         </ScrollView>
-
         <View style={styles.tabBarInfoContainer}>
-          <MaterialDetailCard />
+          <Text style={styles.tabBarInfoText}>Pro Tip #1: Recycling is good for you and the planet!</Text>
         </View>
       </View>
     );
@@ -98,12 +98,12 @@ const styles = StyleSheet.create({
       },
     }),
     alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    backgroundColor: '#30518e',
+    paddingVertical: 10,
   },
   tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
+    fontSize: 12,
+    color: 'white',
     textAlign: 'center',
   },
   helpContainer: {

@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: 'center',
-    marginHorizontal: 50,
     backgroundColor: '#518e30',
     width: '100%',
     height: '100%',
