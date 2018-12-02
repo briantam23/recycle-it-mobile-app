@@ -5,7 +5,7 @@ import Map from './Map';
 import { connect } from 'react-redux';
 
 
-export default class MapScreen extends Component {
+class MapScreen extends Component {
   static navigationOptions = {
     title: 'List of Recycling Locations',
     headerStyle: {
@@ -16,6 +16,7 @@ export default class MapScreen extends Component {
   };
 
   render() {
+    const { markers } = this.props;
     return (
       <Map markers={markers} />
     );
@@ -30,11 +31,8 @@ const styles = StyleSheet.create({
   },
 });
 
-/* const mapStateToProps = ({ where }) => {
-  let region = {};
-  return {
-    where: region
-  }
+const mapStateToProps = ({ where }) => {
+  return { markers: where };
 }
 
-connect(mapStateToProps)(Map); */
+export default connect(mapStateToProps)(MapScreen);
