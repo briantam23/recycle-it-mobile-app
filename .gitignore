@@ -12,3 +12,4 @@ life.goals
 .expo/*
 .jest
 .expo
+dist
