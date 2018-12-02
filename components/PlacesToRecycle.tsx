@@ -34,12 +34,6 @@ class PlacesToRecycle extends Component<Props, State> {
     this.setState({ materialSearch: material })
   };
 
-  public handlePicker = (material: object) => {
-    this.props.getMaterialDetail(api_key, material.material_id)
-      .then(() => this.setState({ materialSearch: material.description })
-      )
-  };
-
   public getData = () => {
     this.props.searchMaterials(api_key, this.state.materialSearch)
       .then(() => console.log(this.props.foundMaterials))
@@ -47,15 +41,13 @@ class PlacesToRecycle extends Component<Props, State> {
   };
 
   public render() {
-    const { foundMaterials } = this.props;
     const { handleMaterial, getData } = this;
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <Image
             style={styles.searchIcon}
-            source={require('../images/green-search-icon.png')}
-          />
+            source={require('../images/green-search-icon.png')} />
           <TextInput style={styles.input}
             underlineColorAndroid="transparent"
             placeholder="NEWSPAPER"

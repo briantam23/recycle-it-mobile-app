@@ -79,6 +79,7 @@ class CameraComp extends Component<Props, State> {
         base64: true,
       });
       if (image.cancelled === false) {
+        console.log(Object.keys(image));
         this.setState({ image: image.base64, loading: false });
       }
     }

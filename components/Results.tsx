@@ -8,11 +8,12 @@ import { Button, Text, Card } from 'react-native-elements';
 import { Font } from 'expo';
 import PictureScreen from '../screens/PictureScreen';
 import { googleWhatDoYouSee } from '../store/what';
+import CameraComp from './CameraComp';
 
 interface Props {
   image: string;
   navigation: object;
-  googleWhatDoYouSee: any;
+  //googleWhatDoYouSee: any;
 }
 interface State {
   label: string;
@@ -21,7 +22,7 @@ interface State {
   description: string;
 }
 
-class Results extends Component<Props, State> {
+export default class Results extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
@@ -88,28 +89,29 @@ class Results extends Component<Props, State> {
           features: [
             {
               type: 'LABEL_DETECTION',
-              maxResults: 1,
+              maxResults: 3,
             },
           ],
         },
       ],
     };
-    this.props.googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)
-    // const response = await fetch(
-    //   `https://vision.googleapis.com/v1/images:annotate?key=${CLOUD_VISION_API_KEY}`,
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'appliczation/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(body),
-    //   }
-    // );
-    // const parsed = await response.json();
-    // const result = parsed.responses[0].labelAnnotations[0].description;
-    // this.setState({ label: result });
-    // this.isRecyclable(result);
+    // this.props.googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)
+    const response = await fetch(
+      `https://vision.googleapis.com/v1/images:annotate?key=${CLOUD_VISION_API_KEY}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'appliczation/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    );
+    const parsed = await response.json();
+    console.log(parsed)
+    const result = parsed.responses[0].labelAnnotations[0].description;
+    this.setState({ label: result });
+    this.isRecyclable(result);
   }
   private redo() {
     this.setState({ label: '' });
@@ -134,9 +136,9 @@ class Results extends Component<Props, State> {
         </View>
       );
     }
-    // if (label === '') {
-    //   return <PictureScreen />;
-    // }
+    if (label === '') {
+      return <CameraComp />;
+    }
     if (recycle === false) {
       return (
         <ScrollView>
@@ -191,7 +193,7 @@ class Results extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = ({ what }) => {
+/*const mapStateToProps = ({ what }) => {
   console.log('HERE IS THE GOOGLE API RES OBJ--->', what)
   return {
     what
@@ -214,4 +216,4 @@ const styles = StyleSheet.create({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Results);
+)(Results);*/

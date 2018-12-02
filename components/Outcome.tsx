@@ -13,6 +13,7 @@ import { searchMaterials, getMaterialDetail } from '../store/materials';
 interface Props {
   foundMaterials?: any;
   materialDetails?: any;
+  getMaterialDetail?: any;
 };
 
 interface State {
