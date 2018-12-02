@@ -1,4 +1,5 @@
 import 'react-native';
+
 import * as React from 'react';
 import App from '../App';
 import { Provider } from 'react-redux';
@@ -6,6 +7,7 @@ import store from '../store/index';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import * as renderer from 'react-test-renderer';
+
 import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
 
 
