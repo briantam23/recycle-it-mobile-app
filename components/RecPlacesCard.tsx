@@ -10,7 +10,7 @@ import {
   FlatList,
   Button,
 } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { List, ListItem, Avatar } from 'react-native-elements';
 import { Font } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 
@@ -55,19 +55,29 @@ export default class RecPlacesCard extends React.Component {
             keyExtractor={_keyExtractor}
             renderItem={({ item }) => {
               const { title, description, distance, latitude, longitude, avatar_url } = item;
+              const { avatar, subtitle } = styles;
               return (
                 <ListItem
                   onPress={() => { this._callShowDirections(latitude, longitude) }}
-                  roundAvatar
-                  avatar={{ uri: avatar_url }}
-                  title={ title }
+                  avatar={
+                    <Avatar
+                      rounded
+                      source={ avatar_url && { uri: avatar_url }}
+                      avatarStyle={ avatar }
+                    />
+                  }
+                  title={ 
+                    <View>
+                      <Text style={ styles.title }>{ title }</Text>
+                    </View> 
+                  }
                   subtitle={
                     <View>
-                      <Text style={ styles.subtitle }>Description: { description }</Text>
-                      <Text style={ styles.subtitle }>Distance: { distance }</Text>
-                      <Text style={ styles.subtitle }>Curbside: { showCurbside }</Text>
-                      <Text style={ styles.subtitle }>Municipal: { showMunicipal }</Text>
-                  </View>
+                      <Text style={ subtitle }>Description: { description }</Text>
+                      <Text style={ subtitle }>Distance: { distance }</Text>
+                      <Text style={ subtitle }>Curbside: { showCurbside }</Text>
+                      <Text style={ subtitle }>Municipal: { showMunicipal }</Text>
+                    </View>
                   }
                 />
               )
@@ -82,11 +92,24 @@ export default class RecPlacesCard extends React.Component {
 const mapStateToProps = ({ where }) => ({ where });
 
 const styles = StyleSheet.create({
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+  title: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 20,
+    height: 30,
+    marginLeft: 80,
+    fontWeight: 'bold'
   },
+  subtitle: {
+    marginLeft: 80
+  },
+  avatar: {
+    height: 100,
+    width: 100,
+    marginLeft: 65
+  }
 });
 
 //export default connect(mapStateToProps)(RecPlacesCard);
