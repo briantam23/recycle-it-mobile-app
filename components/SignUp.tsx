@@ -6,6 +6,7 @@ import firebase from '../firebase';
 
 const db = firebase.firestore();
 
+
 class SignUp extends Component {
   constructor(props) {
     super(props)
