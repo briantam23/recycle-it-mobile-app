@@ -83,6 +83,7 @@ class SignUp extends Component {
         <FormInput
           onChangeText={(password) => this.setState({password})}
           ref={inputThree => this.inputThree = inputThree}
+          secureTextEntry
         />
         <Button
           raised
