@@ -51,32 +51,32 @@ class RecPlacesCard extends Component<Props, State> {
       fontsAreLoaded ? (
         <List>
           <FlatList
-            data={where}
+            data={ where }
             keyExtractor={_keyExtractor}
             renderItem={({ item }) => {
-              const { title, description, distance, latitude, longitude, avatar_url } = item;
-              const { avatar, subtitle } = styles;
+              const { description, distance, latitude, longitude } = item;
+              const { avatar, subtitle, title } = styles;
+              const avatar_url = 'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg';
               return (
                 <ListItem
                   onPress={() => { this._callShowDirections(latitude, longitude) }}
                   avatar={
                     <Avatar
                       rounded
-                      source={avatar_url && { uri: avatar_url }}
-                      avatarStyle={avatar}
+                      source={ avatar_url && { uri: avatar_url } }
+                      avatarStyle={ avatar }
                     />
                   }
                   title={
                     <View>
-                      <Text style={styles.title}>{title}</Text>
+                      <Text style={ title }>{ description }</Text>
                     </View>
                   }
                   subtitle={
                     <View>
-                      <Text style={subtitle}>Description: {description}</Text>
-                      <Text style={subtitle}>Distance: {distance}</Text>
-                      <Text style={subtitle}>Curbside: {showCurbside}</Text>
-                      <Text style={subtitle}>Municipal: {showMunicipal}</Text>
+                      <Text style={ subtitle }>Distance: { distance }</Text>
+                      <Text style={ subtitle }>Curbside: { showCurbside }</Text>
+                      <Text style={ subtitle }>Municipal: { showMunicipal }</Text>
                     </View>
                   }
                 />

@@ -43,13 +43,12 @@ export default class Map extends Component<MapProps, MapState> {
   };
   
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
+    navigator.geolocation.getCurrentPosition(position => {
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           error: null,
-        });
+        })
       },
       error => alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -70,7 +69,7 @@ export default class Map extends Component<MapProps, MapState> {
         style = {{ flex: 1 }}
         apikey = { GOOGLE_MAPS_API_KEY }
         provider = "google"
-        initialRegion = { state }
+        region = { state }
         showsUserLocation = { true }
         followsUserLocation = { true }
         showsMyLocationButton = { true }

@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
-import {
-  createStackNavigator,
-  createBottomTabNavigator,
-} from 'react-navigation';
-
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
@@ -38,19 +34,6 @@ MapStack.navigationOptions = {
   ),
 };
 
-// const DirectionsStack = createStackNavigator({ DirectionsScreen }, {
-//   headerLayoutPreset: 'center',
-// });
-// DirectionsStack.navigationOptions = {
-//   tabBarLabel: 'Directions',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-//     />
-//   ),
-// };
-
 const PictureStack = createStackNavigator({ PictureScreen }, {
   headerLayoutPreset: 'center',
 });
@@ -68,11 +51,11 @@ const LoginStack = createStackNavigator({ LoginScreen }, {
   headerLayoutPreset: 'center',
 });
 LoginStack.navigationOptions = {
-  tabBarLabel: 'MyProfile',
+  tabBarLabel: 'My Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
     />
   ),
 };
@@ -85,7 +68,7 @@ LocationsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-pin' : 'md-pin'}
     />
   )
 };

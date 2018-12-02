@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import Map from './Map';
+import Map from '../components/Map';
 import { connect } from 'react-redux';
 
 
