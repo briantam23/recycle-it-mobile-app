@@ -1,15 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Linking,
-  FlatList,
-  Button,
-} from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { List, ListItem, Avatar } from 'react-native-elements';
 import { Font } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';

@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Linking,
-  FlatList,
-  Button,
-} from 'react-native';
+import { View, Button } from 'react-native';
 
 import RecPlacesCard from '../components/RecPlacesCard';
+import { ObjectLiteralElement } from 'typescript';
 
 const where = [
   {
@@ -45,7 +38,11 @@ const where = [
   }
 ]
 
-class LocationsScreen extends Component {
+interface LocationsScreenProps {
+  navigation: Function;
+}
+
+class LocationsScreen extends Component <LocationsScreenProps> {
   static navigationOptions = {
     title: 'Places to Recycle ___ Near Me',
   };
@@ -56,7 +53,7 @@ class LocationsScreen extends Component {
       <View>
         <RecPlacesCard where={ where } />
         <Button
-          title="Go to Map"
+          title="View Map"
           onPress={() => navigate('MapScreen')}
         />
       </View>
@@ -66,9 +63,7 @@ class LocationsScreen extends Component {
 
 const mapStateToProps = ({ where }) => {
   console.log(where)
-  return {
-    where
-  }
+  return { where }
 }
 
 export default connect(mapStateToProps)(LocationsScreen);

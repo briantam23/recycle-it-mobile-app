@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Map from './Map';
 import { connect } from 'react-redux';
 
@@ -34,7 +34,7 @@ export default class MapScreen extends Component {
   
   render() {
     return (
-      <Map markers={ markers } /> //onMarkerPress
+      <Map markers={ markers } />
     );
   }
 };

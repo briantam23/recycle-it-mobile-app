@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MapView } from 'expo';
 import { Marker } from 'react-native-maps';
+import { OpenMapDirections } from 'react-native-navigation-directions';
 
 const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
@@ -27,6 +28,22 @@ export default class Map extends Component <MapProps, MapState> {
     }
   }
   
+  _callShowDirections = coordinate => {
+    const startPoint = navigator.geolocation.getCurrentPosition(
+      position => JSON.stringify(position),
+      error => alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+    const { latitude, longitude } = coordinate;
+    const endPoint = { latitude, longitude };
+
+    const transportPlan = 'd';
+
+    OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
+      console.log(res)
+    });
+  }
+
   render() {
     return (
       <MapView
@@ -37,7 +54,7 @@ export default class Map extends Component <MapProps, MapState> {
         showsUserLocation = { true }
         followsUserLocation = { true }
         showsMyLocationButton = { true }
-        //onPress = { () => }
+        onLongPress = { (e) => this._callShowDirections(e.nativeEvent.coordinate) }
       >
       {
         this.props.markers.map((marker, idx) => {
@@ -46,7 +63,7 @@ export default class Map extends Component <MapProps, MapState> {
                         'Distance: ' + distance + '\n' +
                         //'Curbside: ' + curbside + '\n' +
                         //'Municipal: ' + municipal + '\n' +
-                        'LONG PRESS FOR DIRECTIONS' 
+                        'LONG PRESS AT THE BOTTOM OF THE PIN FOR DIRECTIONS' 
           return(
             <Marker
                 key={ idx }
