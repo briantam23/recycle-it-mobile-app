@@ -56,7 +56,7 @@ class LocationsScreen extends Component {
       <View>
         <RecPlacesCard where={ where } />
         <Button
-          title="Go to the Map"
+          title="Go to Map"
           onPress={() => navigate('MapScreen')}
         />
       </View>

@@ -37,16 +37,25 @@ export default class Map extends Component <MapProps, MapState> {
         showsUserLocation = { true }
         followsUserLocation = { true }
         showsMyLocationButton = { true }
+        //onPress = { () => }
       >
       {
-        this.props.markers.map((marker, idx) => (
+        this.props.markers.map((marker, idx) => {
+          const { latlng, title, distance, curbside, municipal } = marker;
+          description = marker.description + '\n' + 
+                        'Distance: ' + distance + '\n' +
+                        //'Curbside: ' + curbside + '\n' +
+                        //'Municipal: ' + municipal + '\n' +
+                        'LONG PRESS FOR DIRECTIONS' 
+          return(
             <Marker
                 key={ idx }
-                coordinate={ marker.latlng }
-                title={ marker.title }
-                description={ marker.description }
+                coordinate={ latlng }
+                title={ title }
+                description={ description }
             />
-        ))
+          )
+        })
       }
       </MapView>
     )

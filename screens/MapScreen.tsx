@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Button } from 'react-native';
 import Map from './Map';
-import DirectionsScreen from './DirectionsScreen';
 import { connect } from 'react-redux';
 
 
@@ -13,7 +12,9 @@ const markers = [
     },
     title: 'Empire State Building',
     description: 'Very Tall Building!',
-    directions: <a>Directions</a>
+    distance: '.5 mile',
+    curbside: 'Yes',
+    municipal: 'Yes'
   },
   {
     latlng: {
@@ -21,7 +22,10 @@ const markers = [
       longitude: -74.0027
     },
     title: 'South Street Seaport',
-    description: 'Lots of Fish!!'
+    description: 'Lots of Fish!!',
+    distance: '.75 mile',
+    curbside: 'No',
+    municipal: 'No',
   }
 ]
 
