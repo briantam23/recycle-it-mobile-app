@@ -125,8 +125,8 @@ export default class Results extends Component<Props, State> {
     console.log(parsed);
     const resArr = [];
     resArr.push(parsed.responses[0].labelAnnotations[0].description);
-    resArr.push(parsed.responses[0].labelAnnotations[1].description);
-    resArr.push(parsed.responses[0].labelAnnotations[2].description);
+    resArr.push(parsed.responses[0].labelAnnotations[1].description || '');
+    resArr.push(parsed.responses[0].labelAnnotations[2].description || '');
     console.log(resArr);
     this.setState({ label: resArr });
     this.isRecyclable(resArr);
