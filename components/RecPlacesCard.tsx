@@ -24,7 +24,7 @@ class RecPlacesCard extends Component<Props, State> {
   };
 
   async componentWillMount() {
-    await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
+    await Font.loadAsync({ 'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
     this.setState({ fontsAreLoaded: true })
   };
 

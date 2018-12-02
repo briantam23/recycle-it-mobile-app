@@ -38,7 +38,9 @@ class PlacesToRecycle extends Component<Props, State> {
   public getData = () => {
     this.props.searchMaterials(api_key, this.state.materialSearch)
       .then(() => console.log(this.props.foundMaterials))
-      .then(() => this.props.getMaterialDetail(api_key, this.props.foundMaterials[0].material_id))
+      .then(() => {
+        if(this.props.foundMaterials[0]) return this.props.getMaterialDetail(api_key, this.props.foundMaterials[0].material_id);
+      })
   };
 
   public render() {
