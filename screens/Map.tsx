@@ -14,8 +14,17 @@ interface MapState {
   region: object;
 }
 
-export default class Map extends Component <MapProps, MapState> {
-  static navigationOptions = { title: 'List of Recycling Locations' };
+export default class Map extends Component<MapProps, MapState> {
+  static navigationOptions = {
+    title: 'List of Recycling Locations',
+    headerStyle: {
+      backgroundColor: 'green',
+    },
+    headerTintColor: "white",
+    headerTitleStyle: {
+      fontSize: 35,
+    },
+  };
 
   constructor(props) {
     super(props);
@@ -27,7 +36,7 @@ export default class Map extends Component <MapProps, MapState> {
         longitudeDelta: 0.0421,
       }
     }
-  }
+  };
   
   _callShowDirections = coordinate => {
     const startPoint = navigator.geolocation.getCurrentPosition(
@@ -43,7 +52,7 @@ export default class Map extends Component <MapProps, MapState> {
     OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
       console.log(res)
     });
-  }
+  };
 
   render() {
     return (

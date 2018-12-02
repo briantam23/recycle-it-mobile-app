@@ -23,6 +23,34 @@ export default class RecPlacesCard extends React.Component {
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
 
+//   return (
+//     <View>
+//       <FlatList
+//         data={where}
+//         keyExtractor={_keyExtractor}
+//         renderItem={({ item }) => {
+//           return (
+//             <View>
+//               <Text style={styles.item}>LocationID: {item.location_id}</Text>
+//               <Text style={styles.item}>Description: {item.description}</Text>
+//               <Text style={styles.item}>Curbside: {showCurbside}</Text>
+//               <Text style={styles.item}>Distance: {item.distance}</Text>
+//               <Text style={styles.item}>Latitude: {item.latitude}</Text>
+//               <Text style={styles.item}>Longitude: {item.longitude}</Text>
+//               <Text style={styles.item}>Municipal: {showMunicipal}</Text>
+//               <View
+//                 style={{
+//                   borderBottomColor: 'black',
+//                   borderBottomWidth: 1,
+//                 }} />
+//             </View>
+//           )
+//         }}
+//       />
+//     </View>
+//   )
+// };
+
     const endPoint = { latitude, longitude };
 
     const transportPlan = 'd';
@@ -77,10 +105,15 @@ export default class RecPlacesCard extends React.Component {
         </List>
         : null
     )
-  }
-}
+  };
+};
 
-const mapStateToProps = ({ where }) => ({ where });
+const mapStateToProps = ({ where }) => {
+  console.log('HERE IS WHERE', where)
+  return {
+    where,
+  };
+};
 
 const styles = StyleSheet.create({
   title: {

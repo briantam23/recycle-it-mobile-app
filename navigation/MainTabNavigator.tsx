@@ -13,7 +13,9 @@ import PictureScreen from '../screens/PictureScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
 
-const HomeStack = createStackNavigator({ HomeScreen });
+const HomeStack = createStackNavigator({ HomeScreen }, {
+  headerLayoutPreset: 'center',
+});
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
@@ -24,7 +26,9 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const MapStack = createStackNavigator({ MapScreen });
+const MapStack = createStackNavigator({ MapScreen }, {
+  headerLayoutPreset: 'center',
+});
 MapStack.navigationOptions = {
   tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
@@ -35,7 +39,22 @@ MapStack.navigationOptions = {
   ),
 };
 
-const PictureStack = createStackNavigator({ PictureScreen });
+const DirectionsStack = createStackNavigator({ DirectionsScreen }, {
+  headerLayoutPreset: 'center',
+});
+DirectionsStack.navigationOptions = {
+  tabBarLabel: 'Directions',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
+const PictureStack = createStackNavigator({ PictureScreen }, {
+  headerLayoutPreset: 'center',
+});
 PictureStack.navigationOptions = {
   tabBarLabel: 'Photo',
   tabBarIcon: ({ focused }) => (
@@ -46,9 +65,11 @@ PictureStack.navigationOptions = {
   ),
 };
 
-const LoginStack = createStackNavigator({ LoginScreen });
+const LoginStack = createStackNavigator({ LoginScreen }, {
+  headerLayoutPreset: 'center',
+});
 LoginStack.navigationOptions = {
-  tabBarLabel: 'Sign Up',
+  tabBarLabel: 'MyProfile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -57,7 +78,9 @@ LoginStack.navigationOptions = {
   ),
 };
 
-const LocationsStack = createStackNavigator({ LocationsScreen });
+const LocationsStack = createStackNavigator({ LocationsScreen }, {
+  headerLayoutPreset: 'center',
+});
 LocationsStack.navigationOptions = {
   tabBarLabel: 'Locations',
   tabBarIcon: ({ focused }) => (
@@ -70,8 +93,8 @@ LocationsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LocationsStack,
   MapStack,
+  LocationsStack,
   PictureStack,
   LoginStack
 });

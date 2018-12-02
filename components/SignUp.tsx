@@ -7,7 +7,6 @@ import firebase from '../firebase';
 
 const db = firebase.firestore();
 
-
 class SignUp extends Component {
   constructor(props) {
     super(props)
@@ -121,8 +120,7 @@ class SignUp extends Component {
         </View>}
         </View>
     )
-  }
-}
-
+  };
+};
 
 export default connect(null)(SignUp);
