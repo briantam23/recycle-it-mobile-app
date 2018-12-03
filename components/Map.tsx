@@ -37,8 +37,8 @@ export default class Map extends Component<MapProps, MapState> {
     this.state = {
       latitude: 40.7308,
       longitude: -73.9973,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      latitudeDelta: 0.0922/7,
+      longitudeDelta: 0.0421/7,
     }
   };
   
@@ -60,7 +60,7 @@ export default class Map extends Component<MapProps, MapState> {
     OpenMapDirections(this.state, coordinate, transportPlan)
       .then(res => console.log(res));
   };
-
+  //fitToSuppliedMarkers - Google Maps
   render() {
     const { markers } = this.props;
     const { state, _callShowDirections } = this;
