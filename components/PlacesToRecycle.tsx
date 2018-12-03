@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginBottom: 45,
   },
   searchIcon: {
     padding: 0,

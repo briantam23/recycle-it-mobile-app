@@ -7,6 +7,7 @@ import { Text, Card } from 'react-native-elements';
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import { findPlacesToRecycle } from '../store/where';
+import { toggleOff } from '../store/Toggle';
 
 interface Props {
   foundMaterials?: any;
@@ -15,6 +16,7 @@ interface Props {
   findPlacesToRecycle: any;
   navigation: any;
   toggle: boolean;
+  toggleOff: any;
 };
 
 interface State {
@@ -50,10 +52,6 @@ class Outcome extends Component<Props, State> {
         },
       });
     });
-  };
-
-  public toggleModal = (mode) => {
-    this.setState({ isVisible: mode });
   };
 
   public getLocationData = (material_id) => {
@@ -147,7 +145,7 @@ class Outcome extends Component<Props, State> {
                     <Button
                       title='Or Try A Brand New Search'
                       color='#30518e'
-                      onPress={() => { this.toggleModal(!this.state.isVisible) }} />
+                      onPress={() => { this.props.toggleOff() }} />
                   </TouchableHighlight>
                 </View>
 
@@ -174,6 +172,7 @@ const mapDispatchToProps = dispatch => ({
   searchMaterials: (api_key, materialSearch) => dispatch(searchMaterials(api_key, materialSearch)),
   getMaterialDetail: (api_key, material) => dispatch(getMaterialDetail(api_key, material)),
   findPlacesToRecycle: (api_key, geolocation, productInfo, maxDistance, maxResults) => dispatch(findPlacesToRecycle(api_key, geolocation, productInfo, maxDistance, maxResults)),
+  toggleOff: () => dispatch(toggleOff()),
 });
 
 const styles = StyleSheet.create({
