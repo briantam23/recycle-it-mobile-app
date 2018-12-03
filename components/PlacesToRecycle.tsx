@@ -27,7 +27,7 @@ class PlacesToRecycle extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props);
     this.state = {
-      materialSearch: 'NEWSPAPER',
+      materialSearch: '',
     };
   };
 
@@ -37,7 +37,6 @@ class PlacesToRecycle extends Component<Props, State> {
 
   public getData = () => {
     this.props.searchMaterials(api_key, this.state.materialSearch)
-      .then(() => console.log(this.props.foundMaterials))
       .then(() => this.props.getMaterialDetail(api_key, this.props.foundMaterials[0].material_id))
   };
 
@@ -51,8 +50,8 @@ class PlacesToRecycle extends Component<Props, State> {
             source={require('../images/green-search-icon.png')} />
           <TextInput style={styles.input}
             underlineColorAndroid="transparent"
-            placeholder="NEWSPAPER"
-            placeholderTextColor="#9a73ef"
+            placeholder=""
+            placeholderTextColor="#30518e"
             autoCapitalize="characters"
             onChangeText={handleMaterial} />
         </View>
@@ -68,6 +67,7 @@ class PlacesToRecycle extends Component<Props, State> {
 };
 
 const mapStateToProps = ({ materials }) => {
+  console.log(materials.foundMaterials)
   return {
     foundMaterials: materials.foundMaterials,
     materialDetails: materials.materialDetails,

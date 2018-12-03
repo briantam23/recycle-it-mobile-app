@@ -96,13 +96,13 @@ class CameraComp extends Component<Props, State> {
     if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     };
-    if (this.props.foundMaterials.length >= 1) {
-      return (
-        <View style={styles.blankContainer}>
-          <ButtonGroupModeSelection updateIndex={this.updateIndex} inputModeIndex={this.state.inputModeIndex} />
-        </View>
-      )
-    };
+    // if (this.props.foundMaterials.length >= 1) {
+    //   return (
+    //     <View style={styles.blankContainer}>
+    //       <ButtonGroupModeSelection updateIndex={this.updateIndex} inputModeIndex={this.state.inputModeIndex} />
+    //     </View>
+    //   )
+    // };
 
     return (
       <View>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: 180,
+    height: 150,
     margin: 0,
     padding: 0,
   },

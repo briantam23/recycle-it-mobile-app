@@ -24,7 +24,7 @@ class Outcome extends Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      materialSearch: 'NEWSPAPER',
+      materialSearch: '',
     };
   };
 
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   pickerSelection: {
     fontSize: 30,
     alignSelf: 'center',
-    color: "#30518e",
+    color: "#8e3051",
     fontWeight: 'bold',
   },
   picker: {

@@ -1,17 +1,16 @@
 import * as React from 'react';
-import {Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Image,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   Linking,
   Button,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-
+import { Text, Card } from 'react-native-elements';
 
 import { api_key } from '../apiKey';
 import { findPlacesToRecycle } from '../store/where';
@@ -40,7 +39,7 @@ class MaterialDetailCard extends Component<Props, State>{
       maxResults: 5,
     };
   };
-  
+
   public componentDidMount() { this.getGeoLocation() };
   public getGeoLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -61,16 +60,13 @@ class MaterialDetailCard extends Component<Props, State>{
   public render() {
     const { description, image, long_description, url, material_id } = this.props.materialDetails;
     return (
-      <View style={styles.imageContainer}>
+      <Card>
         {
           description &&
-          <Text style={styles.header}>
+          <Text style={styles.textHeader}>
             It's Recyclable!
        </Text>
         }
-        <Text style={styles.textHeader}>
-          {description}
-        </Text>
         <Text style={styles.textArea}>
           {long_description}
         </Text>
@@ -81,16 +77,12 @@ class MaterialDetailCard extends Component<Props, State>{
             </TouchableOpacity>
           }
         </Text>
-        {/* <Image
-        source={image}
-        style={styles.materialImage}
-      /> */}
         {description && <Button
           onPress={() => this.getLocationData(material_id)}
           title="Find Where to Recycle"
           color='#30518e'
         />}
-      </View>
+      </Card>
     )
   };
 };
@@ -109,7 +101,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     padding: 10,
-    color: 'white'
+    color: 'black'
   },
   textHeader: {
     fontWeight: 'bold',
@@ -120,10 +112,10 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
   },
   textArea: {
-    color: 'white',
+    color: 'black',
     textAlign: 'center',
   }
 });
