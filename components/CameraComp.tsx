@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Permissions, ImagePicker, Camera } from 'expo';
-import {
-  TouchableOpacity, Image, View, Text, StyleSheet,
-} from 'react-native';
-import { ButtonGroup } from 'react-native-elements';
+import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
+import { ButtonGroup, Card } from 'react-native-elements';
 
 import Results from './Results';
 import PlacesToRecycle from './PlacesToRecycle';
@@ -16,7 +14,7 @@ const ButtonGroupModeSelection = ({ updateIndex, inputModeIndex }) => {
       selectedButtonStyle={{ backgroundColor: '#30518e' }}
       onPress={updateIndex}
       selectedIndex={inputModeIndex}
-      buttons={['Take Picture', 'Gallery', 'Search']}
+      buttons={['Snap Photo', 'Upload Photo', 'Search']}
       containerStyle={{ height: 40, margin: 0, padding: 0 }} />
   )
 };
@@ -97,16 +95,16 @@ class CameraComp extends Component<Props, State> {
     if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     };
-    // if (this.props.foundMaterials.length >= 1) {
-    //   return (
-    //     <View style={styles.blankContainer}>
-    //       <ButtonGroupModeSelection updateIndex={this.updateIndex} inputModeIndex={this.state.inputModeIndex} />
-    //     </View>
-    //   )
-    // };
 
     return (
       <View>
+        <Card
+          title='Welcome to Recycle It!'
+          titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+        >
+          <Text>Just snap a photo of any item and we'll let you know if and where it can be recycled near you!</Text>
+        </Card>
+
         <View
           style={styles.container}>
           {
@@ -116,6 +114,7 @@ class CameraComp extends Component<Props, State> {
                   style={styles.camera} source={require('../images/green-camera-icon.png')}
                 />
               </TouchableOpacity>
+
               : this.state.inputModeIndex === 1 ?
                 <TouchableOpacity onPress={() => this.pickImage()}>
                   <Image
@@ -123,10 +122,13 @@ class CameraComp extends Component<Props, State> {
                     source={require('../images/green-folder-icon.png')}
                   />
                 </TouchableOpacity>
+
                 : <PlacesToRecycle />
           }
         </View>
+
         <ButtonGroupModeSelection updateIndex={this.updateIndex} inputModeIndex={this.state.inputModeIndex} />
+
       </View>
     );
   };
@@ -135,27 +137,21 @@ class CameraComp extends Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    backgroundColor: 'white',
+    height: '100%',
+    marginBottom: 5,
+    padding: 0,
+
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
-    height: 150,
-    margin: 0,
-    padding: 0,
-  },
-  blankContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    height: 50,
-    margin: 0,
-    padding: 0,
   },
   camera: {
     padding: 0,
     margin: 0,
-    width: 150,
-    height: 150,
+    width: 250,
+    height: 250,
   },
 });
 

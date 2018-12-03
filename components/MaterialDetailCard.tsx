@@ -2,15 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Linking,
-  Button,
+  StyleSheet, TouchableOpacity, View, Linking, Modal, TouchableHighlight, Button
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Text, Card, Overlay } from 'react-native-elements';
+import { Text, Card } from 'react-native-elements';
 
 import { api_key } from '../apiKey';
 import { findPlacesToRecycle } from '../store/where';
@@ -19,12 +14,14 @@ interface Props {
   materialDetails: object;
   findPlacesToRecycle: any;
   navigation: any;
+  isVisible: boolean;
 };
 
 interface State {
   geoLocation: object;
   maxDistance: number;
   maxResults: number;
+  isVisible: boolean;
 };
 
 class MaterialDetailCard extends Component<Props, State>{
@@ -37,6 +34,7 @@ class MaterialDetailCard extends Component<Props, State>{
       },
       maxDistance: 5,
       maxResults: 5,
+      isVisible: this.props.isVisible || false,
     };
   };
 
@@ -57,36 +55,58 @@ class MaterialDetailCard extends Component<Props, State>{
       .then(() => this.props.navigation.navigate('LocationsScreen'))
   };
 
-  public render() {
-    const { description, image, long_description, url, material_id } = this.props.materialDetails;
-    return (
-      <Overlay
+  public toggleModal = (mode) => {
+    this.setState({ isVisible: mode });
+  }
 
-      >
-        <Card>
-          {
-            description &&
-            <Text style={styles.textHeader}>
-              It's Recyclable!
-       </Text>
-          }
-          <Text style={styles.textArea}>
-            {long_description}
-          </Text>
-          <Text style={styles.textArea}>
-            {url &&
-              <TouchableOpacity >
-                {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
-              </TouchableOpacity>
-            }
-          </Text>
-          {description && <Button
-            onPress={() => this.getLocationData(material_id)}
-            title="Find Where to Recycle"
-            color='#30518e'
-          />}
-        </Card>
-      </Overlay>
+  public render() {
+    const { description, long_description, url, material_id } = this.props.materialDetails;
+    console.log('MATERIAL DETAIL CARD', description)
+
+    return (
+      <View style={styles.modalContainer}>
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.isVisible}
+          onRequestClose={() => { console.log("Modal has been closed.") }}>
+
+          <View style={styles.modal}>
+            <Text>YOUR MATERIAL</Text>
+
+            <TouchableHighlight>
+              <Button
+                title='Close'
+                onPress={() => { this.toggleModal(!this.state.isVisible) }} />
+            </TouchableHighlight>
+
+            <Card>
+              {
+                description &&
+                <Text style={styles.textHeader}>
+                  It's Recyclable!
+                  </Text>
+              }
+              <Text style={styles.textArea}>
+                {long_description}
+              </Text>
+              <Text style={styles.textArea}>
+                {url &&
+                  <TouchableOpacity >
+                    {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
+                  </TouchableOpacity>
+                }
+              </Text>
+              {description && <Button
+                onPress={() => this.getLocationData(material_id)}
+                title="Find Where to Recycle"
+                color='#30518e'
+              />}
+            </Card>
+
+          </View>
+        </Modal>
+      </View>
     )
   };
 };
@@ -121,11 +141,23 @@ const styles = StyleSheet.create({
   textArea: {
     color: 'black',
     textAlign: 'center',
-  }
+  },
+  modalContainer: {
+    alignItems: 'center',
+    backgroundColor: '#ede3f2',
+    padding: 100
+  },
+  modal: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#73c149',
+    padding: 100
+  },
 });
 
-const mapStateToProps = ({ materials }) => ({
+const mapStateToProps = ({ materials }, { isVisible }) => ({
   materialDetails: materials.materialDetails,
+  isVisible,
 });
 
 const mapDispatchToProps = dispatch => {

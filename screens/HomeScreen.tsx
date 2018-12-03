@@ -14,7 +14,6 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 import Outcome from '../components/Outcome';
 import CameraComp from '../components/CameraComp';
-import MaterialDetailCard from '../components/MaterialDetailCard';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -38,9 +37,6 @@ export default class HomeScreen extends React.Component {
           </View>
           <View>
             <Outcome />
-          </View>
-          <View>
-            <MaterialDetailCard />
           </View>
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
