@@ -137,21 +137,19 @@ class CameraComp extends Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: 'white',
-    height: '100%',
     marginBottom: 5,
     padding: 0,
-
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    height: 250,
   },
   camera: {
     padding: 0,
     margin: 0,
-    width: 250,
-    height: 250,
+    width: 225,
+    height: 225,
   },
 });
 

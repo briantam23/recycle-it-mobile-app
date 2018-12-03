@@ -1,13 +1,7 @@
 import * as React from 'react';
-import { Component, FormEvent } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  Button,
-  TextInput,
-  Image,
-} from 'react-native';
+import { StyleSheet, View, Button, TextInput, Image, TouchableOpacity } from 'react-native';
 
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
@@ -56,9 +50,11 @@ class PlacesToRecycle extends Component<Props, State> {
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Image
-            style={styles.searchIcon}
-            source={require('../images/green-search-icon.png')} />
+          <TouchableOpacity onPress={() => getData()}>
+            <Image
+              style={styles.searchIcon}
+              source={require('../images/green-search-icon.png')} />
+          </TouchableOpacity >
           <TextInput style={styles.input}
             underlineColorAndroid="transparent"
             placeholder=""
@@ -67,10 +63,10 @@ class PlacesToRecycle extends Component<Props, State> {
             onChangeText={handleMaterial} />
         </View>
         <View>
-          <Button
+          {/* <Button
             onPress={() => getData()}
             title="SEARCH"
-            color='#30518e' />
+            color='#30518e' /> */}
         </View>
       </View>
     );
@@ -121,8 +117,8 @@ const styles = StyleSheet.create({
     width: '60%',
     borderColor: '#518e30',
     borderWidth: 1,
-    textAlign: 'center',
-    fontSize: 22
+    fontSize: 22,
+    paddingLeft: 10,
   },
 });
 

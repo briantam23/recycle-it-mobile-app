@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { List, ListItem, Avatar } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 import { Font } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -48,42 +48,40 @@ class RecPlacesCard extends Component<Props, State> {
     let showCurbside = where.curbside && 'Yes' || 'No'
     let showMunicipal = where.municipal && 'Yes' || 'No'
     return (
-      fontsAreLoaded ? (
-        <List>
-          <FlatList
-            data={where}
-            keyExtractor={_keyExtractor}
-            renderItem={({ item }) => {
-              const { title, description, distance, latitude, longitude, avatar_url } = item;
-              const { avatar, subtitle } = styles;
-              return (
-                <ListItem
-                  onPress={() => { this._callShowDirections(latitude, longitude) }}
-                  avatar={
-                    <Avatar
-                      rounded
-                      source={avatar_url && { uri: avatar_url }}
-                      avatarStyle={avatar}
-                    />
-                  }
-                  title={
-                    <View>
-                      <Text style={styles.title}>{title}</Text>
-                    </View>
-                  }
-                  subtitle={
-                    <View>
-                      <Text style={subtitle}>Description: {description}</Text>
-                      <Text style={subtitle}>Distance: {distance}</Text>
-                      <Text style={subtitle}>Curbside: {showCurbside}</Text>
-                      <Text style={subtitle}>Municipal: {showMunicipal}</Text>
-                    </View>
-                  }
-                />
-              )
-            }}
-          />
-        </List>
+      fontsAreLoaded && where ? (
+        <FlatList
+          data={where}
+          keyExtractor={_keyExtractor}
+          renderItem={({ item }) => {
+            const { title, description, distance, latitude, longitude, avatar_url } = item;
+            const { avatar, subtitle } = styles;
+            return (
+              <ListItem
+                onPress={() => { this._callShowDirections(latitude, longitude) }}
+                leftAvatar={
+                  <Avatar
+                    rounded
+                    source={avatar_url && { uri: avatar_url }}
+                    avatarStyle={avatar}
+                  />
+                }
+                title={
+                  <View>
+                    <Text style={styles.title}>{title}</Text>
+                  </View>
+                }
+                subtitle={
+                  <View>
+                    <Text style={subtitle}>Description: {description}</Text>
+                    <Text style={subtitle}>Distance: {distance}</Text>
+                    <Text style={subtitle}>Curbside: {showCurbside}</Text>
+                    <Text style={subtitle}>Municipal: {showMunicipal}</Text>
+                  </View>
+                }
+              />
+            )
+          }}
+        />
       ) : null
     )
   };

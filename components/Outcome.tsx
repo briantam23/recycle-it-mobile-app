@@ -54,26 +54,21 @@ class Outcome extends Component<Props, State> {
 
   public toggleModal = (mode) => {
     this.setState({ isVisible: mode });
-  }
+  };
 
   public getLocationData = (material_id) => {
     this.props.findPlacesToRecycle(api_key, this.state.geoLocation, material_id, 5, 5)
       .then(() => this.props.navigation.navigate('LocationsScreen'))
   };
 
-  public handleMaterial = (material: string) => { this.setState({ materialSearch: material }) };
-
-  public handlePicker = (material: object) => {
-    this.props.getMaterialDetail(api_key, material.material_id)
-      .then(() => this.setState({ materialSearch: material.description })
-      )
+  public handlePicker = ({ material_id, description }) => {
+    this.setState({ materialSearch: description })
+    this.props.getMaterialDetail(api_key, material_id)
   };
 
   public render() {
     const { description, long_description, url, material_id } = this.props.materialDetails;
     const { foundMaterials } = this.props;
-    const { materialSearch } = this.state;
-    const { handleMaterial, handlePicker } = this;
     const materialDropdownSearch = foundMaterials.length >= 1;
 
     if (!this.props.toggle) {
@@ -129,16 +124,18 @@ class Outcome extends Component<Props, State> {
                 <Text style={styles.pickerSelection}>Look for something similar</Text>
                 <View style={styles.picker}>
                   <Picker
+                    selectedValue={this.state.materialSearch}
                     enabled={materialDropdownSearch}
-                    selectedValue={materialSearch}
-                    onValueChange={handlePicker}>
+                    onValueChange={this.handlePicker}
+                  >
+                    <Picker.Item value='--' label='Scroll' key='500' color="#30518e" />
                     {
                       foundMaterials.map(material => {
                         return <Picker.Item
-                          color="#30518e"
-                          label={material.description}
                           value={material}
+                          label={material.description}
                           key={material.material_id}
+                          color="#30518e"
                         />
                       })
                     }
