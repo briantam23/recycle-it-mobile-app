@@ -10,7 +10,7 @@ import {
   Button,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Text, Card } from 'react-native-elements';
+import { Text, Card, Overlay } from 'react-native-elements';
 
 import { api_key } from '../apiKey';
 import { findPlacesToRecycle } from '../store/where';
@@ -60,29 +60,33 @@ class MaterialDetailCard extends Component<Props, State>{
   public render() {
     const { description, image, long_description, url, material_id } = this.props.materialDetails;
     return (
-      <Card>
-        {
-          description &&
-          <Text style={styles.textHeader}>
-            It's Recyclable!
+      <Overlay
+
+      >
+        <Card>
+          {
+            description &&
+            <Text style={styles.textHeader}>
+              It's Recyclable!
        </Text>
-        }
-        <Text style={styles.textArea}>
-          {long_description}
-        </Text>
-        <Text style={styles.textArea}>
-          {url &&
-            <TouchableOpacity >
-              {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
-            </TouchableOpacity>
           }
-        </Text>
-        {description && <Button
-          onPress={() => this.getLocationData(material_id)}
-          title="Find Where to Recycle"
-          color='#30518e'
-        />}
-      </Card>
+          <Text style={styles.textArea}>
+            {long_description}
+          </Text>
+          <Text style={styles.textArea}>
+            {url &&
+              <TouchableOpacity >
+                {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
+              </TouchableOpacity>
+            }
+          </Text>
+          {description && <Button
+            onPress={() => this.getLocationData(material_id)}
+            title="Find Where to Recycle"
+            color='#30518e'
+          />}
+        </Card>
+      </Overlay>
     )
   };
 };
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontWeight: 'bold',
-    color: 'tomato',
+    color: '#8e3051',
     fontSize: 30,
     alignSelf: 'center',
   },

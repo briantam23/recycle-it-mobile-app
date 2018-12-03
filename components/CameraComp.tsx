@@ -12,7 +12,8 @@ import PlacesToRecycle from './PlacesToRecycle';
 const ButtonGroupModeSelection = ({ updateIndex, inputModeIndex }) => {
   return (
     <ButtonGroup
-      selectedBackgroundColor="#8e3080"
+      selectedTextStyle={{ color: 'white' }}
+      selectedButtonStyle={{ backgroundColor: '#30518e' }}
       onPress={updateIndex}
       selectedIndex={inputModeIndex}
       buttons={['Take Picture', 'Gallery', 'Search']}
