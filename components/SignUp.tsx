@@ -136,7 +136,7 @@ export default class SignUp extends Component<Props, State> {
             <FormLabel />
             <Button
               raised
-              //backgroundColor="#3E9428"
+              backgroundColor="#3E9428"
               title="Sign Up"
               onPress={() =>
                 this.signUp(
@@ -149,7 +149,7 @@ export default class SignUp extends Component<Props, State> {
             <Button
               style={{ marginTop: 10 }}
               raised
-              //backgroundColor="#3E9428"
+              backgroundColor="#3E9428"
               title="Log In"
               onPress={() => this.logIn(this.state.email, this.state.password)}
             />
@@ -158,7 +158,7 @@ export default class SignUp extends Component<Props, State> {
           <View>
             <Card containerStyle={{ marginTop: 150 }}>
               <Avatar
-                //xlarge
+                xlarge
                 title={this.state.userName[0]}
                 containerStyle={{ marginLeft: 100, marginRight: 115 }}
                 rounded
@@ -186,7 +186,7 @@ export default class SignUp extends Component<Props, State> {
               <Button
                 style={{ marginTop: 10 }}
                 raised
-                //backgroundColor="#3E9428"
+                backgroundColor="#3E9428"
                 title="Log Out"
                 onPress={() => this.logOut()}
               />
