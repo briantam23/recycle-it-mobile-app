@@ -10,7 +10,7 @@ interface Props {
 interface State {}
 class MapScreen extends Component<Props, State> {
   static navigationOptions = {
-    title: 'List of Recycling Locations',
+    title: 'Recycling Locations',
     headerStyle: {
       backgroundColor: '#518e30',
       marginBottom: 0,

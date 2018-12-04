@@ -2,7 +2,7 @@
   "expo": {
     "name": "Recycle It!",
     "description": "Uses Image Recognition to determine if and where an item is recyclable.",
-    "slug": "Recycle It!",
+    "slug": "Recycle-It",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
