@@ -15,6 +15,25 @@ import { MonoText } from '../components/StyledText';
 import Outcome from '../components/Outcome';
 import CameraComp from '../components/CameraComp';
 
+let proTips = ['Why did a chicken carrying a tin can cross the road? The recycling bin was on the other side.',
+      'Scientists discovered a way to generate light using only scrap metal. It was an aluminating experience.',
+      'What do you get when you have a glass bottle, some tin foil, and an old notebook? Recycling.',
+      'Flip it over! Check it out before you chuck it out!',
+      'Save the Earth! Its the only planet with Chocolate. So far…. (edited)',
+      'Don’t be trashy! Recycle!', 'It’s easy being green- Reduce, Reuse, Recycle.',
+      'Recycling plastic feels fantastic!', 'You will produce about 127, 604 pounds of garbage in your lifetime. Recycle.',
+      'Have you hugged your recycling bin today?']
+
+const randoNum = () => {
+  return Math.floor((Math.random() * 10) + 1);
+}
+
+let num = randoNum();
+
+const randomProTip = proTips[num];
+
+
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Recycle It!',
@@ -40,7 +59,7 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Pro Tip #1: Recycling is good for you and the planet!</Text>
+          <Text style={styles.tabBarInfoText}>{randomProTip}</Text>
         </View>
       </View>
     );
