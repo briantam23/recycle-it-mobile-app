@@ -13,6 +13,7 @@ interface Props {
   getMaterialDetail: any;
   searchMaterials: any;
   toggleOn: any;
+  NtoggleOn
 };
 
 interface State {
@@ -35,15 +36,19 @@ class PlacesToRecycle extends Component<Props, State> {
     this.props.searchMaterials(api_key, this.state.materialSearch)
 
       .then(() => {
-        let material_id;
+        let foundMaterials = { material_id: 0 }
         if (!this.props.foundMaterials.length) {
-          material_id = 1000;
-          return material_id;
+          foundMaterials.material_id = 1000;
+          return foundMaterials;
         }
         return this.props.foundMaterials[0];
       })
       .then((foundMaterials) => this.props.getMaterialDetail(api_key, foundMaterials.material_id))
       .then(() => this.props.toggleOn())
+
+      .catch(ex => console.log(ex))
+
+
 
   };
 
@@ -93,14 +98,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     height: 250,
-
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start'
   },
   inputContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 45,
+    marginTop: 25,
   },
   searchIcon: {
     padding: 0,
