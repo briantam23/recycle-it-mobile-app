@@ -65,98 +65,128 @@ class Outcome extends Component<Props, State> {
   };
 
   public render() {
+    if (this.state.isVisible && !this.props.materialDetails) {
+      return (
+        <Modal
+          animationType='slide'
+          onRequestClose={() => { this.props.toggleOff() }}
+          transparent={false}
+          visible={this.state.isVisible}
+          presentationStyle='overFullScreen'>
+          <View style={styles.mainContainer}>
+            <View style={styles.detailCardNegative}>
+              <View style={styles.materialNameCard}>
+                <Text style={styles.NegativetextHeaderMaterial}>¯\_(ツ)_/¯</Text>
+              </View>
+              <Text style={styles.textHeader}>Not Recyclable!</Text>
+              <Text style={styles.textArea}>
+                Even if you can't recycle it, you still may be able to reuse it!
+              </Text>
+              <View style={styles.button}>
+                <Button
+                  onPress={() => { this.props.toggleOff() }}
+                  title="Try Again!"
+                  color='#30518e'
+                />
+              </View>
+            </View>
+          </View>
+        </Modal>
+      )
+    };
+
     const { description, long_description, url, material_id } = this.props.materialDetails;
     const { foundMaterials } = this.props;
     const materialDropdownSearch = foundMaterials.length >= 1;
 
     if (!this.props.toggle) {
       return null;
-    } else {
-      return (
-        <View >
+    };
 
-          <Modal
-            animationType='fade'
-            transparent={false}
-            visible={this.state.isVisible}
-            onRequestClose={() => { console.log("Modal has been closed.") }}
-            presentationStyle='overFullScreen'
-          >
+    return (
+      <View >
 
-            <View style={styles.mainContainer}>
+        <Modal
+          animationType='fade'
+          transparent={false}
+          visible={this.state.isVisible}
+          presentationStyle='overFullScreen'
+          onRequestClose={() => { this.props.toggleOff() }}
+        >
 
-              <View style={styles.detailCard}>
+          <View style={styles.mainContainer}>
 
-                <View style={styles.materialNameCard}>
-                  {
-                    description &&
-                    <Text style={styles.textHeaderMaterial}>{description}</Text>
-                  }
-                </View>
+            <View style={styles.detailCard}>
 
-                <Text style={styles.textHeader}>Recyclable!</Text>
-
-                <Text style={styles.textArea}>
-                  {long_description}
-                </Text>
-                <Text style={styles.textArea}>
-                  {url &&
-                    <TouchableOpacity >
-                      {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
-                    </TouchableOpacity>
-                  }
-                </Text>
-
-                <View style={styles.button}>
-
-                  {description && <Button
-                    onPress={() => this.getLocationData(material_id)}
-                    title="Find Where to Recycle"
-                    color='#30518e'
-                  />}
-                </View>
-
+              <View style={styles.materialNameCard}>
+                {
+                  description &&
+                  <Text style={styles.textHeaderMaterial}>{description}</Text>
+                }
               </View>
 
-              <Card>
-                <Text style={styles.pickerSelection}>Look for something similar</Text>
-                <View style={styles.picker}>
-                  <Picker
-                    selectedValue={this.state.materialSearch}
-                    enabled={materialDropdownSearch}
-                    onValueChange={this.handlePicker}
-                  >
-                    <Picker.Item value='--' label='Scroll' key='500' color="#30518e" />
-                    {
-                      foundMaterials.map(material => {
-                        return <Picker.Item
-                          value={material}
-                          label={material.description}
-                          key={material.material_id}
-                          color="#30518e"
-                        />
-                      })
-                    }
-                  </Picker>
-                </View>
+              <Text style={styles.textHeader}>Recyclable!</Text>
 
-                <View style={styles.button}>
-                  <TouchableHighlight>
-                    <Button
-                      title='Or Try A Brand New Search'
-                      color='#30518e'
-                      onPress={() => { this.props.toggleOff() }} />
-                  </TouchableHighlight>
-                </View>
+              <Text style={styles.textArea}>
+                {long_description}
+              </Text>
+              <Text style={styles.textArea}>
+                {url &&
+                  <TouchableOpacity >
+                    {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
+                  </TouchableOpacity>
+                }
+              </Text>
 
-              </Card>
+              <View style={styles.button}>
+
+                {description && <Button
+                  onPress={() => this.getLocationData(material_id)}
+                  title="Find Where to Recycle"
+                  color='#30518e'
+                />}
+              </View>
 
             </View>
-          </Modal>
 
-        </View >
-      )
-    }
+            <Card>
+              <Text style={styles.pickerSelection}>Look for something similar</Text>
+              <View style={styles.picker}>
+                <Picker
+                  selectedValue={this.state.materialSearch}
+                  enabled={materialDropdownSearch}
+                  onValueChange={this.handlePicker}
+                >
+                  <Picker.Item value='--' label='Scroll' key='500' color="#30518e" />
+                  {
+                    foundMaterials.map(material => {
+                      return <Picker.Item
+                        value={material}
+                        label={material.description}
+                        key={material.material_id}
+                        color="#30518e"
+                      />
+                    })
+                  }
+                </Picker>
+              </View>
+
+              <View style={styles.button}>
+                <TouchableHighlight>
+                  <Button
+                    title='Or Try A Brand New Search'
+                    color='#30518e'
+                    onPress={() => { this.props.toggleOff() }} />
+                </TouchableHighlight>
+              </View>
+
+            </Card>
+
+          </View>
+        </Modal>
+
+      </View >
+    )
   };
 };
 
@@ -247,6 +277,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black'
   },
+  detailCardNegative: {
+    backgroundColor: '#8e3051',
+    padding: 3,
+    borderWidth: 1,
+    borderColor: 'black'
+  },
   materialNameCard: {
     padding: 3,
     flexDirection: 'row',
@@ -254,6 +290,16 @@ const styles = StyleSheet.create({
   textHeaderMaterial: {
     fontWeight: 'bold',
     color: '#518e30',
+    fontSize: 35,
+    alignSelf: 'center',
+    textAlign: 'center',
+    backgroundColor: 'white',
+    width: '100%',
+    flexWrap: "wrap"
+  },
+  NegativetextHeaderMaterial: {
+    fontWeight: 'bold',
+    color: '#30518e',
     fontSize: 35,
     alignSelf: 'center',
     textAlign: 'center',
