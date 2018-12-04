@@ -1,17 +1,6 @@
 import * as React from 'react';
-import {
-  Button,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
 import Outcome from '../components/Outcome';
 import CameraComp from '../components/CameraComp';
 
@@ -22,7 +11,7 @@ export default class HomeScreen extends React.Component {
       backgroundColor: '#518e30',
       marginBottom: 0,
     },
-    headerTintColor: "white",
+    headerTintColor: 'white',
     headerTitleStyle: {
       fontSize: 35,
     },
@@ -31,7 +20,10 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
           <View>
             <CameraComp />
           </View>
@@ -40,12 +32,14 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Pro Tip #1: Recycling is good for you and the planet!</Text>
+          <Text style={styles.tabBarInfoText}>
+            Pro Tip #1: Recycling is good for you and the planet!
+          </Text>
         </View>
       </View>
     );
-  };
-};
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
