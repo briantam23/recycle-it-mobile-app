@@ -2,31 +2,33 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { ListItem, Avatar } from 'react-native-elements';
+import { ListItem, Avatar, List } from 'react-native-elements';
 import { Font } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface Props {
   where?: any;
-};
+}
 
 interface State {
   fontsAreLoaded: boolean;
-};
+}
 
 class RecPlacesCard extends Component<Props, State> {
   constructor() {
-    super()
+    super();
     this.state = {
-      fontsAreLoaded: false
-    }
-  };
+      fontsAreLoaded: false,
+    };
+  }
 
   async componentWillMount() {
-    await Font.loadAsync({ 'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
-    this.setState({ fontsAreLoaded: true })
-  };
+    await Font.loadAsync({
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+    });
+    this.setState({ fontsAreLoaded: true });
+  }
 
   _callShowDirections = (latitude, longitude) => {
     const startPoint = navigator.geolocation.getCurrentPosition(
@@ -38,61 +40,62 @@ class RecPlacesCard extends Component<Props, State> {
     const endPoint = { latitude, longitude };
     const transportPlan = 'd';
 
-    OpenMapDirections(startPoint, endPoint, transportPlan).then(res => { console.log(res) });
-
-  }
+    OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
+      console.log(res);
+    });
+  };
   render() {
     const { where } = this.props;
     const { fontsAreLoaded } = this.state;
-    let _keyExtractor = (item, index) => (item.location_id + index).toString() || index;
-    let showCurbside = where.curbside && 'Yes' || 'No'
-    let showMunicipal = where.municipal && 'Yes' || 'No'
-    return (
-
-      fontsAreLoaded ? (
-        <List>
-          <FlatList
-            data={ where }
-            keyExtractor={_keyExtractor}
-            renderItem={({ item }) => {
-              const { description, distance, latitude, longitude } = item;
-              const { avatar, subtitle, title } = styles;
-              const avatar_url = 'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg';
-              return (
-                <ListItem
-                  onPress={() => { this._callShowDirections(latitude, longitude) }}
-                  avatar={
-                    <Avatar
-                      rounded
-                      source={ avatar_url && { uri: avatar_url } }
-                      avatarStyle={ avatar }
-                    />
-                  }
-                  title={
-                    <View>
-                      <Text style={ title }>{ description }</Text>
-                    </View>
-                  }
-                  subtitle={
-                    <View>
-                      <Text style={ subtitle }>Distance: { distance }</Text>
-                      <Text style={ subtitle }>Curbside: { showCurbside }</Text>
-                      <Text style={ subtitle }>Municipal: { showMunicipal }</Text>
-                    </View>
-                  }
-                />
-              )
-            }}
-          />
-        </List>
-
-      ) : null
-    )
-  };
-};
+    let _keyExtractor = (item, index) =>
+      (item.location_id + index).toString() || index;
+    let showCurbside = (where.curbside && 'Yes') || 'No';
+    let showMunicipal = (where.municipal && 'Yes') || 'No';
+    return fontsAreLoaded ? (
+      <List>
+        <FlatList
+          data={where}
+          keyExtractor={_keyExtractor}
+          renderItem={({ item }) => {
+            const { description, distance, latitude, longitude } = item;
+            const { avatar, subtitle, title } = styles;
+            const avatar_url =
+              'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg';
+            return (
+              <ListItem
+                onPress={() => {
+                  this._callShowDirections(latitude, longitude);
+                }}
+                avatar={
+                  <Avatar
+                    rounded
+                    source={avatar_url && { uri: avatar_url }}
+                    avatarStyle={avatar}
+                  />
+                }
+                title={
+                  <View>
+                    <Text style={title}>{description}</Text>
+                  </View>
+                }
+                subtitle={
+                  <View>
+                    <Text style={subtitle}>Distance: {distance}</Text>
+                    <Text style={subtitle}>Curbside: {showCurbside}</Text>
+                    <Text style={subtitle}>Municipal: {showMunicipal}</Text>
+                  </View>
+                }
+              />
+            );
+          }}
+        />
+      </List>
+    ) : null;
+  }
+}
 
 const mapStateToProps = ({ where }) => {
-  console.log('HERE IS WHERE', where)
+  console.log('HERE IS WHERE', where);
   return { where };
 };
 
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     marginLeft: 65,
-  }
+  },
 });
 
 export default connect(mapStateToProps)(RecPlacesCard);
