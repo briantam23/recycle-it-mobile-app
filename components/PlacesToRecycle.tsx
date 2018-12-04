@@ -33,6 +33,7 @@ class PlacesToRecycle extends Component<Props, State> {
 
   public getData = () => {
     this.props.searchMaterials(api_key, this.state.materialSearch)
+
       .then(() => {
         let material_id;
         if (!this.props.foundMaterials.length) {
@@ -43,6 +44,7 @@ class PlacesToRecycle extends Component<Props, State> {
       })
       .then((foundMaterials) => this.props.getMaterialDetail(api_key, foundMaterials.material_id))
       .then(() => this.props.toggleOn())
+
   };
 
   public render() {

@@ -24,7 +24,7 @@ class RecPlacesCard extends Component<Props, State> {
   };
 
   async componentWillMount() {
-    await Font.loadAsync({ 'MaterialIcons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
+    await Font.loadAsync({ 'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf') })
     this.setState({ fontsAreLoaded: true })
   };
 
@@ -48,40 +48,44 @@ class RecPlacesCard extends Component<Props, State> {
     let showCurbside = where.curbside && 'Yes' || 'No'
     let showMunicipal = where.municipal && 'Yes' || 'No'
     return (
-      fontsAreLoaded && where ? (
-        <FlatList
-          data={where}
-          keyExtractor={_keyExtractor}
-          renderItem={({ item }) => {
-            const { title, description, distance, latitude, longitude, avatar_url } = item;
-            const { avatar, subtitle } = styles;
-            return (
-              <ListItem
-                onPress={() => { this._callShowDirections(latitude, longitude) }}
-                leftAvatar={
-                  <Avatar
-                    rounded
-                    source={avatar_url && { uri: avatar_url }}
-                    avatarStyle={avatar}
-                  />
-                }
-                title={
-                  <View>
-                    <Text style={styles.title}>{title}</Text>
-                  </View>
-                }
-                subtitle={
-                  <View>
-                    <Text style={subtitle}>Description: {description}</Text>
-                    <Text style={subtitle}>Distance: {distance}</Text>
-                    <Text style={subtitle}>Curbside: {showCurbside}</Text>
-                    <Text style={subtitle}>Municipal: {showMunicipal}</Text>
-                  </View>
-                }
-              />
-            )
-          }}
-        />
+
+      fontsAreLoaded ? (
+        <List>
+          <FlatList
+            data={ where }
+            keyExtractor={_keyExtractor}
+            renderItem={({ item }) => {
+              const { description, distance, latitude, longitude } = item;
+              const { avatar, subtitle, title } = styles;
+              const avatar_url = 'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg';
+              return (
+                <ListItem
+                  onPress={() => { this._callShowDirections(latitude, longitude) }}
+                  avatar={
+                    <Avatar
+                      rounded
+                      source={ avatar_url && { uri: avatar_url } }
+                      avatarStyle={ avatar }
+                    />
+                  }
+                  title={
+                    <View>
+                      <Text style={ title }>{ description }</Text>
+                    </View>
+                  }
+                  subtitle={
+                    <View>
+                      <Text style={ subtitle }>Distance: { distance }</Text>
+                      <Text style={ subtitle }>Curbside: { showCurbside }</Text>
+                      <Text style={ subtitle }>Municipal: { showMunicipal }</Text>
+                    </View>
+                  }
+                />
+              )
+            }}
+          />
+        </List>
+
       ) : null
     )
   };

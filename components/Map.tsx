@@ -6,6 +6,12 @@ import { OpenMapDirections } from 'react-native-navigation-directions';
 
 const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
+const startPoint = navigator.geolocation.getCurrentPosition(
+  position => JSON.stringify(position),
+  error => alert(error.message),
+  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+);
+
 interface MapProps {
   markers: Array<object>;
 }
@@ -25,59 +31,62 @@ export default class Map extends Component<MapProps, MapState> {
       fontSize: 35,
     },
   };
-
+  
   constructor(props) {
     super(props);
     this.state = {
-      region: {
-        latitude: 40.7308,
-        longitude: -73.9973,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }
+      latitude: 40.7308,
+      longitude: -73.9973,
+      latitudeDelta: 0.0922/7,
+      longitudeDelta: 0.0421/7,
     }
   };
   
-  _callShowDirections = coordinate => {
-    const startPoint = navigator.geolocation.getCurrentPosition(
-      position => JSON.stringify(position),
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(position => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        })
+      },
       error => alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    const { latitude, longitude } = coordinate;
-    const endPoint = { latitude, longitude };
+  }
 
+  _callShowDirections = coordinate => {
     const transportPlan = 'd';
-
-    OpenMapDirections(startPoint, endPoint, transportPlan).then(res => {
-      console.log(res)
-    });
+    OpenMapDirections(this.state, coordinate, transportPlan)
+      .then(res => console.log(res));
   };
-
+  //fitToSuppliedMarkers - Google Maps
   render() {
+    const { markers } = this.props;
+    const { state, _callShowDirections } = this;
     return (
       <MapView
         style = {{ flex: 1 }}
         apikey = { GOOGLE_MAPS_API_KEY }
         provider = "google"
-        region = { this.state.region }
+        region = { state }
         showsUserLocation = { true }
         followsUserLocation = { true }
         showsMyLocationButton = { true }
-        onLongPress = { (e) => this._callShowDirections(e.nativeEvent.coordinate) }
+        onLongPress = { (e) => _callShowDirections(e.nativeEvent.coordinate) }
       >
       {
-        this.props.markers.map((marker, idx) => {
-          const { latlng, title, distance, curbside, municipal } = marker;
-          description = marker.description + '\n' + 
-                        'Distance: ' + distance + '\n' +
+        markers.map((marker, idx) => {
+          const { latitude, longitude, distance, curbside, municipal } = marker;
+          const title = marker.description;
+          description = 'Distance: ' + distance + '\n' +
                         //'Curbside: ' + curbside + '\n' +
                         //'Municipal: ' + municipal + '\n' +
-                        'LONG PRESS AT THE BOTTOM OF THE PIN FOR DIRECTIONS' 
+                        'LONG PRESS at the bottom of the pin FOR DIRECTIONS!' 
           return(
             <Marker
                 key={ idx }
-                coordinate={ latlng }
+                coordinate={{ latitude, longitude }}
                 title={ title }
                 description={ description }
             />
