@@ -8,9 +8,9 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./images/recycle_heart_logo.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./images/recycle_heart_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,8 +19,12 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.teamproton.recycleit",
       "supportsTablet": true,
       "infoPlist": { "NSLocationWhenInUseUsageDescription": "This app uses your location for the map." }
+    },
+    "android": {
+      "package": "com.teamproton.recycleit"
     }
   }
 }
