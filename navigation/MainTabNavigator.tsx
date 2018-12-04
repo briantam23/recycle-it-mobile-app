@@ -1,16 +1,21 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import MapScreen from '../screens/MapScreen';
-import PictureScreen from '../screens/PictureScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
-const HomeStack = createStackNavigator({ HomeScreen }, {
-  headerLayoutPreset: 'center',
-});
+const HomeStack = createStackNavigator(
+  { HomeScreen },
+  {
+    headerLayoutPreset: 'center',
+  }
+);
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
@@ -21,9 +26,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const MapStack = createStackNavigator({ MapScreen }, {
-  headerLayoutPreset: 'center',
-});
+const MapStack = createStackNavigator(
+  { MapScreen },
+  {
+    headerLayoutPreset: 'center',
+  }
+);
 MapStack.navigationOptions = {
   tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
@@ -34,22 +42,12 @@ MapStack.navigationOptions = {
   ),
 };
 
-const PictureStack = createStackNavigator({ PictureScreen }, {
-  headerLayoutPreset: 'center',
-});
-PictureStack.navigationOptions = {
-  tabBarLabel: 'Photo',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
-};
-
-const LoginStack = createStackNavigator({ LoginScreen }, {
-  headerLayoutPreset: 'center',
-});
+const LoginStack = createStackNavigator(
+  { LoginScreen },
+  {
+    headerLayoutPreset: 'center',
+  }
+);
 LoginStack.navigationOptions = {
   tabBarLabel: 'My Profile',
   tabBarIcon: ({ focused }) => (
@@ -60,9 +58,12 @@ LoginStack.navigationOptions = {
   ),
 };
 
-const LocationsStack = createStackNavigator({ LocationsScreen }, {
-  headerLayoutPreset: 'center',
-});
+const LocationsStack = createStackNavigator(
+  { LocationsScreen },
+  {
+    headerLayoutPreset: 'center',
+  }
+);
 LocationsStack.navigationOptions = {
   tabBarLabel: 'Locations',
   tabBarIcon: ({ focused }) => (
@@ -70,12 +71,12 @@ LocationsStack.navigationOptions = {
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-pin' : 'md-pin'}
     />
-  )
+  ),
 };
 
 export default createBottomTabNavigator({
   HomeStack,
   LocationsStack,
   MapStack,
-  LoginStack
+  LoginStack,
 });
