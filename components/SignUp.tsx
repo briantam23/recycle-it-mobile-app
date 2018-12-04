@@ -115,6 +115,7 @@ export default class SignUp extends Component<Props, State> {
   render() {
     return (
       <View>
+     config-app.json-for-deployment
         {this.state.loggedIn === false ? (
           <View>
             <FormLabel>User Name</FormLabel>
