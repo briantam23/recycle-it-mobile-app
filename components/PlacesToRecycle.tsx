@@ -93,14 +93,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     height: 250,
-
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start'
   },
   inputContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 45,
+    marginTop: 25,
   },
   searchIcon: {
     padding: 0,
