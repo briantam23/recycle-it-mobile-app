@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Recycle-Capstone",
-    "description": "A very interesting project.",
-    "slug": "Recycle-Capstone",
+    "name": "Recycle It!",
+    "description": "Uses Image Recognition to determine if and where an item is recyclable.",
+    "slug": "Recycle It!",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],

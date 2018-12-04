@@ -13,3 +13,5 @@ life.goals
 .jest
 .expo
 dist
+__tests__/
+components/__tests__
