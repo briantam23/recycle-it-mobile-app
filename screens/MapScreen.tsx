@@ -4,24 +4,25 @@ import { StyleSheet } from 'react-native';
 import Map from '../components/Map';
 import { connect } from 'react-redux';
 
-
-class MapScreen extends Component {
+interface Props {
+  markers: any;
+}
+interface State {}
+class MapScreen extends Component<Props, State> {
   static navigationOptions = {
     title: 'List of Recycling Locations',
     headerStyle: {
       backgroundColor: '#518e30',
       marginBottom: 0,
     },
-    headerTintColor: "white",
+    headerTintColor: 'white',
   };
 
   render() {
     const { markers } = this.props;
-    return (
-      <Map markers={markers} />
-    );
+    return <Map markers={markers} />;
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +34,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ where }) => {
   return { markers: where };
-}
+};
 
 export default connect(mapStateToProps)(MapScreen);

@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
 import { Text } from 'react-native-elements';
-import { Font } from 'expo';
+import { Font, Location, Permissions } from 'expo';
 import CameraComp from './CameraComp';
 import { findPlacesToRecycle } from '../store/where';
 
@@ -26,7 +26,7 @@ interface State {
   recycle: boolean;
   description: string;
   name: string;
-  geoLocation: object;
+  geolocation: object;
   material_id: number;
   maxDistance: number;
   maxResults: number;
@@ -36,7 +36,7 @@ class Results extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
-      geoLocation: {
+      geolocation: {
         latitude: '',
         longitude: '',
       },
@@ -55,24 +55,38 @@ class Results extends Component<Props, State> {
     this.getLocationData = this.getLocationData.bind(this);
     this.getGeoLocation = this.getGeoLocation.bind(this);
   }
-  public getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition(position => {
+  public getGeoLocation = async () => {
+    /* navigator.geolocation.getCurrentPosition(position => {
       this.setState({
-        geoLocation: {
+        geolocation: {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         },
       });
-    });
+    });*/
+
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+    if (status === 'granted') {
+      console.log('granted');
+      const location = await Location.getCurrentPositionAsync({});
+      this.setState({
+        geolocation: {
+          latitude: location.coords.latitude.toString(),
+          longitude: location.coords.longitude.toString(),
+        },
+      });
+    }
   };
+
   public async componentDidMount() {
     await Font.loadAsync({
-      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      MaterialIcons: require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
     });
-    this.getGeoLocation();
     if (!this.props.image) {
       return null;
     }
+    await this.getGeoLocation();
     this.imageProp();
   }
   public async isRecyclable(item) {
@@ -163,7 +177,7 @@ class Results extends Component<Props, State> {
   }
   public getLocationData = material_id => {
     this.props
-      .findPlacesToRecycle(api_key, this.state.geoLocation, material_id, 5, 5)
+      .findPlacesToRecycle(api_key, this.state.geolocation, material_id, 5, 5)
       .then(() => this.props.navigation.navigate('LocationsScreen'));
   };
   public render() {
@@ -217,7 +231,7 @@ class Results extends Component<Props, State> {
                 </Text>
               )}
             </View>
-            <Text style={styles.textHeader}>Not Recyclable :(</Text>
+            <Text style={styles.textHeader}>Not Recyclable </Text>
 
             <View style={styles.button}>
               <TouchableHighlight>

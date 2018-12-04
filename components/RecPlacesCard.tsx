@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { ListItem, Avatar, List } from 'react-native-elements';
-import { Font } from 'expo';
+import { Font, Permissions } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { MaterialIcons } from '@expo/vector-icons';
 
