@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { List, ListItem, Avatar } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 import { Font } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -48,6 +48,7 @@ class RecPlacesCard extends Component<Props, State> {
     let showCurbside = where.curbside && 'Yes' || 'No'
     let showMunicipal = where.municipal && 'Yes' || 'No'
     return (
+
       fontsAreLoaded ? (
         <List>
           <FlatList
@@ -84,6 +85,7 @@ class RecPlacesCard extends Component<Props, State> {
             }}
           />
         </List>
+
       ) : null
     )
   };

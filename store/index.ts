@@ -6,6 +6,7 @@ import what from './what';
 import where from './where';
 import users from './users';
 import materials from './materials';
+import toggle from './Toggle';
 
 export interface reducerLayout {
   state: string[],
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   where,
   users,
   materials,
+  toggle,
 });
 
 export default createStore(reducer, applyMiddleware(logger, thunk));
