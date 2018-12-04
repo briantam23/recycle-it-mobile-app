@@ -14,6 +14,7 @@ import { withNavigation } from 'react-navigation';
 import { getLocationDetails } from '../store/where';
 import RecPlacesCard from '../components/RecPlacesCard';
 import { ObjectLiteralElement } from 'typescript';
+import layout from '../constants/Layout';
 
 interface LocationsScreenProps {
   navigation: any;
@@ -32,30 +33,32 @@ class LocationsScreen extends Component<LocationsScreenProps> {
 
   public render() {
     const { where, navigation } = this.props;
-    const { heartContainer, heartLogo, homeButton } = styles;
+    const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer } = styles;
     return (
       <View>
         {where.length >= 1 ? (
-          <View>
-            <Button
+          <View style={ buttonContainer }>
+            {/* <Button
               title="Go Back"
               color="#30518e"
               onPress={() => navigation.navigate('HomeScreen')}
             />
-            <RecPlacesCard />
             <Button
               title="View Map"
               onPress={() => navigation.navigate('MapScreen')}
-            />
+            /> */}
+            <TouchableOpacity clear onPress={() => navigation.navigate('HomeScreen')}>
+              <Text style={homeButton2}>Search Again!</Text>
+            </TouchableOpacity>
+            <TouchableOpacity clear onPress={() => navigation.navigate('MapScreen')}>
+              <Text style={mapButton}>View Map</Text>
+            </TouchableOpacity>
+            <RecPlacesCard />
           </View>
         ) : (
           <View style={heartContainer}>
-            {/* <Button
-                title = "Find something to Recycle!"
-                style = { home }
-                onPress = { () => navigation.navigate('HomeScreen') } /> */}
             <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-              <Text style={homeButton}>Find something to Recycle!</Text>
+              <Text style={homeButton1}>Find something to Recycle!</Text>
             </TouchableOpacity>
             <Image
               style={heartLogo}
@@ -99,10 +102,9 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
   },
-  homeButton: {
+  homeButton1: {
     backgroundColor: '#30518e',
     borderColor: 'white',
-    borderWidth: 1,
     borderRadius: 4,
     color: 'white',
     fontSize: 42,
@@ -112,8 +114,39 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 45,
     height: 140,
-    width: 330,
+    width: layout.window.width,
   },
+  homeButton2: {
+    color: '#30518e',
+    borderColor: 'white',
+    borderRadius: 4,
+    backgroundColor: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 6,
+    textAlign: 'center',
+    //marginBottom: 45,
+    height: 30,
+    width: window.width,
+  },
+  mapButton: {
+    color: '#30518e',
+    borderColor: 'white',
+    borderRadius: 4,
+    backgroundColor: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 6,
+    textAlign: 'center',
+    //marginBottom: 45,
+    height: 30,
+    width: window.width,
+  },
+  buttonContainer: {
+    //display: 'flex'
+  }
 });
 
 export default connect(
