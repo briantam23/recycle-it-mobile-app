@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 42777,
-  "expoServerNgrokUrl": "https://dk-2uk.anonymous.recycle.exp.direct",
-  "packagerNgrokUrl": "https://packager.dk-2uk.anonymous.recycle.exp.direct",
-  "ngrokPid": 42788
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://dk-2uk.briantam23.recycle.exp.direct",
+  "packagerNgrokUrl": "https://packager.dk-2uk.briantam23.recycle.exp.direct",
+  "ngrokPid": 64090
 }
