@@ -33,27 +33,22 @@ class LocationsScreen extends Component<LocationsScreenProps> {
 
   public render() {
     const { where, navigation } = this.props;
-    const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer } = styles;
+    const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer, mainContainer, listContainer } = styles;
     return (
-      <View>
+      <View style={{ backgroundColor: 'white' }}>
         {where.length >= 1 ? (
-          <View style={ buttonContainer }>
-            {/* <Button
-              title="Go Back"
-              color="#30518e"
-              onPress={() => navigation.navigate('HomeScreen')}
-            />
-            <Button
-              title="View Map"
-              onPress={() => navigation.navigate('MapScreen')}
-            /> */}
-            <TouchableOpacity clear onPress={() => navigation.navigate('HomeScreen')}>
-              <Text style={homeButton2}>Search Again!</Text>
-            </TouchableOpacity>
-            <TouchableOpacity clear onPress={() => navigation.navigate('MapScreen')}>
-              <Text style={mapButton}>View Map</Text>
-            </TouchableOpacity>
-            <RecPlacesCard />
+          <View style={ mainContainer }>
+            <View style={ buttonContainer }>
+              <TouchableOpacity clear onPress={() => navigation.navigate('HomeScreen')}>
+                <Text style={homeButton2}>Search Again!</Text>
+              </TouchableOpacity>
+              <TouchableOpacity clear onPress={() => navigation.navigate('MapScreen')}>
+                <Text style={mapButton}>View Map</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={ listContainer}>
+              <RecPlacesCard />
+            </View>
           </View>
         ) : (
           <View style={heartContainer}>
@@ -95,6 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+    bottom: 0
   },
   heartLogo: {
     width: 175,
@@ -105,7 +101,7 @@ const styles = StyleSheet.create({
   homeButton1: {
     backgroundColor: '#30518e',
     borderColor: 'white',
-    borderRadius: 4,
+    borderRadius: 2,
     color: 'white',
     fontSize: 42,
     fontWeight: 'bold',
@@ -117,35 +113,43 @@ const styles = StyleSheet.create({
     width: layout.window.width,
   },
   homeButton2: {
-    color: '#30518e',
+    backgroundColor: '#30518e',
     borderColor: 'white',
-    borderRadius: 4,
-    backgroundColor: 'white',
-    fontSize: 12,
+    borderRadius: 2,
+    color: 'white',
+    fontSize: 14,
     fontWeight: 'bold',
     overflow: 'hidden',
-    padding: 6,
+    padding: 12,
     textAlign: 'center',
-    //marginBottom: 45,
-    height: 30,
-    width: window.width,
+    height: 44,
+    //width: window.width*2,
   },
   mapButton: {
-    color: '#30518e',
+    backgroundColor: '#30518e',
     borderColor: 'white',
-    borderRadius: 4,
-    backgroundColor: 'white',
-    fontSize: 12,
+    borderRadius: 2,
+    color: 'white',
+    fontSize: 14,
     fontWeight: 'bold',
     overflow: 'hidden',
-    padding: 6,
+    padding: 12,
     textAlign: 'center',
-    //marginBottom: 45,
-    height: 30,
-    width: window.width,
+    height: 44,
+    //width: window.width*2,
   },
   buttonContainer: {
-    //display: 'flex'
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  mainContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  listContainer: {
+    marginTop: 24
   }
 });
 
