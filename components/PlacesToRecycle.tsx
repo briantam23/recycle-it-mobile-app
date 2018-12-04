@@ -1,22 +1,19 @@
 import * as React from 'react';
-import { Component, FormEvent } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  Button,
-  TextInput,
-  Image,
-} from 'react-native';
+import { StyleSheet, View, Button, TextInput, Image, TouchableOpacity } from 'react-native';
 
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
+import { toggleOn } from '../store/Toggle';
 
 interface Props {
   foundMaterials?: object[];
   materialDetails?: object;
   getMaterialDetail: any;
   searchMaterials: any;
+  toggleOn: any;
+  NtoggleOn
 };
 
 interface State {
@@ -27,7 +24,7 @@ class PlacesToRecycle extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props);
     this.state = {
-      materialSearch: 'NEWSPAPER',
+      materialSearch: '',
     };
   };
 
@@ -37,8 +34,22 @@ class PlacesToRecycle extends Component<Props, State> {
 
   public getData = () => {
     this.props.searchMaterials(api_key, this.state.materialSearch)
-      .then(() => console.log(this.props.foundMaterials))
-      .then(() => this.props.getMaterialDetail(api_key, this.props.foundMaterials[0].material_id))
+
+      .then(() => {
+        let foundMaterials = { material_id: 0 }
+        if (!this.props.foundMaterials.length) {
+          foundMaterials.material_id = 1000;
+          return foundMaterials;
+        }
+        return this.props.foundMaterials[0];
+      })
+      .then((foundMaterials) => this.props.getMaterialDetail(api_key, foundMaterials.material_id))
+      .then(() => this.props.toggleOn())
+
+      .catch(ex => console.log(ex))
+
+
+
   };
 
   public render() {
@@ -46,21 +57,23 @@ class PlacesToRecycle extends Component<Props, State> {
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Image
-            style={styles.searchIcon}
-            source={require('../images/green-search-icon.png')} />
+          <TouchableOpacity onPress={() => getData()}>
+            <Image
+              style={styles.searchIcon}
+              source={require('../images/green-search-icon.png')} />
+          </TouchableOpacity >
           <TextInput style={styles.input}
             underlineColorAndroid="transparent"
-            placeholder="NEWSPAPER"
-            placeholderTextColor="#9a73ef"
+            placeholder=""
+            placeholderTextColor="#30518e"
             autoCapitalize="characters"
             onChangeText={handleMaterial} />
         </View>
         <View>
-          <Button
+          {/* <Button
             onPress={() => getData()}
-            title="Search Material"
-            color='#30518e' />
+            title="SEARCH"
+            color='#30518e' /> */}
         </View>
       </View>
     );
@@ -68,6 +81,7 @@ class PlacesToRecycle extends Component<Props, State> {
 };
 
 const mapStateToProps = ({ materials }) => {
+  console.log(materials.foundMaterials)
   return {
     foundMaterials: materials.foundMaterials,
     materialDetails: materials.materialDetails,
@@ -77,15 +91,20 @@ const mapStateToProps = ({ materials }) => {
 const mapDispatchToProps = dispatch => ({
   searchMaterials: (api_key, materialSearch) => dispatch(searchMaterials(api_key, materialSearch)),
   getMaterialDetail: (api_key, material) => dispatch(getMaterialDetail(api_key, material)),
+  toggleOn: () => dispatch(toggleOn()),
 });
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    height: 250,
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
   },
   inputContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginTop: 25,
   },
   searchIcon: {
     padding: 0,
@@ -99,39 +118,14 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlign: 'center',
   },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
   input: {
     margin: 15,
     height: 50,
     width: '60%',
     borderColor: '#518e30',
     borderWidth: 1,
-    textAlign: 'center',
-    fontSize: 22
-  },
-  materialImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  imageContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  textHeader: {
-    fontWeight: 'bold',
-    color: 'tomato',
-  },
-  picker: {
-    fontSize: 30,
-    alignSelf: 'center',
-    color: 'red'
+    fontSize: 22,
+    paddingLeft: 10,
   },
 });
 

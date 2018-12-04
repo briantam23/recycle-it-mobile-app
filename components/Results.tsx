@@ -3,23 +3,22 @@ import { Component } from 'react';
 import {
   View,
   ActivityIndicator,
-  ScrollView,
-  Image,
   StyleSheet,
+  TouchableHighlight,
+  Button,
 } from 'react-native';
 import { connect } from 'react-redux';
-
+import { withNavigation } from 'react-navigation';
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
-import { Button, Text, Card } from 'react-native-elements';
-import { Font } from 'expo';
-import PictureScreen from '../screens/PictureScreen';
-import { googleWhatDoYouSee } from '../store/what';
+import { Text } from 'react-native-elements';
+import { Font, Location, Permissions } from 'expo';
 import CameraComp from './CameraComp';
+import { findPlacesToRecycle } from '../store/where';
 
 interface Props {
   image: string;
-  navigation: object;
-  //googleWhatDoYouSee: any;
+  navigation: any;
+  findPlacesToRecycle: any;
 }
 interface State {
   label: string[];
@@ -27,29 +26,67 @@ interface State {
   recycle: boolean;
   description: string;
   name: string;
+  geolocation: object;
+  material_id: number;
+  maxDistance: number;
+  maxResults: number;
 }
 
-export default class Results extends Component<Props, State> {
+class Results extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
+      geolocation: {
+        latitude: '',
+        longitude: '',
+      },
       label: [],
       loading: true,
       recycle: true,
       description: '',
       name: '',
+      material_id: null,
+      maxDistance: 5,
+      maxResults: 5,
     };
     this.imageProp = this.imageProp.bind(this);
     this.redo = this.redo.bind(this);
     this.isRecyclable = this.isRecyclable.bind(this);
+    this.getLocationData = this.getLocationData.bind(this);
+    this.getGeoLocation = this.getGeoLocation.bind(this);
   }
+  public getGeoLocation = async () => {
+    /* navigator.geolocation.getCurrentPosition(position => {
+      this.setState({
+        geolocation: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        },
+      });
+    });*/
+
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+    if (status === 'granted') {
+      console.log('granted');
+      const location = await Location.getCurrentPositionAsync({});
+      this.setState({
+        geolocation: {
+          latitude: location.coords.latitude.toString(),
+          longitude: location.coords.longitude.toString(),
+        },
+      });
+    }
+  };
+
   public async componentDidMount() {
     await Font.loadAsync({
-      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      MaterialIcons: require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
     });
     if (!this.props.image) {
       return null;
     }
+    await this.getGeoLocation();
     this.imageProp();
   }
   public async isRecyclable(item) {
@@ -90,7 +127,12 @@ export default class Results extends Component<Props, State> {
         return material.material_id === temp;
       });
       const final = result2.long_description;
-      this.setState({ description: final, loading: false, name: name });
+      this.setState({
+        description: final,
+        loading: false,
+        name: name,
+        material_id: temp,
+      });
     }
   }
   public async imageProp() {
@@ -109,7 +151,6 @@ export default class Results extends Component<Props, State> {
         },
       ],
     };
-    // this.props.googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)
     const response = await fetch(
       `https://vision.googleapis.com/v1/images:annotate?key=${CLOUD_VISION_API_KEY}`,
       {
@@ -125,8 +166,8 @@ export default class Results extends Component<Props, State> {
     console.log(parsed);
     const resArr = [];
     resArr.push(parsed.responses[0].labelAnnotations[0].description);
-    resArr.push(parsed.responses[0].labelAnnotations[1].description);
-    resArr.push(parsed.responses[0].labelAnnotations[2].description);
+    resArr.push(parsed.responses[0].labelAnnotations[1].description || '');
+    resArr.push(parsed.responses[0].labelAnnotations[2].description || '');
     console.log(resArr);
     this.setState({ label: resArr });
     this.isRecyclable(resArr);
@@ -134,8 +175,13 @@ export default class Results extends Component<Props, State> {
   private redo() {
     this.setState({ name: '' });
   }
+  public getLocationData = material_id => {
+    this.props
+      .findPlacesToRecycle(api_key, this.state.geolocation, material_id, 5, 5)
+      .then(() => this.props.navigation.navigate('LocationsScreen'));
+  };
   public render() {
-    const { label, recycle, description, name } = this.state;
+    const { recycle, description, name, material_id } = this.state;
     if (this.state.loading === true) {
       return (
         <View
@@ -158,79 +204,193 @@ export default class Results extends Component<Props, State> {
     }
     if (recycle === false) {
       return (
-        <ScrollView>
-          <Card title={name.toUpperCase()}>
-            <Text style={{ color: 'red', alignSelf: 'center' }} h2>
-              No!
-            </Text>
-          </Card>
-          <Card>
-            <Button
-              backgroundColor="#3E9428"
-              title="CHOOSE A DIFFERENT PICTURE"
-              buttonStyle={{
-                borderRadius: 0,
-                marginLeft: 0,
-                marginRight: 0,
-                marginBottom: 0,
-              }}
-              onPress={() => this.redo()}
-            />
-          </Card>
-        </ScrollView>
+        <View style={styles.mainContainer}>
+          <View
+            style={{
+              backgroundColor: 'red',
+              padding: 3,
+              borderWidth: 1,
+              borderColor: 'black',
+            }}
+          >
+            <View style={styles.materialNameCard}>
+              {name && (
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    color: 'red',
+                    fontSize: 35,
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                    backgroundColor: 'white',
+                    width: '100%',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {name.toUpperCase()}
+                </Text>
+              )}
+            </View>
+            <Text style={styles.textHeader}>Not Recyclable </Text>
+
+            <View style={styles.button}>
+              <TouchableHighlight>
+                <Button
+                  title="Try A Brand New Search"
+                  color="#30518e"
+                  onPress={() => this.redo()}
+                />
+              </TouchableHighlight>
+            </View>
+          </View>
+        </View>
       );
     }
 
     return (
-      <ScrollView>
-        <Card title={name.toUpperCase()}>
-          <Text style={{ color: 'green', alignSelf: 'center' }} h2>
-            Yes!
-          </Text>
-          <Text h3>{description}</Text>
-        </Card>
-        <Card title="Nearest recycling facility">
-          <Text>Location List</Text>
-        </Card>
-        <Card>
-          <Button
-            backgroundColor="#3E9428"
-            title="CHOOSE A DIFFERENT PICTURE"
-            buttonStyle={{
-              borderRadius: 0,
-              marginLeft: 0,
-              marginRight: 0,
-              marginBottom: 0,
-            }}
-            onPress={() => this.redo()}
-          />
-        </Card>
-      </ScrollView>
+      <View style={styles.mainContainer}>
+        <View style={styles.detailCard}>
+          <View style={styles.materialNameCard}>
+            {name && (
+              <Text style={styles.textHeaderMaterial}>
+                {name.toUpperCase()}
+              </Text>
+            )}
+          </View>
+          <Text style={styles.textHeader}>Recyclable!</Text>
+          <Text style={styles.textArea}>{description}</Text>
+          <View style={styles.button}>
+            {name && (
+              <Button
+                onPress={() => this.getLocationData(material_id)}
+                title="Find Where to Recycle"
+                color="#30518e"
+              />
+            )}
+          </View>
+
+          <View style={styles.button}>
+            <TouchableHighlight>
+              <Button
+                title="Or Try A Brand New Search"
+                color="#30518e"
+                onPress={() => this.redo()}
+              />
+            </TouchableHighlight>
+          </View>
+        </View>
+      </View>
     );
   }
 }
-
-/*const mapStateToProps = ({ what }) => {
-  console.log('HERE IS THE GOOGLE API RES OBJ--->', what)
-  return {
-    what
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  googleWhatDoYouSee: (CLOUD_VISION_API_KEY, body) => dispatch(googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)),
-});
-
 const styles = StyleSheet.create({
-  heartLogo: {
-    padding: 0,
-    margin: 30,
+  mainContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    padding: 10,
+  },
+  button: {
+    margin: 10,
+  },
+  pickerSelection: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: '#8e3051',
+    fontWeight: 'bold',
+  },
+  picker: {
+    borderColor: '#30518e',
+    borderWidth: 1,
+    margin: 5,
+  },
+  materialImage: {
     width: 100,
-    height: 90,
+    height: 80,
+    resizeMode: 'contain',
+    marginTop: 3,
+    marginLeft: -10,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    backgroundColor: '#518e30',
+    width: '100%',
+    height: '100%',
+    padding: 10,
+    color: 'black',
+  },
+  textHeader: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 45,
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+  header: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  textArea: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  modalContainer: {
+    alignItems: 'center',
+    backgroundColor: '#ede3f2',
+    padding: 100,
+  },
+  modal: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#73c149',
+    padding: 100,
+  },
+  detailCard: {
+    backgroundColor: '#518e30',
+    padding: 3,
+    borderWidth: 1,
+    borderColor: 'black',
+  },
+  materialNameCard: {
+    padding: 3,
+    flexDirection: 'row',
+  },
+  textHeaderMaterial: {
+    fontWeight: 'bold',
+    color: '#518e30',
+    fontSize: 35,
+    alignSelf: 'center',
+    textAlign: 'center',
+    backgroundColor: 'white',
+    width: '100%',
+    flexWrap: 'wrap',
   },
 });
-
+const mapDispatchToProps = dispatch => {
+  return {
+    findPlacesToRecycle: (
+      api_key,
+      geolocation,
+      productInfo,
+      maxDistance,
+      maxResults
+    ) =>
+      dispatch(
+        findPlacesToRecycle(
+          api_key,
+          geolocation,
+          productInfo,
+          maxDistance,
+          maxResults
+        )
+      ),
+  };
+};
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
-)(Results);*/
+)(withNavigation(Results));
