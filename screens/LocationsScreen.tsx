@@ -35,7 +35,7 @@ class LocationsScreen extends Component<LocationsScreenProps> {
     const { where, navigation } = this.props;
     const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer, mainContainer, listContainer } = styles;
     return (
-      <View style={{ backgroundColor: 'white' }}>
+      <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
         {where.length >= 1 ? (
           <View style={ mainContainer }>
             <View style={ buttonContainer }>
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
-    bottom: 0
+    bottom: 0,
+    backgroundColor: 'white'
   },
   heartLogo: {
     width: 175,
@@ -146,7 +147,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: '#518e30',
   },
   listContainer: {
     marginTop: 24
