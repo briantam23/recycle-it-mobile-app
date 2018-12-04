@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign: 'center',
     height: 44,
-    //width: window.width*2,
+    width: 130,
   },
   mapButton: {
     backgroundColor: '#30518e',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign: 'center',
     height: 44,
-    //width: window.width*2,
+    width: 130,
   },
   buttonContainer: {
     flex: 1,
