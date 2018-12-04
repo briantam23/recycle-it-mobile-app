@@ -1,36 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import Map from './Map';
+import Map from '../components/Map';
 import { connect } from 'react-redux';
 
 
-const markers = [
-  {
-    latlng: {
-      latitude: 40.7484,
-      longitude: -73.9857
-    },
-    title: 'Empire State Building',
-    description: 'Very Tall Building!',
-    distance: '.5 mile',
-    curbside: 'Yes',
-    municipal: 'Yes'
-  },
-  {
-    latlng: {
-      latitude: 40.7056,
-      longitude: -74.0027
-    },
-    title: 'South Street Seaport',
-    description: 'Lots of Fish!!',
-    distance: '.75 mile',
-    curbside: 'No',
-    municipal: 'No',
-  }
-]
-
-export default class MapScreen extends Component {
+class MapScreen extends Component {
   static navigationOptions = {
     title: 'List of Recycling Locations',
     headerStyle: {
@@ -41,6 +16,7 @@ export default class MapScreen extends Component {
   };
 
   render() {
+    const { markers } = this.props;
     return (
       <Map markers={markers} />
     );
@@ -55,11 +31,8 @@ const styles = StyleSheet.create({
   },
 });
 
-/* const mapStateToProps = ({ where }) => {
-  let region = {};
-  return {
-    where: region
-  }
+const mapStateToProps = ({ where }) => {
+  return { markers: where };
 }
 
-connect(mapStateToProps)(Map); */
+export default connect(mapStateToProps)(MapScreen);

@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
-import { StyleSheet, View, Picker, Modal, TouchableHighlight, TouchableOpacity, Linking, Button, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Picker,
+  Modal,
+  TouchableHighlight,
+  TouchableOpacity,
+  Linking,
+  Button,
+  Image,
+} from 'react-native';
 import { Text, Card } from 'react-native-elements';
 
 import { api_key } from '../apiKey';
@@ -17,7 +27,7 @@ interface Props {
   navigation: any;
   toggle: boolean;
   toggleOff: any;
-};
+}
 
 interface State {
   materialSearch: string;
@@ -25,7 +35,7 @@ interface State {
   maxDistance: number;
   maxResults: number;
   isVisible: boolean;
-};
+}
 
 class Outcome extends Component<Props, State> {
   constructor(props) {
@@ -40,11 +50,13 @@ class Outcome extends Component<Props, State> {
       maxDistance: 5,
       maxResults: 5,
     };
-  };
+  }
 
-  public componentDidMount() { this.getGeoLocation() };
+  public componentDidMount() {
+    this.getGeoLocation();
+  }
   public getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         geoLocation: {
           latitude: position.coords.latitude,
@@ -54,17 +66,19 @@ class Outcome extends Component<Props, State> {
     });
   };
 
-  public getLocationData = (material_id) => {
-    this.props.findPlacesToRecycle(api_key, this.state.geoLocation, material_id, 5, 5)
-      .then(() => this.props.navigation.navigate('LocationsScreen'))
+  public getLocationData = material_id => {
+    this.props
+      .findPlacesToRecycle(api_key, this.state.geoLocation, material_id, 5, 5)
+      .then(() => this.props.navigation.navigate('LocationsScreen'));
   };
 
   public handlePicker = ({ material_id, description }) => {
-    this.setState({ materialSearch: description })
-    this.props.getMaterialDetail(api_key, material_id)
+    this.setState({ materialSearch: description });
+    this.props.getMaterialDetail(api_key, material_id);
   };
 
   public render() {
+
     if (this.state.isVisible && !this.props.materialDetails) {
       return (
         <Modal
@@ -96,11 +110,13 @@ class Outcome extends Component<Props, State> {
     };
 
     const { description, long_description, url, material_id } = this.props.materialDetails;
+
     const { foundMaterials } = this.props;
     const materialDropdownSearch = foundMaterials.length >= 1;
 
     if (!this.props.toggle) {
       return null;
+
     };
 
     return (
@@ -118,12 +134,14 @@ class Outcome extends Component<Props, State> {
 
             <View style={styles.detailCard}>
 
+
               <View style={styles.materialNameCard}>
                 {
                   description &&
                   <Text style={styles.textHeaderMaterial}>{description}</Text>
                 }
               </View>
+
 
               <Text style={styles.textHeader}>Recyclable!</Text>
 
@@ -194,14 +212,31 @@ const mapStateToProps = ({ materials, toggle }) => {
   return {
     foundMaterials: materials.foundMaterials,
     materialDetails: materials.materialDetails,
-    toggle
+    toggle,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  searchMaterials: (api_key, materialSearch) => dispatch(searchMaterials(api_key, materialSearch)),
-  getMaterialDetail: (api_key, material) => dispatch(getMaterialDetail(api_key, material)),
-  findPlacesToRecycle: (api_key, geolocation, productInfo, maxDistance, maxResults) => dispatch(findPlacesToRecycle(api_key, geolocation, productInfo, maxDistance, maxResults)),
+  searchMaterials: (api_key, materialSearch) =>
+    dispatch(searchMaterials(api_key, materialSearch)),
+  getMaterialDetail: (api_key, material) =>
+    dispatch(getMaterialDetail(api_key, material)),
+  findPlacesToRecycle: (
+    api_key,
+    geolocation,
+    productInfo,
+    maxDistance,
+    maxResults
+  ) =>
+    dispatch(
+      findPlacesToRecycle(
+        api_key,
+        geolocation,
+        productInfo,
+        maxDistance,
+        maxResults
+      )
+    ),
   toggleOff: () => dispatch(toggleOff()),
 });
 
@@ -220,7 +255,7 @@ const styles = StyleSheet.create({
   pickerSelection: {
     fontSize: 20,
     alignSelf: 'center',
-    color: "#8e3051",
+    color: '#8e3051',
     fontWeight: 'bold',
   },
   picker: {
@@ -241,7 +276,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     padding: 10,
-    color: 'black'
+    color: 'black',
   },
   textHeader: {
     fontWeight: 'bold',
@@ -263,19 +298,19 @@ const styles = StyleSheet.create({
   modalContainer: {
     alignItems: 'center',
     backgroundColor: '#ede3f2',
-    padding: 100
+    padding: 100,
   },
   modal: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#73c149',
-    padding: 100
+    padding: 100,
   },
   detailCard: {
     backgroundColor: '#518e30',
     padding: 3,
     borderWidth: 1,
-    borderColor: 'black'
+    borderColor: 'black',
   },
   detailCardNegative: {
     backgroundColor: '#8e3051',
@@ -295,7 +330,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: 'white',
     width: '100%',
-    flexWrap: "wrap"
+    flexWrap: 'wrap',
   },
   NegativetextHeaderMaterial: {
     fontWeight: 'bold',
@@ -309,4 +344,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Outcome));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNavigation(Outcome));
