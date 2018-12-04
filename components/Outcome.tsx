@@ -92,34 +92,35 @@ class Outcome extends Component<Props, State> {
   };
 
   public render() {
-
-    if (this.state.isVisible && !this.props.materialDetails) {
+    if (!this.props.materialDetails) {
       return (
-        <Modal
-          animationType='slide'
-          onRequestClose={() => { this.props.toggleOff() }}
-          transparent={false}
-          visible={this.state.isVisible}
-          presentationStyle='overFullScreen'>
-          <View style={styles.mainContainer}>
-            <View style={styles.detailCardNegative}>
-              <View style={styles.materialNameCard}>
-                <Text style={styles.NegativetextHeaderMaterial}>¯\_(ツ)_/¯</Text>
-              </View>
-              <Text style={styles.textHeader}>Not Recyclable!</Text>
-              <Text style={styles.textArea}>
-                Even if you can't recycle it, you still may be able to reuse it!
-              </Text>
-              <View style={styles.button}>
-                <Button
-                  onPress={() => { this.props.toggleOff() }}
-                  title="Try Again!"
-                  color='#30518e'
-                />
+        this.props.toggle ?
+          <Modal
+            animationType='slide'
+            onRequestClose={() => { this.props.toggleOff() }}
+            transparent={false}
+            visible={this.state.isVisible}
+            presentationStyle='overFullScreen'>
+            <View style={styles.mainContainer}>
+              <View style={styles.detailCardNegative}>
+                <View style={styles.materialNameCard}>
+                  <Text style={styles.NegativetextHeaderMaterial}>¯\_(ツ)_/¯</Text>
+                </View>
+                <Text style={styles.textHeader}>Not Recyclable!</Text>
+                <Text style={styles.textArea}>
+                  Even if you can't recycle it, you still may be able to reuse it!
+                </Text>
+                <View style={styles.button}>
+                  <Button
+                    onPress={() => { this.props.toggleOff() }}
+                    title="Try Again!"
+                    color='#30518e'
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+          : null
       )
     };
 
