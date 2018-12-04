@@ -3,18 +3,14 @@ import { Component } from 'react';
 import {
   View,
   ActivityIndicator,
-  ScrollView,
-  Image,
   StyleSheet,
-  Linking,
-  Modal,
   TouchableHighlight,
   Button,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
-import { Text, Card } from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import { Font } from 'expo';
 import CameraComp from './CameraComp';
 import { findPlacesToRecycle } from '../store/where';
@@ -141,7 +137,6 @@ class Results extends Component<Props, State> {
         },
       ],
     };
-    // this.props.googleWhatDoYouSee(CLOUD_VISION_API_KEY, body)
     const response = await fetch(
       `https://vision.googleapis.com/v1/images:annotate?key=${CLOUD_VISION_API_KEY}`,
       {
