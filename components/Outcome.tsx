@@ -13,7 +13,7 @@ import {
   Image,
 } from 'react-native';
 import { Text, Card } from 'react-native-elements';
-
+import { Permissions, Location, Font } from 'expo';
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import { findPlacesToRecycle } from '../store/where';
@@ -52,18 +52,32 @@ class Outcome extends Component<Props, State> {
     };
   }
 
-  public componentDidMount() {
-    this.getGeoLocation();
+  public async componentDidMount() {
+    await Font.loadAsync({
+      MaterialIcons: require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+    });
+    await this.getGeoLocation();
   }
-  public getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition(position => {
+  public getGeoLocation = async () => {
+    /*navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         geoLocation: {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         },
       });
-    });
+    });*/
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      console.log('granted');
+      const location = await Location.getCurrentPositionAsync({});
+      this.setState({
+        geoLocation: {
+          latitude: location.coords.latitude.toString(),
+          longitude: location.coords.longitude.toString(),
+        },
+      });
+    }
   };
 
   public getLocationData = material_id => {
