@@ -69,7 +69,7 @@ class RecPlacesCard extends Component<Props, State> {
                 <Avatar
                   rounded
                   source={avatar_url && { uri: avatar_url }}
-                //  avatarStyle={styles.avatar}
+                  avatarStyle={styles.avatar}
                 />
               }
               title={
