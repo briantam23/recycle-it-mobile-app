@@ -24,9 +24,9 @@ interface State {
   loggedIn: boolean;
   uid: string;
 }
-interface Props {}
+interface Props { }
 
-export default class SignUp extends Component<Props, State> {
+class SignUp extends Component<Props, State> {
   constructor(props: Props, context?: any) {
     super(props, context);
     this.state = {
@@ -105,7 +105,7 @@ export default class SignUp extends Component<Props, State> {
           loggedIn: true,
         });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
   };
@@ -115,7 +115,6 @@ export default class SignUp extends Component<Props, State> {
   render() {
     return (
       <View>
-     config-app.json-for-deployment
         {this.state.loggedIn === false ? (
           <View>
             <FormLabel>User Name</FormLabel>
@@ -156,47 +155,47 @@ export default class SignUp extends Component<Props, State> {
             />
           </View>
         ) : (
-          <View>
-            <Card containerStyle={{ marginTop: 150 }}>
-              <Avatar
-                xlarge
-                title={this.state.userName[0]}
-                containerStyle={{ marginLeft: 100, marginRight: 115 }}
-                rounded
-              />
-              <Text
-                style={{
-                  marginTop: 25,
-                  marginLeft: 110,
-                  marginRight: 75,
-                  fontSize: 40,
-                }}
-              >
-                {this.state.userName}
-              </Text>
-              <Text
-                style={{
-                  marginTop: 10,
-                  marginLeft: 110,
-                  marginRight: 75,
-                  fontSize: 35,
-                }}
-              >
-                Points: {this.state.points}
-              </Text>
-              <Button
-                style={{ marginTop: 10 }}
-                raised
-                backgroundColor="#3E9428"
-                title="Log Out"
-                onPress={() => this.logOut()}
-              />
-            </Card>
-          </View>
-        )}
+            <View>
+              <Card containerStyle={{ marginTop: 150 }}>
+                <Avatar
+                  xlarge
+                  title={this.state.userName[0]}
+                  containerStyle={{ marginLeft: 100, marginRight: 115 }}
+                  rounded
+                />
+                <Text
+                  style={{
+                    marginTop: 25,
+                    marginLeft: 110,
+                    marginRight: 75,
+                    fontSize: 40,
+                  }}
+                >
+                  {this.state.userName}
+                </Text>
+                <Text
+                  style={{
+                    marginTop: 10,
+                    marginLeft: 110,
+                    marginRight: 75,
+                    fontSize: 35,
+                  }}
+                >
+                  Points: {this.state.points}
+                </Text>
+                <Button
+                  style={{ marginTop: 10 }}
+                  raised
+                  backgroundColor="#3E9428"
+                  title="Log Out"
+                  onPress={() => this.logOut()}
+                />
+              </Card>
+            </View>
+          )}
       </View>
     );
   }
 }
 
-//export default connect(null)(SignUp);
+export default SignUp;
