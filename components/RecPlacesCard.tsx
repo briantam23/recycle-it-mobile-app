@@ -52,7 +52,7 @@ class RecPlacesCard extends Component<Props, State> {
     let showCurbside = (where.curbside && 'Yes') || 'No';
     let showMunicipal = (where.municipal && 'Yes') || 'No';
     return fontsAreLoaded ? (
-      <List>
+      <List >
         <FlatList
           data={where}
           keyExtractor={_keyExtractor}

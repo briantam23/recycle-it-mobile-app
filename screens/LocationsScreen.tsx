@@ -14,6 +14,7 @@ import { withNavigation } from 'react-navigation';
 import { getLocationDetails } from '../store/where';
 import RecPlacesCard from '../components/RecPlacesCard';
 import { ObjectLiteralElement } from 'typescript';
+import layout from '../constants/Layout';
 
 interface LocationsScreenProps {
   navigation: any;
@@ -32,30 +33,27 @@ class LocationsScreen extends Component<LocationsScreenProps> {
 
   public render() {
     const { where, navigation } = this.props;
-    const { heartContainer, heartLogo, homeButton } = styles;
+    const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer, mainContainer, listContainer } = styles;
     return (
-      <View>
+      <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
         {where.length >= 1 ? (
-          <View>
-            <Button
-              title="Go Back"
-              color="#30518e"
-              onPress={() => navigation.navigate('HomeScreen')}
-            />
-            <RecPlacesCard />
-            <Button
-              title="View Map"
-              onPress={() => navigation.navigate('MapScreen')}
-            />
+          <View style={ mainContainer }>
+            <View style={ buttonContainer }>
+              <TouchableOpacity clear onPress={() => navigation.navigate('HomeScreen')}>
+                <Text style={homeButton2}>Search Again!</Text>
+              </TouchableOpacity>
+              <TouchableOpacity clear onPress={() => navigation.navigate('MapScreen')}>
+                <Text style={mapButton}>View Map</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={ listContainer}>
+              <RecPlacesCard />
+            </View>
           </View>
         ) : (
           <View style={heartContainer}>
-            {/* <Button
-                title = "Find something to Recycle!"
-                style = { home }
-                onPress = { () => navigation.navigate('HomeScreen') } /> */}
             <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-              <Text style={homeButton}>Find something to Recycle!</Text>
+              <Text style={homeButton1}>Find something to Recycle!</Text>
             </TouchableOpacity>
             <Image
               style={heartLogo}
@@ -92,6 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+    bottom: 0,
+    backgroundColor: 'white'
   },
   heartLogo: {
     width: 175,
@@ -99,11 +99,10 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
   },
-  homeButton: {
+  homeButton1: {
     backgroundColor: '#30518e',
     borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 4,
+    borderRadius: 2,
     color: 'white',
     fontSize: 42,
     fontWeight: 'bold',
@@ -112,8 +111,48 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 45,
     height: 140,
-    width: 330,
+    width: layout.window.width,
   },
+  homeButton2: {
+    backgroundColor: '#30518e',
+    borderColor: 'white',
+    borderRadius: 2,
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 12,
+    textAlign: 'center',
+    height: 44,
+    width: 130,
+  },
+  mapButton: {
+    backgroundColor: '#30518e',
+    borderColor: 'white',
+    borderRadius: 2,
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    padding: 12,
+    textAlign: 'center',
+    height: 44,
+    width: 130,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  mainContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    backgroundColor: '#518e30',
+  },
+  listContainer: {
+    marginTop: 24
+  }
 });
 
 export default connect(
