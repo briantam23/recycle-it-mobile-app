@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   Linking,
   Image,
+  PickerIOS,
+  Platform,
 } from 'react-native';
 import {
   Text, Card, Button,
@@ -19,6 +21,7 @@ import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import { findPlacesToRecycle } from '../store/where';
 import { toggleOff } from '../store/Toggle';
+import { url } from 'inspector';
 
 interface Props {
   foundMaterials?: any;
@@ -76,13 +79,16 @@ class Outcome extends Component<Props, State> {
   public getLocationData = material_id => {
     this.props
       .findPlacesToRecycle(api_key, this.state.geolocation, material_id, 5, 5)
-      .then(() => this.props.navigation.navigate('LocationsScreen'));
+      .then(() => this.props.navigation.navigate('LocationsScreen'))
+      .then(() => { this.props.toggleOff(); })
   };
 
-  public handlePicker = ({ material_id, description }) => {
+  public handlePicker = (description) => {
     this.setState({ materialSearch: description });
-    this.props.getMaterialDetail(api_key, material_id);
+    const material = this.props.foundMaterials.find(material => material.description === description)
+    this.props.getMaterialDetail(api_key, material.material_id);
   };
+
   public render() {
     if (!this.props.materialDetails) {
       return (
@@ -93,7 +99,7 @@ class Outcome extends Component<Props, State> {
             transparent={false}
             visible={this.state.isVisible}
             presentationStyle='overFullScreen'>
-            <View style={styles.mainContainer}>
+            <View style={styles.negativeMainContainer}>
               <View style={styles.detailCardNegative}>
                 <View style={styles.materialNameCard}>
                   <Text style={styles.NegativetextHeaderMaterial}>¯\_(ツ)_/¯</Text>
@@ -102,10 +108,11 @@ class Outcome extends Component<Props, State> {
                 <Text style={styles.textArea}>
                   Even if you can't recycle it, you still may be able to reuse it!
                 </Text>
-                <View style={styles.button}>
+                <View style={styles.buttons}>
                   <Button
                     onPress={() => { this.props.toggleOff() }}
                     title="Try Again!"
+                    backgroundColor='#30518e'
                   />
                 </View>
               </View>
@@ -130,6 +137,7 @@ class Outcome extends Component<Props, State> {
 
     return (
       <View>
+
         <Modal
           animationType="fade"
           transparent={false}
@@ -139,7 +147,9 @@ class Outcome extends Component<Props, State> {
             this.props.toggleOff();
           }}
         >
+
           <View style={styles.mainContainer}>
+
             <View style={styles.detailCard}>
               <View style={styles.materialNameCard}>
                 {description && (
@@ -160,56 +170,89 @@ class Outcome extends Component<Props, State> {
                 )}
               </Text>
 
-              <View style={styles.button}>
+              <View style={styles.buttons}>
                 {description && (
                   <Button
                     onPress={() => this.getLocationData(material_id)}
                     title="Find Where to Recycle"
+                    backgroundColor='#30518e'
+
                   />
                 )}
               </View>
             </View>
 
-            <Card>
-              <Text style={styles.pickerSelection}>
-                Look for something similar
+            {
+              Platform.OS === 'ios' ?
+                <Card>
+                  <Text style={styles.pickerSelection}>
+                    Look for something similar
               </Text>
-              <View style={styles.picker}>
-                <Picker
-                  selectedValue={this.state.materialSearch}
-                  enabled={materialDropdownSearch}
-                  onValueChange={this.handlePicker}
-                >
-                  <Picker.Item
-                    value="--"
-                    label="Scroll"
-                    key="500"
-                    color="#30518e"
-                  />
-                  {foundMaterials.map(material => {
-                    return (
-                      <Picker.Item
-                        value={material}
-                        label={material.description}
-                        key={material.material_id}
-                        color="#30518e"
-                      />
-                    );
-                  })}
-                </Picker>
-              </View>
+                  <View style={styles.picker}>
+                    <PickerIOS
+                      selectedValue={this.state.materialSearch}
+                      onValueChange={this.handlePicker}
+                    >
+                      {foundMaterials.map(material => {
+                        return (
+                          <Picker.Item
+                            value={material.description}
+                            label={material.description}
+                            key={material.material_id}
+                          />
+                        );
+                      })}
+                    </PickerIOS>
+                  </View>
 
-              <View style={styles.button}>
-                <TouchableHighlight>
-                  <Button
-                    title="Or Try A Brand New Search"
-                    onPress={() => {
-                      this.props.toggleOff();
-                    }}
-                  />
-                </TouchableHighlight>
-              </View>
-            </Card>
+                  <View style={styles.buttons}>
+                    <TouchableHighlight>
+                      <Button
+                        backgroundColor='#30518e'
+
+                        title="Or Try A Brand New Search"
+                        onPress={() => {
+                          this.props.toggleOff();
+                        }}
+                      />
+                    </TouchableHighlight>
+                  </View>
+                </Card>
+                :
+                <Card>
+                  <Text style={styles.pickerSelection}>
+                    Look for something similar
+              </Text>
+                  <View style={styles.picker}>
+                    <Picker
+                      selectedValue={this.state.materialSearch}
+                      onValueChange={this.handlePicker}
+                    >
+                      {foundMaterials.map(material => {
+                        return (
+                          <Picker.Item
+                            value={material.description}
+                            label={material.description}
+                            key={material.material_id}
+                          />
+                        );
+                      })}
+                    </Picker>
+                  </View>
+
+                  <View style={styles.buttons}>
+                    <TouchableHighlight>
+                      <Button
+                        backgroundColor='#30518e'
+                        title="Or Try A Brand New Search"
+                        onPress={() => {
+                          this.props.toggleOff();
+                        }}
+                      />
+                    </TouchableHighlight>
+                  </View>
+                </Card>
+            }
           </View>
         </Modal>
       </View>
@@ -251,6 +294,7 @@ const mapDispatchToProps = dispatch => ({
 
 const styles = StyleSheet.create({
   mainContainer: {
+    backgroundColor: '#30551d',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -258,8 +302,18 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: 10,
   },
-  button: {
-    margin: 10,
+  buttons: {
+    padding: 5,
+    margin: 5,
+  },
+  negativeMainContainer: {
+    backgroundColor: '#551d30',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    padding: 10,
   },
   pickerSelection: {
     fontSize: 20,
@@ -352,6 +406,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
 });
+
 
 export default connect(
   mapStateToProps,

@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Button, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import {
+  Button,
+} from 'react-native-elements';
 
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
@@ -70,10 +73,11 @@ class PlacesToRecycle extends Component<Props, State> {
             onChangeText={handleMaterial} />
         </View>
         <View>
-          {/* <Button
+          <Button
             onPress={() => getData()}
-            title="SEARCH"
-            color='#30518e' /> */}
+            title="LET'S GO FIND OUT!"
+            backgroundColor='#30518e'
+          />
         </View>
       </View>
     );

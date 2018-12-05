@@ -19,7 +19,6 @@ import layout from '../constants/Layout';
 interface LocationsScreenProps {
   navigation: any;
   where: any;
-  description?: any;
 }
 
 class LocationsScreen extends Component<LocationsScreenProps> {
@@ -37,30 +36,30 @@ class LocationsScreen extends Component<LocationsScreenProps> {
     return (
       <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
         {where.length >= 1 ? (
-          <View style={ mainContainer }>
-            <View style={ buttonContainer }>
-              <TouchableOpacity clear onPress={() => navigation.navigate('HomeScreen')}>
+          <View style={mainContainer}>
+            <View style={buttonContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
                 <Text style={homeButton2}>Search Again!</Text>
               </TouchableOpacity>
-              <TouchableOpacity clear onPress={() => navigation.navigate('MapScreen')}>
+              <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
                 <Text style={mapButton}>View Map</Text>
               </TouchableOpacity>
             </View>
-            <View style={ listContainer}>
+            <View style={listContainer}>
               <RecPlacesCard />
             </View>
           </View>
         ) : (
-          <View style={heartContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-              <Text style={homeButton1}>Find something to Recycle!</Text>
-            </TouchableOpacity>
-            <Image
-              style={heartLogo}
-              source={require('../images/recycle_heart_logo.png')}
-            />
-          </View>
-        )}
+            <View style={heartContainer}>
+              <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                <Text style={homeButton1}>Find something to Recycle!</Text>
+              </TouchableOpacity>
+              <Image
+                style={heartLogo}
+                source={require('../images/recycle_heart_logo.png')}
+              />
+            </View>
+          )}
       </View>
     );
   }
@@ -70,12 +69,9 @@ const mapStateToProps = ({ where, materials }) => {
   console.log(
     'THIS IS FROM THE LOCATIONS SCREEN',
     where,
-    materials.materialDetails.description
   );
-  const description = materials.materialDetails.description || '';
   return {
     where,
-    description,
   };
 };
 

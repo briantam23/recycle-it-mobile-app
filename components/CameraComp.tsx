@@ -105,7 +105,7 @@ class CameraComp extends Component<Props, State> {
           title="Welcome to Recycle It!"
           titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
         >
-          <Text>
+          <Text style={styles.openeningtext}>
             Just snap a photo of any item and we'll let you know if and where it
             can be recycled near you!
           </Text>
@@ -127,8 +127,8 @@ class CameraComp extends Component<Props, State> {
               />
             </TouchableOpacity>
           ) : (
-            <PlacesToRecycle />
-          )}
+                <PlacesToRecycle />
+              )}
         </View>
 
         <ButtonGroupModeSelection
@@ -154,9 +154,12 @@ const styles = StyleSheet.create({
   camera: {
     padding: 0,
     margin: 0,
-    width: 225,
-    height: 225,
+    width: 260,
+    height: 260,
   },
+  openeningtext: {
+    fontSize: 15,
+  }
 });
 
 const mapStateToProps = ({ where, materials }) => {
