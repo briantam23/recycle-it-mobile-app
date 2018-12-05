@@ -92,6 +92,7 @@ class Outcome extends Component<Props, State> {
   };
 
   public render() {
+
     if (this.state.isVisible && !this.props.materialDetails) {
       return (
         <Modal
