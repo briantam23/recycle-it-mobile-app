@@ -31,7 +31,7 @@ interface Props {
 
 interface State {
   materialSearch: string;
-  geoLocation: object;
+  geolocation: object;
   maxDistance: number;
   maxResults: number;
   isVisible: boolean;
@@ -43,7 +43,7 @@ class Outcome extends Component<Props, State> {
     this.state = {
       materialSearch: '',
       isVisible: true,
-      geoLocation: {
+      geolocation: {
         latitude: '',
         longitude: '',
       },
@@ -72,7 +72,7 @@ class Outcome extends Component<Props, State> {
       console.log('granted');
       const location = await Location.getCurrentPositionAsync({});
       this.setState({
-        geoLocation: {
+        geolocation: {
           latitude: location.coords.latitude.toString(),
           longitude: location.coords.longitude.toString(),
         },
@@ -82,7 +82,7 @@ class Outcome extends Component<Props, State> {
 
   public getLocationData = material_id => {
     this.props
-      .findPlacesToRecycle(api_key, this.state.geoLocation, material_id, 5, 5)
+      .findPlacesToRecycle(api_key, this.state.geolocation, material_id, 5, 5)
       .then(() => this.props.navigation.navigate('LocationsScreen'));
   };
 
@@ -92,136 +92,148 @@ class Outcome extends Component<Props, State> {
   };
 
   public render() {
-    if (!this.props.materialDetails) {
+
+    if (this.state.isVisible && !this.props.materialDetails) {
       return (
-        this.props.toggle ?
-          <Modal
-            animationType='slide'
-            onRequestClose={() => { this.props.toggleOff() }}
-            transparent={false}
-            visible={this.state.isVisible}
-            presentationStyle='overFullScreen'>
-            <View style={styles.mainContainer}>
-              <View style={styles.detailCardNegative}>
-                <View style={styles.materialNameCard}>
-                  <Text style={styles.NegativetextHeaderMaterial}>¯\_(ツ)_/¯</Text>
-                </View>
-                <Text style={styles.textHeader}>Not Recyclable!</Text>
-                <Text style={styles.textArea}>
-                  Even if you can't recycle it, you still may be able to reuse it!
+        <Modal
+          animationType="slide"
+          onRequestClose={() => {
+            this.props.toggleOff();
+          }}
+          transparent={false}
+          visible={this.state.isVisible}
+          presentationStyle="overFullScreen"
+        >
+          <View style={styles.mainContainer}>
+            <View style={styles.detailCardNegative}>
+              <View style={styles.materialNameCard}>
+                <Text style={styles.NegativetextHeaderMaterial}>
+                  ¯\_(ツ)_/¯
                 </Text>
-                <View style={styles.button}>
-                  <Button
-                    onPress={() => { this.props.toggleOff() }}
-                    title="Try Again!"
-                    color='#30518e'
-                  />
-                </View>
+              </View>
+              <Text style={styles.textHeader}>Not Recyclable!</Text>
+              <Text style={styles.textArea}>
+                Even if you can't recycle it, you still may be able to reuse it!
+              </Text>
+              <View style={styles.button}>
+                <Button
+                  onPress={() => {
+                    this.props.toggleOff();
+                  }}
+                  title="Try Again!"
+                  color="#30518e"
+                />
               </View>
             </View>
-          </Modal>
-          : null
-      )
-    };
+          </View>
+        </Modal>
+      );
+    }
 
-    const { description, long_description, url, material_id } = this.props.materialDetails;
+    const {
+      description,
+      long_description,
+      url,
+      material_id,
+    } = this.props.materialDetails;
 
     const { foundMaterials } = this.props;
     const materialDropdownSearch = foundMaterials.length >= 1;
 
     if (!this.props.toggle) {
       return null;
-
-    };
+    }
 
     return (
-      <View >
-
+      <View>
         <Modal
-          animationType='fade'
+          animationType="fade"
           transparent={false}
           visible={this.state.isVisible}
-          presentationStyle='overFullScreen'
-          onRequestClose={() => { this.props.toggleOff() }}
+          presentationStyle="overFullScreen"
+          onRequestClose={() => {
+            this.props.toggleOff();
+          }}
         >
-
           <View style={styles.mainContainer}>
-
             <View style={styles.detailCard}>
-
-
               <View style={styles.materialNameCard}>
-                {
-                  description &&
+                {description && (
                   <Text style={styles.textHeaderMaterial}>{description}</Text>
-                }
+                )}
               </View>
-
 
               <Text style={styles.textHeader}>Recyclable!</Text>
 
+              <Text style={styles.textArea}>{long_description}</Text>
               <Text style={styles.textArea}>
-                {long_description}
-              </Text>
-              <Text style={styles.textArea}>
-                {url &&
-                  <TouchableOpacity >
-                    {Linking.openURL(url).catch(err => console.error('An error occurred', err))}
+                {url && (
+                  <TouchableOpacity>
+                    {Linking.openURL(url).catch(err =>
+                      console.error('An error occurred', err)
+                    )}
                   </TouchableOpacity>
-                }
+                )}
               </Text>
 
               <View style={styles.button}>
-
-                {description && <Button
-                  onPress={() => this.getLocationData(material_id)}
-                  title="Find Where to Recycle"
-                  color='#30518e'
-                />}
+                {description && (
+                  <Button
+                    onPress={() => this.getLocationData(material_id)}
+                    title="Find Where to Recycle"
+                    color="#30518e"
+                  />
+                )}
               </View>
-
             </View>
 
             <Card>
-              <Text style={styles.pickerSelection}>Look for something similar</Text>
+              <Text style={styles.pickerSelection}>
+                Look for something similar
+              </Text>
               <View style={styles.picker}>
                 <Picker
                   selectedValue={this.state.materialSearch}
                   enabled={materialDropdownSearch}
                   onValueChange={this.handlePicker}
                 >
-                  <Picker.Item value='--' label='Scroll' key='500' color="#30518e" />
-                  {
-                    foundMaterials.map(material => {
-                      return <Picker.Item
+                  <Picker.Item
+                    value="--"
+                    label="Scroll"
+                    key="500"
+                    color="#30518e"
+                  />
+                  {foundMaterials.map(material => {
+                    return (
+                      <Picker.Item
                         value={material}
                         label={material.description}
                         key={material.material_id}
                         color="#30518e"
                       />
-                    })
-                  }
+                    );
+                  })}
                 </Picker>
               </View>
 
               <View style={styles.button}>
                 <TouchableHighlight>
                   <Button
-                    title='Or Try A Brand New Search'
-                    color='#30518e'
-                    onPress={() => { this.props.toggleOff() }} />
+                    title="Or Try A Brand New Search"
+                    color="#30518e"
+                    onPress={() => {
+                      this.props.toggleOff();
+                    }}
+                  />
                 </TouchableHighlight>
               </View>
-
             </Card>
-
           </View>
         </Modal>
-
-      </View >
-    )
-  };
-};
+      </View>
+    );
+  }
+}
 
 const mapStateToProps = ({ materials, toggle }) => {
   return {
@@ -331,7 +343,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8e3051',
     padding: 3,
     borderWidth: 1,
-    borderColor: 'black'
+    borderColor: 'black',
   },
   materialNameCard: {
     padding: 3,
@@ -355,7 +367,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: 'white',
     width: '100%',
-    flexWrap: "wrap"
+    flexWrap: 'wrap',
   },
 });
 

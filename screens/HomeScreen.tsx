@@ -1,19 +1,27 @@
 import * as React from 'react';
-import {
-  Button,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
+import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
 import Outcome from '../components/Outcome';
 import CameraComp from '../components/CameraComp';
+
+let proTips = ['Why did a chicken carrying a tin can cross the road? The recycling bin was on the other side.',
+      'Scientists discovered a way to generate light using only scrap metal. It was an aluminating experience.',
+      'What do you get when you have a glass bottle, some tin foil, and an old notebook? Recycling.',
+      'Flip it over! Check it out before you chuck it out!',
+      'Save the Earth! Its the only planet with Chocolate. So far…. (edited)',
+      'Don’t be trashy! Recycle!', 'It’s easy being green- Reduce, Reuse, Recycle.',
+      'Recycling plastic feels fantastic!', 'You will produce about 127, 604 pounds of garbage in your lifetime. Recycle.',
+      'Have you hugged your recycling bin today?']
+
+const randoNum = () => {
+  return Math.floor((Math.random() * 10) + 1);
+}
+
+let num = randoNum();
+
+const randomProTip = proTips[num];
+
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -22,7 +30,7 @@ export default class HomeScreen extends React.Component {
       backgroundColor: '#518e30',
       marginBottom: 0,
     },
-    headerTintColor: "white",
+    headerTintColor: 'white',
     headerTitleStyle: {
       fontSize: 35,
     },
@@ -31,7 +39,10 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
           <View>
             <CameraComp />
           </View>
@@ -40,12 +51,16 @@ export default class HomeScreen extends React.Component {
           </View>
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>Pro Tip #1: Recycling is good for you and the planet!</Text>
+
+          <Text style={styles.tabBarInfoText}>
+            Pro Tip #1: Recycling is good for you and the planet!
+          </Text>
+
         </View>
       </View>
     );
-  };
-};
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

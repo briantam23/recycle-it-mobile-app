@@ -15,13 +15,14 @@ const ButtonGroupModeSelection = ({ updateIndex, inputModeIndex }) => {
       onPress={updateIndex}
       selectedIndex={inputModeIndex}
       buttons={['Snap Photo', 'Upload Photo', 'Search']}
-      containerStyle={{ height: 40, margin: 0, padding: 0 }} />
-  )
+      containerStyle={{ height: 40, margin: 0, padding: 0 }}
+    />
+  );
 };
 
 interface Props {
   foundMaterials?: object[];
-};
+}
 
 interface State {
   hasCameraPermission: boolean | undefined;
@@ -29,7 +30,7 @@ interface State {
   image: string;
   loading: boolean;
   inputModeIndex: number;
-};
+}
 
 class CameraComp extends Component<Props, State> {
   constructor(props, context?: any) {
@@ -41,16 +42,18 @@ class CameraComp extends Component<Props, State> {
       loading: true,
       inputModeIndex: 0,
     };
-  };
+  }
 
-  public updateIndex = (inputModeIndex: number) => { this.setState({ inputModeIndex }) };
+  public updateIndex = (inputModeIndex: number) => {
+    this.setState({ inputModeIndex });
+  };
 
   public async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA).then(() =>
       Permissions.askAsync(Permissions.CAMERA_ROLL)
     );
     this.setState({ hasCameraPermission: status === 'granted' });
-  };
+  }
 
   public takePic = async () => {
     const permissions = Permissions.CAMERA_ROLL;
@@ -88,51 +91,54 @@ class CameraComp extends Component<Props, State> {
     const { hasCameraPermission } = this.state;
     if (this.state.loading === false) {
       return <Results image={this.state.image} />;
-    };
+    }
     if (hasCameraPermission === undefined) {
       return <Text>Get permission to Camera</Text>;
-    };
+    }
     if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
-    };
+    }
 
     return (
       <View>
         <Card
-          title='Welcome to Recycle It!'
+          title="Welcome to Recycle It!"
           titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
         >
-          <Text>Just snap a photo of any item and we'll let you know if and where it can be recycled near you!</Text>
+          <Text>
+            Just snap a photo of any item and we'll let you know if and where it
+            can be recycled near you!
+          </Text>
         </Card>
 
-        <View
-          style={styles.container}>
-          {
-            this.state.inputModeIndex === 0 ?
-              <TouchableOpacity onPress={() => this.takePic()}>
-                <Image
-                  style={styles.camera} source={require('../images/green-camera-icon.png')}
-                />
-              </TouchableOpacity>
-
-              : this.state.inputModeIndex === 1 ?
-                <TouchableOpacity onPress={() => this.pickImage()}>
-                  <Image
-                    style={styles.camera}
-                    source={require('../images/green-folder-icon.png')}
-                  />
-                </TouchableOpacity>
-
-                : <PlacesToRecycle />
-          }
+        <View style={styles.container}>
+          {this.state.inputModeIndex === 0 ? (
+            <TouchableOpacity onPress={() => this.takePic()}>
+              <Image
+                style={styles.camera}
+                source={require('../images/green-camera-icon.png')}
+              />
+            </TouchableOpacity>
+          ) : this.state.inputModeIndex === 1 ? (
+            <TouchableOpacity onPress={() => this.pickImage()}>
+              <Image
+                style={styles.camera}
+                source={require('../images/green-folder-icon.png')}
+              />
+            </TouchableOpacity>
+          ) : (
+            <PlacesToRecycle />
+          )}
         </View>
 
-        <ButtonGroupModeSelection updateIndex={this.updateIndex} inputModeIndex={this.state.inputModeIndex} />
-
+        <ButtonGroupModeSelection
+          updateIndex={this.updateIndex}
+          inputModeIndex={this.state.inputModeIndex}
+        />
       </View>
     );
-  };
-};
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -154,7 +160,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ where, materials }) => {
-  console.log('THIS IS FROM THE CameraComp COMPONENT', materials.foundMaterials)
+  console.log(
+    'THIS IS FROM THE CameraComp COMPONENT',
+    materials.foundMaterials
+  );
   return {
     where,
     foundMaterials: materials.foundMaterials,
