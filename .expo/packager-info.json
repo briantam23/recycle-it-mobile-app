@@ -1,9 +1,18 @@
 {
   "devToolsPort": 19002,
+<<<<<<< HEAD
   "expoServerPort": 19000,
   "packagerPort": 19004,
   "packagerPid": 97108,
   "expoServerNgrokUrl": "https://dk-2uk.anonymous.recycle.exp.direct",
   "packagerNgrokUrl": "https://packager.dk-2uk.anonymous.recycle.exp.direct",
   "ngrokPid": 97140
+=======
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
+>>>>>>> a34ff3216fec948e145a07f61d7b02875710d509
 }
