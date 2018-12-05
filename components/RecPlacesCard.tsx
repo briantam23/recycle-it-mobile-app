@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { ListItem, Avatar, List } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 import { Font, Permissions } from 'expo';
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -52,44 +52,42 @@ class RecPlacesCard extends Component<Props, State> {
     let showCurbside = (where.curbside && 'Yes') || 'No';
     let showMunicipal = (where.municipal && 'Yes') || 'No';
     return fontsAreLoaded ? (
-      <List >
-        <FlatList
-          data={where}
-          keyExtractor={_keyExtractor}
-          renderItem={({ item }) => {
-            const { description, distance, latitude, longitude } = item;
-            const { avatar, subtitle, title } = styles;
-            const avatar_url =
-              'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg';
-            return (
-              <ListItem
-                onPress={() => {
-                  this._callShowDirections(latitude, longitude);
-                }}
-                avatar={
-                  <Avatar
-                    rounded
-                    source={avatar_url && { uri: avatar_url }}
-                    avatarStyle={avatar}
-                  />
-                }
-                title={
-                  <View>
-                    <Text style={title}>{description}</Text>
-                  </View>
-                }
-                subtitle={
-                  <View>
-                    <Text style={subtitle}>Distance: {distance}</Text>
-                    <Text style={subtitle}>Curbside: {showCurbside}</Text>
-                    <Text style={subtitle}>Municipal: {showMunicipal}</Text>
-                  </View>
-                }
-              />
-            );
-          }}
-        />
-      </List>
+      <FlatList
+        data={where}
+        keyExtractor={_keyExtractor}
+        renderItem={({ item }) => {
+          const { description, distance, latitude, longitude } = item;
+          const { avatar, subtitle, title } = styles;
+          const avatar_url =
+            'https://pbs.twimg.com/profile_images/378800000703449332/e0dc3e28cd8e4edca330ddcfab4690b0.jpeg';
+          return (
+            <ListItem
+              onPress={() => {
+                this._callShowDirections(latitude, longitude);
+              }}
+              avatar={
+                <Avatar
+                  rounded
+                  source={avatar_url && { uri: avatar_url }}
+                  avatarStyle={styles.avatar}
+                />
+              }
+              title={
+                <View>
+                  <Text style={title}>{description}</Text>
+                </View>
+              }
+              subtitle={
+                <View>
+                  <Text style={subtitle}>Distance: {distance}</Text>
+                  <Text style={subtitle}>Curbside: {showCurbside}</Text>
+                  <Text style={subtitle}>Municipal: {showMunicipal}</Text>
+                </View>
+              }
+            />
+          );
+        }}
+      />
     ) : null;
   }
 }

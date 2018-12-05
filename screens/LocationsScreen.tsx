@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Text,
+  ScrollView,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
@@ -19,7 +20,6 @@ import layout from '../constants/Layout';
 interface LocationsScreenProps {
   navigation: any;
   where: any;
-  description?: any;
 }
 
 class LocationsScreen extends Component<LocationsScreenProps> {
@@ -35,33 +35,36 @@ class LocationsScreen extends Component<LocationsScreenProps> {
     const { where, navigation } = this.props;
     const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer, mainContainer, listContainer } = styles;
     return (
-      <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
-        {where.length >= 1 ? (
-          <View style={ mainContainer }>
-            <View style={ buttonContainer }>
-              <TouchableOpacity clear onPress={() => navigation.navigate('HomeScreen')}>
-                <Text style={homeButton2}>Search Again!</Text>
-              </TouchableOpacity>
-              <TouchableOpacity clear onPress={() => navigation.navigate('MapScreen')}>
-                <Text style={mapButton}>View Map</Text>
-              </TouchableOpacity>
+      <ScrollView>
+
+        <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
+          {where.length >= 1 ? (
+            <View style={mainContainer}>
+              <View style={buttonContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                  <Text style={homeButton2}>Search Again!</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+                  <Text style={mapButton}>View Map</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={listContainer}>
+                <RecPlacesCard />
+              </View>
             </View>
-            <View style={ listContainer}>
-              <RecPlacesCard />
-            </View>
-          </View>
-        ) : (
-          <View style={heartContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-              <Text style={homeButton1}>Find something to Recycle!</Text>
-            </TouchableOpacity>
-            <Image
-              style={heartLogo}
-              source={require('../images/recycle_heart_logo.png')}
-            />
-          </View>
-        )}
-      </View>
+          ) : (
+              <View style={heartContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                  <Text style={homeButton1}>Find something to Recycle!</Text>
+                </TouchableOpacity>
+                <Image
+                  style={heartLogo}
+                  source={require('../images/recycle_heart_logo.png')}
+                />
+              </View>
+            )}
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -70,12 +73,9 @@ const mapStateToProps = ({ where, materials }) => {
   console.log(
     'THIS IS FROM THE LOCATIONS SCREEN',
     where,
-    materials.materialDetails.description
   );
-  const description = materials.materialDetails.description || '';
   return {
     where,
-    description,
   };
 };
 
@@ -143,12 +143,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 20,
   },
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#518e30',
+    backgroundColor: 'white',
   },
   listContainer: {
     marginTop: 24

@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, View, } from 'react-native';
 
 import Outcome from '../components/Outcome';
 import CameraComp from '../components/CameraComp';
 
-let proTips = ['Why did a chicken carrying a tin can cross the road? The recycling bin was on the other side.',
-  'Scientists discovered a way to generate light using only scrap metal. It was an aluminating experience.',
-  'What do you get when you have a glass bottle, some tin foil, and an old notebook? Recycling.',
-  'Flip it over! Check it out before you chuck it out!',
-  'Save the Earth! Its the only planet with Chocolate. So far…. (edited)',
-  'Don’t be trashy! Recycle!', 'It’s easy being green- Reduce, Reuse, Recycle.',
-  'Recycling plastic feels fantastic!', 'You will produce about 127, 604 pounds of garbage in your lifetime. Recycle.',
-  'Have you hugged your recycling bin today?']
+let proTips = ['Pro Tip #1: Why did a chicken carrying a tin can cross the road? The recycling bin was on the other side.',
+  'Pro Tip #2: Scientists discovered a way to generate light using only scrap metal. It was an aluminating experience.',
+  'Pro Tip #3: What do you get when you have a glass bottle, some tin foil, and an old notebook? Recycling.',
+  'Pro Tip #4: Flip it over! Check it out before you chuck it out!',
+  'Pro Tip #5: Save the Earth! Its the only planet with Chocolate. So far…. (edited)',
+  'Pro Tip #6: Don’t be trashy! Recycle!', 'Pro Tip #8: It’s easy being green- Reduce, Reuse, Recycle.',
+  'Pro Tip #7: Recycling plastic feels fantastic!', 'Pro Tip #9: You will produce about 127, 604 pounds of garbage in your lifetime. Recycle.',
+  'Pro Tip #10: Have you hugged your recycling bin today?']
 
 const randoNum = () => {
   return Math.floor((Math.random() * 10) + 1);
@@ -43,11 +43,14 @@ export default class HomeScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          <View>
-            <CameraComp />
-          </View>
-          <View>
-            <Outcome />
+          <View style={styles.flex}>
+
+            <View>
+              <CameraComp />
+            </View>
+            <View>
+              <Outcome />
+            </View>
           </View>
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
@@ -55,12 +58,13 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.tabBarInfoText}>
             {randomProTip}
           </Text>
-
         </View>
       </View>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -71,6 +75,14 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 0,
+  },
+  flex: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '100%',
+    padding: 10,
   },
   welcomeImage: {
     width: 100,

@@ -5,12 +5,12 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableHighlight,
-  Button,
+
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
-import { Text } from 'react-native-elements';
+import { Text, Button } from 'react-native-elements';
 import { Font, Location, Permissions } from 'expo';
 import CameraComp from './CameraComp';
 import { findPlacesToRecycle } from '../store/where';
@@ -241,7 +241,7 @@ class Results extends Component<Props, State> {
               <TouchableHighlight>
                 <Button
                   title="Try A Brand New Search"
-                  color="#30518e"
+                  backgroundColor='#30518e'
                   onPress={() => this.redo()}
                 />
               </TouchableHighlight>
@@ -268,7 +268,7 @@ class Results extends Component<Props, State> {
               <Button
                 onPress={() => this.getLocationData(material_id)}
                 title="Find Where to Recycle"
-                color="#30518e"
+                backgroundColor='#30518e'
               />
             )}
           </View>
@@ -277,7 +277,7 @@ class Results extends Component<Props, State> {
             <TouchableHighlight>
               <Button
                 title="Or Try A Brand New Search"
-                color="#30518e"
+                backgroundColor='#30518e'
                 onPress={() => this.redo()}
               />
             </TouchableHighlight>
