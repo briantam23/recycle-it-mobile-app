@@ -139,12 +139,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 20,
   },
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#518e30',
+    backgroundColor: 'white',
   },
   listContainer: {
     marginTop: 24
