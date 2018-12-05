@@ -9,10 +9,11 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Linking,
-  Button,
   Image,
 } from 'react-native';
-import { Text, Card } from 'react-native-elements';
+import {
+  Text, Card, Button,
+} from 'react-native-elements';
 import { Permissions, Location, Font } from 'expo';
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
@@ -59,14 +60,6 @@ class Outcome extends Component<Props, State> {
     await this.getGeoLocation();
   }
   public getGeoLocation = async () => {
-    /*navigator.geolocation.getCurrentPosition(position => {
-      this.setState({
-        geoLocation: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        },
-      });
-    });*/
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status === 'granted') {
       console.log('granted');
@@ -90,46 +83,37 @@ class Outcome extends Component<Props, State> {
     this.setState({ materialSearch: description });
     this.props.getMaterialDetail(api_key, material_id);
   };
-
   public render() {
-
-    if (this.state.isVisible && !this.props.materialDetails) {
+    if (!this.props.materialDetails) {
       return (
-        <Modal
-          animationType="slide"
-          onRequestClose={() => {
-            this.props.toggleOff();
-          }}
-          transparent={false}
-          visible={this.state.isVisible}
-          presentationStyle="overFullScreen"
-        >
-          <View style={styles.mainContainer}>
-            <View style={styles.detailCardNegative}>
-              <View style={styles.materialNameCard}>
-                <Text style={styles.NegativetextHeaderMaterial}>
-                  ¯\_(ツ)_/¯
+        this.props.toggle ?
+          <Modal
+            animationType='slide'
+            onRequestClose={() => { this.props.toggleOff() }}
+            transparent={false}
+            visible={this.state.isVisible}
+            presentationStyle='overFullScreen'>
+            <View style={styles.mainContainer}>
+              <View style={styles.detailCardNegative}>
+                <View style={styles.materialNameCard}>
+                  <Text style={styles.NegativetextHeaderMaterial}>¯\_(ツ)_/¯</Text>
+                </View>
+                <Text style={styles.textHeader}>Not Recyclable!</Text>
+                <Text style={styles.textArea}>
+                  Even if you can't recycle it, you still may be able to reuse it!
                 </Text>
-              </View>
-              <Text style={styles.textHeader}>Not Recyclable!</Text>
-              <Text style={styles.textArea}>
-                Even if you can't recycle it, you still may be able to reuse it!
-              </Text>
-              <View style={styles.button}>
-                <Button
-                  onPress={() => {
-                    this.props.toggleOff();
-                  }}
-                  title="Try Again!"
-                  color="#30518e"
-                />
+                <View style={styles.button}>
+                  <Button
+                    onPress={() => { this.props.toggleOff() }}
+                    title="Try Again!"
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        </Modal>
-      );
-    }
-
+          </Modal>
+          : null
+      )
+    };
     const {
       description,
       long_description,
@@ -181,7 +165,6 @@ class Outcome extends Component<Props, State> {
                   <Button
                     onPress={() => this.getLocationData(material_id)}
                     title="Find Where to Recycle"
-                    color="#30518e"
                   />
                 )}
               </View>
@@ -220,7 +203,6 @@ class Outcome extends Component<Props, State> {
                 <TouchableHighlight>
                   <Button
                     title="Or Try A Brand New Search"
-                    color="#30518e"
                     onPress={() => {
                       this.props.toggleOff();
                     }}
