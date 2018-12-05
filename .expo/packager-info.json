@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 55398,
+  "packagerPid": 57053,
   "expoServerNgrokUrl": "https://kk-vwp.anonymous.recycle.exp.direct",
   "packagerNgrokUrl": "https://packager.kk-vwp.anonymous.recycle.exp.direct",
-  "ngrokPid": 55415
+  "ngrokPid": 57064
 }

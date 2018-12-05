@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   Text,
+  ScrollView,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
@@ -34,33 +35,36 @@ class LocationsScreen extends Component<LocationsScreenProps> {
     const { where, navigation } = this.props;
     const { heartContainer, heartLogo, homeButton1, homeButton2, mapButton, buttonContainer, mainContainer, listContainer } = styles;
     return (
-      <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
-        {where.length >= 1 ? (
-          <View style={mainContainer}>
-            <View style={buttonContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-                <Text style={homeButton2}>Search Again!</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
-                <Text style={mapButton}>View Map</Text>
-              </TouchableOpacity>
+      <ScrollView>
+
+        <View style={{ borderColor: '#518e30', borderWidth: .25 }} >
+          {where.length >= 1 ? (
+            <View style={mainContainer}>
+              <View style={buttonContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                  <Text style={homeButton2}>Search Again!</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+                  <Text style={mapButton}>View Map</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={listContainer}>
+                <RecPlacesCard />
+              </View>
             </View>
-            <View style={listContainer}>
-              <RecPlacesCard />
-            </View>
-          </View>
-        ) : (
-            <View style={heartContainer}>
-              <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-                <Text style={homeButton1}>Find something to Recycle!</Text>
-              </TouchableOpacity>
-              <Image
-                style={heartLogo}
-                source={require('../images/recycle_heart_logo.png')}
-              />
-            </View>
-          )}
-      </View>
+          ) : (
+              <View style={heartContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                  <Text style={homeButton1}>Find something to Recycle!</Text>
+                </TouchableOpacity>
+                <Image
+                  style={heartLogo}
+                  source={require('../images/recycle_heart_logo.png')}
+                />
+              </View>
+            )}
+        </View>
+      </ScrollView>
     );
   }
 }
