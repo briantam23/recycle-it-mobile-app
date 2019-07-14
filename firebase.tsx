@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+/* import * as firebase from 'firebase';
 require("firebase/firestore");
 import { FIREBASE_API_KEY } from './apiKey';
 
@@ -17,4 +17,4 @@ firebase.initializeApp(firebaseConfig);
 
 firebase.firestore().settings(settings);
 
-export default firebase;
+export default firebase; */

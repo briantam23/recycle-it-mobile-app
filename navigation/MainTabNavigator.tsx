@@ -6,7 +6,7 @@ import {
 } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LoginScreen from '../screens/LoginScreen';
+/* import LoginScreen from '../screens/LoginScreen'; */
 import MapScreen from '../screens/MapScreen';
 import LocationsScreen from '../screens/LocationsScreen';
 
@@ -42,7 +42,7 @@ MapStack.navigationOptions = {
   ),
 };
 
-const LoginStack = createStackNavigator(
+/* const LoginStack = createStackNavigator(
   { LoginScreen },
   {
     headerLayoutPreset: 'center',
@@ -56,7 +56,7 @@ LoginStack.navigationOptions = {
       name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
     />
   ),
-};
+}; */
 
 const LocationsStack = createStackNavigator(
   { LocationsScreen },
@@ -78,5 +78,5 @@ export default createBottomTabNavigator({
   HomeStack,
   LocationsStack,
   MapStack,
-  LoginStack,
+  //LoginStack,
 });
