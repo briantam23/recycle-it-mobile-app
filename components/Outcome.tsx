@@ -20,7 +20,7 @@ import { Permissions, Location, Font } from 'expo';
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import { findPlacesToRecycle } from '../store/where';
-import { toggleOff } from '../store/Toggle';
+import { toggleOff } from '../store/toggle';
 import { url } from 'inspector';
 
 interface Props {

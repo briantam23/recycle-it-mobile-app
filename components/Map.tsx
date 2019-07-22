@@ -9,7 +9,11 @@ const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 const startPoint = navigator.geolocation.getCurrentPosition(
   position => JSON.stringify(position),
   error => alert(error.message),
-  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 10000
+  }
 );
 
 interface MapProps {

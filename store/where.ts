@@ -6,6 +6,7 @@ FETCHING DATA FROM EARTH911 API USING JSON
 4) METHOD: getLocationDetails - Expand on location details
 */
 import axios from 'axios';
+import console = require('console');
 const baseURL: string = 'http://api.earth911.com/earth911.';
 
 //ACTIONS
@@ -56,6 +57,29 @@ export const getLocationDetails = (api_key: string, location: string) => {
     .get(`${baseURL}getLocationDetails?api_key=${api_key}&location_id'=${location}`)
     //.then(res => res.data)
     .then(() => ({ latitude: 0, longitude: 0 }))
+    .catch(error => {
+      console.log('where.ts');
+      if (error.response) {
+          /*
+           * The request was made and the server responded with a
+           * status code that falls out of the range of 2xx
+           */
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+      } else if (error.request) {
+          /*
+           * The request was made but no response was received, `error.request`
+           * is an instance of XMLHttpRequest in the browser and an instance
+           * of http.ClientRequest in Node.js
+           */
+          console.log(error.request);
+      } else {
+          // Something happened in setting up the request and triggered an Error
+          console.log('Error', error.message);
+      }
+      console.log(error.config);
+    });
 
   //send this back to RecPlacesCard.js
   /* SAMPLE RES {

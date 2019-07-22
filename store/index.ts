@@ -6,7 +6,7 @@ import what from './what';
 import where from './where';
 import users from './users';
 import materials from './materials';
-import toggle from './Toggle';
+import toggle from './toggle';
 
 export interface reducerLayout {
   state: string[],

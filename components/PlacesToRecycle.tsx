@@ -8,7 +8,7 @@ import {
 
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
-import { toggleOn } from '../store/Toggle';
+import { toggleOn } from '../store/toggle';
 
 interface Props {
   foundMaterials?: object[];

@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://kk-vwp.briantam23.recycle-fork.exp.direct",
+  "packagerNgrokUrl": "https://packager.kk-vwp.briantam23.recycle-fork.exp.direct",
+  "ngrokPid": 3339
 }
