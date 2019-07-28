@@ -409,6 +409,7 @@ const styles = StyleSheet.create({
 
 
 export default connect(
-  mapStateToProps,
+  //mapStateToProps,
+  null,
   mapDispatchToProps
 )(withNavigation(Outcome));

@@ -111,7 +111,7 @@ class Results extends Component<Props, State> {
     } else {
       const temp = parsed.result[0].material_id;
       const name = parsed.result[0].description;
-      console.log(temp);
+      console.log(temp, 'temp');
       const second = await fetch(
         `http://api.earth911.com/earth911.getMaterials?api_key=${api_key}`,
         {

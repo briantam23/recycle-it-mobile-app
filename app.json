@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Recycle It!",
+    "name": "Recycle-It!",
     "description": "Uses Image Recognition to determine if and where an item is recyclable.",
     "slug": "Recycle-It",
     "privacy": "public",

@@ -64,7 +64,6 @@ class CameraComp extends Component<Props, State> {
     if (part1.status === 'granted' && part2.status === 'granted') {
       let image = await ImagePicker.launchCameraAsync({ base64: true });
       if (image.cancelled === false) {
-        console.log(Object.keys(image));
         this.setState({ image: image.base64, loading: false });
       }
     }
@@ -163,14 +162,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ where, materials }) => {
-  console.log(
+  /* console.log(
     'THIS IS FROM THE CameraComp COMPONENT',
     materials.foundMaterials
-  );
+  ); */
   return {
     where,
-    foundMaterials: materials.foundMaterials,
-    materialDetails: materials.materialDetails,
+    /* foundMaterials: materials.foundMaterials,
+    materialDetails: materials.materialDetails, */
   };
 };
 

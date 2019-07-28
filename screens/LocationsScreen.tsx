@@ -69,7 +69,8 @@ class LocationsScreen extends Component<LocationsScreenProps> {
   }
 }
 
-const mapStateToProps = ({ where, materials }) => {
+const mapStateToProps = ({ where, users, toggle, materials }) => {
+  //console.log(where, users, toggle, materials, '1')
   console.log(
     'THIS IS FROM THE LOCATIONS SCREEN',
     where,

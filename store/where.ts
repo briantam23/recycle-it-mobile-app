@@ -6,7 +6,8 @@ FETCHING DATA FROM EARTH911 API USING JSON
 4) METHOD: getLocationDetails - Expand on location details
 */
 import axios from 'axios';
-import console = require('console');
+import console from 'console';
+
 const baseURL: string = 'http://api.earth911.com/earth911.';
 
 //ACTIONS

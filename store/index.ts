@@ -4,7 +4,6 @@ import thunk from 'redux-thunk';
 
 import what from './what';
 import where from './where';
-import users from './users';
 import materials from './materials';
 import toggle from './toggle';
 
@@ -14,11 +13,10 @@ export interface reducerLayout {
 };
 
 const reducer = combineReducers({
-  what,
+  /* what, */
   where,
-  users,
-  materials,
-  toggle,
+  /* materials,
+  toggle, */
 });
 
-export default createStore(reducer, applyMiddleware(logger, thunk));
+export default createStore(reducer, applyMiddleware(thunk, logger));
