@@ -90,7 +90,7 @@ class Results extends Component<Props, State> {
     this.imageProp();
   }
   public async isRecyclable(item) {
-    console.log(item);
+    console.log(item, 'isRecyclable Function');
     const response = await fetch(
       `http://api.earth911.com/earth911.searchMaterials?api_key=${api_key}&query=${item}`,
       {
@@ -102,6 +102,7 @@ class Results extends Component<Props, State> {
       }
     );
     const parsed = await response.json();
+    console.log(parsed, 'earth911 response')
     if (parsed.num_results === 0) {
       return this.setState({
         recycle: false,

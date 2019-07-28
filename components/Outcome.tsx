@@ -210,7 +210,7 @@ class Outcome extends Component<Props, State> {
                       <Button
                         backgroundColor='#30518e'
 
-                        title="Or Try A Brand New Search"
+                        title="Or Try a New Search"
                         onPress={() => {
                           this.props.toggleOff();
                         }}
@@ -316,15 +316,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   pickerSelection: {
-    fontSize: 20,
+    fontSize: 18,
     alignSelf: 'center',
     color: '#8e3051',
     fontWeight: 'bold',
+
   },
   picker: {
     borderColor: '#30518e',
     borderWidth: 1,
-    margin: 5,
+    margin: 3,
   },
   materialImage: {
     width: 100,
@@ -344,19 +345,21 @@ const styles = StyleSheet.create({
   textHeader: {
     fontWeight: 'bold',
     color: 'white',
-    fontSize: 45,
+    fontSize: 25,
     alignSelf: 'center',
     textAlign: 'center',
+    marginTop: 9
   },
   header: {
-    fontSize: 32,
+    fontSize: 20,
     fontWeight: 'bold',
     color: 'black',
   },
   textArea: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 13,
+    marginTop: 9
   },
   modalContainer: {
     alignItems: 'center',
@@ -388,7 +391,7 @@ const styles = StyleSheet.create({
   textHeaderMaterial: {
     fontWeight: 'bold',
     color: '#518e30',
-    fontSize: 35,
+    fontSize: 25,
     alignSelf: 'center',
     textAlign: 'center',
     backgroundColor: 'white',
@@ -409,7 +412,6 @@ const styles = StyleSheet.create({
 
 
 export default connect(
-  //mapStateToProps,
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withNavigation(Outcome));

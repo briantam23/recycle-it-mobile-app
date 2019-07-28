@@ -4,13 +4,16 @@ import { Platform, ScrollView, StyleSheet, Text, View, } from 'react-native';
 import Outcome from '../components/Outcome';
 import CameraComp from '../components/CameraComp';
 
-let proTips = ['Pro Tip #1: Why did a chicken carrying a tin can cross the road? The recycling bin was on the other side.',
-  'Pro Tip #2: Scientists discovered a way to generate light using only scrap metal. It was an aluminating experience.',
-  'Pro Tip #3: What do you get when you have a glass bottle, some tin foil, and an old notebook? Recycling.',
+let proTips = [
+  'Pro Tip #1: Flip it over! Check it out before you chuck it out!',
+  'Pro Tip #2: Save the Earth! Its the only planet with Chocolate. So far…. (edited)',
+  'Pro Tip #3: It’s easy being green- Reduce, Reuse, Recycle.',
   'Pro Tip #4: Flip it over! Check it out before you chuck it out!',
   'Pro Tip #5: Save the Earth! Its the only planet with Chocolate. So far…. (edited)',
-  'Pro Tip #6: Don’t be trashy! Recycle!', 'Pro Tip #8: It’s easy being green- Reduce, Reuse, Recycle.',
-  'Pro Tip #7: Recycling plastic feels fantastic!', 'Pro Tip #9: You will produce about 127, 604 pounds of garbage in your lifetime. Recycle.',
+  'Pro Tip #6: Don’t be trashy! Recycle!', 
+  'Pro Tip #7: Recycling plastic feels fantastic!', 
+  'Pro Tip #8: It’s easy being green- Reduce, Reuse, Recycle.',
+  'Pro Tip #9: You will produce about 127, 604 pounds of garbage in your lifetime. Recycle.',
   'Pro Tip #10: Have you hugged your recycling bin today?']
 
 const randoNum = () => {
@@ -32,7 +35,7 @@ export default class HomeScreen extends React.Component {
     },
     headerTintColor: 'white',
     headerTitleStyle: {
-      fontSize: 35,
+      fontSize: 28,
     },
   };
 
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
     marginVertical: 7,
   },
   getStartedText: {
-    fontSize: 17,
+    fontSize: 15,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',

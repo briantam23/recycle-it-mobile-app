@@ -15,8 +15,8 @@ export interface reducerLayout {
 const reducer = combineReducers({
   /* what, */
   where,
-  /* materials,
-  toggle, */
+  materials,
+  toggle
 });
 
 export default createStore(reducer, applyMiddleware(thunk, logger));

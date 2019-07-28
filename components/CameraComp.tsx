@@ -15,7 +15,7 @@ const ButtonGroupModeSelection = ({ updateIndex, inputModeIndex }) => {
       onPress={updateIndex}
       selectedIndex={inputModeIndex}
       buttons={['Snap Photo', 'Upload Photo', 'Search']}
-      containerStyle={{ height: 40, margin: 0, padding: 0 }}
+      containerStyle={{ height: 40, width: 370, margin: 0, padding: 0 }}
     />
   );
 };
