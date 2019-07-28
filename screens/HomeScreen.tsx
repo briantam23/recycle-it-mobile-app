@@ -17,7 +17,7 @@ let proTips = [
   'Pro Tip #10: Have you hugged your recycling bin today?']
 
 const randoNum = () => {
-  return Math.floor((Math.random() * 10) + 1);
+  return Math.floor((Math.random() * 10));
 }
 
 let num = randoNum();
@@ -131,6 +131,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     textAlign: 'center',
+    marginLeft: 2.5,
+    marginRight: 2.5
   },
   helpContainer: {
     alignItems: 'center',

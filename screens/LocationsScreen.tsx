@@ -95,23 +95,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   heartLogo: {
-    width: 175,
-    height: 156,
-    margin: 10,
-    padding: 10,
+    width: 300,
+    height: 265,
+    margin: 12,
+    padding: 12,
   },
   homeButton1: {
     backgroundColor: '#30518e',
     borderColor: 'white',
     borderRadius: 2,
     color: 'white',
-    fontSize: 42,
+    fontSize: 35,
     fontWeight: 'bold',
     overflow: 'hidden',
     padding: 12,
     textAlign: 'center',
+    paddingTop: 55,
     marginBottom: 45,
-    height: 140,
+    height: 220,
     width: layout.window.width,
   },
   homeButton2: {
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   listContainer: {
-    marginTop: 24
+    marginTop: -14
   }
 });
 

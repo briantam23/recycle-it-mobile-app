@@ -103,18 +103,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 20,
-    height: 30,
+    fontSize: 17,
+    height: 25,
     marginLeft: 80,
     fontWeight: 'bold',
   },
   subtitle: {
     marginLeft: 80,
+    fontSize: 12,
   },
   avatar: {
-    height: 100,
-    width: 100,
-    marginLeft: 65,
+    height: 90,
+    width: 90,
+    marginLeft: 55,
   },
 });
 

@@ -186,7 +186,7 @@ class Outcome extends Component<Props, State> {
               Platform.OS === 'ios' ?
                 <Card>
                   <Text style={styles.pickerSelection}>
-                    Look for something similar
+                    Look for Something Similar
               </Text>
                   <View style={styles.picker}>
                     <PickerIOS
@@ -244,7 +244,7 @@ class Outcome extends Component<Props, State> {
                     <TouchableHighlight>
                       <Button
                         backgroundColor='#30518e'
-                        title="Or Try A Brand New Search"
+                        title="Or Try a New Search"
                         onPress={() => {
                           this.props.toggleOff();
                         }}

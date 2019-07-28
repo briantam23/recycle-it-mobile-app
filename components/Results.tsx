@@ -241,7 +241,7 @@ class Results extends Component<Props, State> {
             <View style={styles.button}>
               <TouchableHighlight>
                 <Button
-                  title="Try A Brand New Search"
+                  title="Try a New Search"
                   backgroundColor='#30518e'
                   onPress={() => this.redo()}
                 />
@@ -277,7 +277,7 @@ class Results extends Component<Props, State> {
           <View style={styles.button}>
             <TouchableHighlight>
               <Button
-                title="Or Try A Brand New Search"
+                title="Or Try a New Search"
                 backgroundColor='#30518e'
                 onPress={() => this.redo()}
               />
@@ -332,6 +332,7 @@ const styles = StyleSheet.create({
     fontSize: 45,
     alignSelf: 'center',
     textAlign: 'center',
+    marginTop: 9
   },
   header: {
     fontSize: 32,
@@ -342,6 +343,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
+    marginTop: 9,
+    marginBottom: 19
   },
   modalContainer: {
     alignItems: 'center',

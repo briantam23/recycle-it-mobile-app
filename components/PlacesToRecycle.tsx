@@ -60,25 +60,26 @@ class PlacesToRecycle extends Component<Props, State> {
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <TouchableOpacity onPress={() => getData()}>
-            <Image
-              style={styles.searchIcon}
-              source={require('../images/green-search-icon.png')} />
-          </TouchableOpacity >
+          
           <TextInput style={styles.input}
             underlineColorAndroid="transparent"
             placeholder=""
             placeholderTextColor="#30518e"
             autoCapitalize="characters"
             onChangeText={handleMaterial} />
+          <TouchableOpacity onPress={() => getData()}>
+            <Image
+              style={styles.searchIcon}
+              source={require('../images/green-search-icon.png')} />
+          </TouchableOpacity >
         </View>
-        <View>
+        {/* <View>
           <Button
             onPress={() => getData()}
             title="LET'S GO FIND OUT!"
             backgroundColor='#30518e'
           />
-        </View>
+        </View> */}
       </View>
     );
   };
@@ -103,12 +104,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 250,
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    marginTop: 70
   },
   inputContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 25,
+    marginBottom: 25
   },
   searchIcon: {
     padding: 0,
