@@ -4,8 +4,6 @@
 
 # ♻️ Recycling Image Recognition App
 
-![Home screen screenshot](./images/home-screen-screenshot.png) &emsp; ![Map screen screenshot](./images/map-screen-screenshot.png)
-
 A Mobile App that: 
 
 * Utilizes React Native / Redux along with the powerful Google Cloud Vision API in order to create a Mobile App that recognizes which items are recyclable using the mobile device's camera
@@ -14,6 +12,7 @@ A Mobile App that:
 
 My team and I applied the popular Agile Scrum Methodology to deliver this MVP within a very small timebox.
 
+![Home screen screenshot](./images/screenshots/home_screen.png) &emsp; ![Map screen screenshot](./images/screenshots/map_screen.png) <hr/>
 ![Banner](./images/banner.png)
 
 ## Table of contents
@@ -25,7 +24,7 @@ My team and I applied the popular Agile Scrum Methodology to deliver this MVP wi
 * [Installation](#installation)
 * [Running Locally](#running-locally)
 * [Tests](#tests)
-* [Contact](#contact)
+* [Contributors](#contributors)
 
 ## Motivation
 My team and I wanted to use the latest technologies such as Image Recognition, so when we were brainstorming ideas where it would be useful in our everyday lives, we came up with the excellent idea of using Image Recognition to determine whether items are recyclable or not. 
@@ -48,9 +47,12 @@ Currently published to the [Play Store](https://play.google.com/store/apps/detai
 
 ## Requirements
 
+* Device
+    * iOS / Android smartphone or iOS / Android simulator
 * Downloads
     * [Node.js (v10.16.0)](https://nodejs.org/en/)
     * [Git](https://git-scm.com/downloads)
+    * [Expo CLI](https://docs.expo.io/versions/latest/workflow/expo-cli/)
 * Environment Variables (must be set in `apiKey.js` or set as an environment variable)
     * [`CLOUD_VISION_API_KEY`](https://cloud.google.com/vision/docs/auth)
     * [`EARTH_911_API_KEY`](https://api.earth911.com/)
@@ -75,15 +77,23 @@ npm install # or yarn install
 npm run start
 ```
 
+The `npm run start` command will to start the local development server of Expo CLI.
+
+Expo CLI starts Metro Bundler, which is an HTTP server that compiles the JavaScript code of our app using Babel and serves it to the Expo app. It also pops up Expo Dev Tools, a control panel for developing your app, in your default web browser.
+
+To open the app in the iOS simulator you can press the i in the terminal or Run on iOS simulator in Dev Tools. To open the app in the Android emulator, first boot it up and then press a in the terminal or Run on Android device/emulator in Dev Tools.
+
+Lastly, you will also see a QR code in terminal and Dev Tools. One fast way to open your project is to simply scan the QR code with the Expo client app on Android or using the built-in QR code scanner of the Camera app on iOS.
+
 ## Tests
 
 ```sh
 npm run test
 ``` 
 
-## Contact
-Created by [Brian Tam](http://briantam23.github.io) - feel free to contact me at [briantam23@gmail.com](mailto:briantam23@gmail.com)!
+## Contributors
 
-Personal Website - [briantam23.github.io](http://briantam23.github.io) <br/>
-LinkedIn - [@briantam23](https://linkedin.com/in/briantam23/) <br/>
-Github - [@briantam23](https://github.com/briantam23)
+> [Brian Tam](https://github.com/briantam23) <br/>
+> [Bobby Hirtle](https://github.com/protonbobby) <br/>
+> [Stephanie Lieberman](https://github.com/slieberman1126) <br/>
+> [Leovanny Fernandez](https://github.com/LeovannyF)
