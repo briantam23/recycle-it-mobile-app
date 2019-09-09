@@ -51,7 +51,7 @@ Currently published to the [Play Store](https://play.google.com/store/apps/detai
 * Downloads
     * [Node.js (v10.16.0)](https://nodejs.org/en/)
     * [Git](https://git-scm.com/downloads)
-* Environment Variables (must be set in `.env` or set as an environment variable)
+* Environment Variables (must be set in `apiKey.js` or set as an environment variable)
     * [`CLOUD_VISION_API_KEY`](https://cloud.google.com/vision/docs/auth)
     * [`EARTH_911_API_KEY`](https://api.earth911.com/)
     * [`GOOGLE_MAPS_API_KEY`](https://cloud.google.com/maps-platform/)
