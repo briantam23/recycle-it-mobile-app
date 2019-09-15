@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/briantam23/Recycle.svg?branch=master)](https://travis-ci.org/briantam23/Recycle)
 [![Known Vulnerabilities](https://app.snyk.io/test/github/briantam23/Recycle/badge.svg?targetFile=package.json)](https://app.snyk.io/test/github/briantam23/Recycle?targetFile=package.json)
 [![Dependency Status](https://david-dm.org/briantam23/Recycle.svg)](https://david-dm.org/briantam23/Recycle)
 [![devDependencies Status](https://david-dm.org/briantam23/Recycle/dev-status.svg)](https://david-dm.org/briantam23/Recycle?type=dev)
