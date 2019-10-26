@@ -58,7 +58,7 @@ class Outcome extends Component<Props, State> {
 
   public async componentDidMount() {
     await Font.loadAsync({
-      MaterialIcons: require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      MaterialIcons: require('../node_modules/@expo/vector-icons/fonts/MaterialIcons.ttf'),
     });
     await this.getGeoLocation();
   }
