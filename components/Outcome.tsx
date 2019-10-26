@@ -16,7 +16,9 @@ import {
 import {
   Text, Card, Button,
 } from 'react-native-elements';
-import { Permissions, Location, Font } from 'expo';
+import * as Location from 'expo-location';
+import * as Font from 'expo-font';
+import * as Permissions from 'expo-permissions'
 import { api_key } from '../apiKey';
 import { searchMaterials, getMaterialDetail } from '../store/materials';
 import { findPlacesToRecycle } from '../store/where';

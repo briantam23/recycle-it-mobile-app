@@ -4,14 +4,15 @@ import {
   View,
   ActivityIndicator,
   StyleSheet,
-  TouchableHighlight,
-
+  TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { CLOUD_VISION_API_KEY, api_key } from '../apiKey';
 import { Text, Button } from 'react-native-elements';
-import { Font, Location, Permissions } from 'expo';
+import * as Location from 'expo-location';
+import * as Font from 'expo-font';
+import * as Permissions from 'expo-permissions';
 import CameraComp from './CameraComp';
 import { findPlacesToRecycle } from '../store/where';
 

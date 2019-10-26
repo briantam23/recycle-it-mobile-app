@@ -51,8 +51,8 @@ export default class Map extends Component<MapProps, MapState> {
   constructor(props: MapProps, context?: any) {
     super(props, context);
     this.state = {
-      latitude: 42.0501,
-      longitude: -87.6824,
+      latitude: 40.7128,
+      longitude: -74.0060,
       latitudeDelta: 0.0922 / 7,
       longitudeDelta: 0.0421 / 7,
       region: {},

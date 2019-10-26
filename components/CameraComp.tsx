@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Permissions, ImagePicker, Camera } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import { Camera } from 'expo-camera'
+import * as Permissions from 'expo-permissions'
 import { TouchableOpacity, Image, View, Text, StyleSheet } from 'react-native';
 import { ButtonGroup, Card } from 'react-native-elements';
 
