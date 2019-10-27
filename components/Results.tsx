@@ -82,7 +82,7 @@ class Results extends Component<Props, State> {
 
   public async componentDidMount() {
     await Font.loadAsync({
-      MaterialIcons: require('../node_modules/@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      MaterialIcons: require('../node_modules/native-base/Fonts/MaterialIcons.ttf'),
     });
     if (!this.props.image) {
       return null;

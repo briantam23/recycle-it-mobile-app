@@ -13,9 +13,7 @@ import {
   PickerIOS,
   Platform,
 } from 'react-native';
-import {
-  Text, Card, Button,
-} from 'react-native-elements';
+import { Text, Card, Button } from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions'
@@ -60,7 +58,7 @@ class Outcome extends Component<Props, State> {
 
   public async componentDidMount() {
     await Font.loadAsync({
-      MaterialIcons: require('../node_modules/@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      MaterialIcons: require('../node_modules/native-base/Fonts/MaterialIcons.ttf'),
     });
     await this.getGeoLocation();
   }

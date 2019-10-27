@@ -6,7 +6,6 @@ import { ListItem, Avatar } from 'react-native-elements';
 import * as Font from 'expo-font';
 import * as Permissions from 'expo-permissions';
 import { OpenMapDirections } from 'react-native-navigation-directions';
-import { MaterialIcons } from '@expo/vector-icons';
 
 interface Props {
   where?: any;
@@ -26,7 +25,7 @@ class RecPlacesCard extends Component<Props, State> {
 
   async componentWillMount() {
     await Font.loadAsync({
-      'Material Icons': require('../node_modules/@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      'Material Icons': require('../node_modules/native-base/Fonts/MaterialIcons.ttf'),
     });
     this.setState({ fontsAreLoaded: true });
   }
