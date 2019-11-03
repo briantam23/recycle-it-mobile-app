@@ -3,6 +3,7 @@ import { Component } from 'react';
 //import { MapView } from 'expo';
 import MapView, { Marker } from 'react-native-maps';
 import { OpenMapDirections } from 'react-native-navigation-directions';
+import Constants from 'expo-constants';
 
 const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
@@ -80,6 +81,11 @@ export default class Map extends Component<MapProps, MapState> {
       console.log(res)
     );
   };
+
+  _onPressTest = () => {
+    const test = Constants.manifest.ios.config.googleMapsApiKey;
+    console.log(test);
+  };
   //fitToSuppliedMarkers - Google Maps
   render() {
     const { markers } = this.props;
@@ -93,6 +99,7 @@ export default class Map extends Component<MapProps, MapState> {
         showsUserLocation={true}
         followsUserLocation={true}
         showsMyLocationButton={true}
+        onPress={() => this._onPressTest()}
         onLongPress={e => _callShowDirections(e.nativeEvent.coordinate)}
       >
         {markers.map((marker, idx) => {

@@ -19,9 +19,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.teamproton.recycleit",
+      "bundleIdentifier": "com.teamproton.recycle-it",
       "supportsTablet": true,
-      "infoPlist": { "NSLocationWhenInUseUsageDescription": "This app uses your location for the map." }
+      "infoPlist": { 
+        "NSLocationWhenInUseUsageDescription": "Your location is used to show local recycling locations and to find directions to them.",
+        "NSPhotoLibraryUsageDescription": "Your photos are used for recycling image recognition.",
+        "NSCameraUsageDescription": "Your camera is used for recycling image recognition."
+      },
+      "config": { "googleMapsApiKey": "" }
     },
     "android": {
       "package": "com.teamproton.recycleit"

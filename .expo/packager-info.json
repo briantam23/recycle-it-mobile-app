@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 49395,
+  "expoServerNgrokUrl": "https://kk-vwp.briantam23.recycle-it-mobile-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.kk-vwp.briantam23.recycle-it-mobile-app.exp.direct",
+  "ngrokPid": 49410
 }
